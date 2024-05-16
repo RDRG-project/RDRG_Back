@@ -1,7 +1,6 @@
--- Active: 1707867285638@@127.0.0.1@3306@rdbg_db
+CREATE DATABASE rdrg_db;
 
-# 데이터 베이스 생성
-CREATE DATABASE RDBG_DB;
+USE rdrg_db;
 
 -- 이메일 인증 테이블 생성
 CREATE TABLE email_auth_number (
@@ -21,24 +20,19 @@ CREATE TABLE user (
 );
 
 
-# IT 대여 테이블 생성
-CREATE TABLE it_rent(
+# IT 기기 관리 테이블 생성
+CREATE TABLE devices_status (
     serial VARCHAR(50) PRIMARY KEY, # 시리얼 넘버 (기본키)
     model VARCHAR(50) NOT NULL, # 모델명
     name VARCHAR(100) NOT NULL, # 제품명
     `explain` TEXT NOT NULL, # 제품 설명
-    type VARCHAR(20) NOT NULL # 제품 타입 (노트북, 테블릿, 게임기 등등)
-);
-
-# 업로드 관련 테이블
-CREATE TABLE upload(
-    file_number INT PRIMARY KEY AUTO_INCREMENT, # 업로드 넘버 (기본키)
-    url VARCHAR(255)
+    type VARCHAR(20) NOT NULL, # 제품 타입 (노트북, 테블릿, 게임기 등등)
+    price INT NOt NULL # 가격
 );
 
 
 # 문의 게시판 테이블 생성
-CREATE TABLE qna_board(
+CREATE TABLE board(
     reception_number int PRIMARY key AUTO_INCREMENT, # 접수번호
     status BOOLEAN NOT NULL DEFAULT('false'), # 상태 (접수중, 답변완료)
     title VARCHAR(100) NOT NULL, # 문의글 제목
@@ -47,21 +41,28 @@ CREATE TABLE qna_board(
     writer_datetime DATETIME NOT NULL DEFAULT(now()), # 작성일 (디폴트로 지금 시간 가져옴)
     comment TEXT DEFAULT(NULL), # 문의글 답변 내용
     upload_file INT, # 첨부파일 (upload_file에 file_number를 끌고 올 예정) (화면에 띄울때는 제품명이 뛰어져야함.)
-    registered_devices VARCHAR(50), # 등록된 기기 (it_rent에 serial을 끌고 올 에정)
-    FOREIGN KEY (writer_id) REFERENCES user(user_id), # 외래키 (writer_id <= user.user_id)
-    FOREIGN KEY (upload_file) REFERENCES upload(file_number), # 외래키 지정 (upload_file <= upload.file_number)
-    FOREIGN KEY (registered_devices) REFERENCES it_rent(serial) # 외래키 지정 (registered_devices <= it_rent.serial)
-    
+    FOREIGN KEY (writer_id) REFERENCES user(user_id) # 외래키 (writer_id <= user.user_id)
+);
+
+# 업로드 관련 테이블
+CREATE TABLE upload(
+    file_number INT PRIMARY KEY AUTO_INCREMENT, # 업로드 넘버 (기본키)
+    link_board_no INT NOT NULL, # 보드 테이블과 연결하는 칼럼
+    url VARCHAR(255), # 링크 주소
+    FOREIGN KEY(link_board_no) REFERENCES board(reception_number) # 외래키 지정 (link_board_no <= board.reception_number)
 );
 
 # 대여 내역 테이블
-CREATE TABLE rent_detail (
+CREATE TABLE device_rent_status (
+    rent_no INT NOT NULL PRIMARY KEY AUTO_INCREMENT, # 가상 대여 번호   
     rent_user_id VARCHAR(50) NOT NULL, # 사용자 ID (user에 user_id를 가져옴)
-    rent_serial VARCHAR(50) NOT NULL, # 빌려간 제품명 (it_rent에 serial를 가져옴)
-    rent_datetime_out DATETIME NOT NULL, # 대여일자
-    rent_datetime_in DATETIME NOT NULL, # 반납일자
+    rent_serial VARCHAR(50) NOT NULL, # 빌려간 제품명의 시리얼번호 (it_rent에 serial를 가져옴)
+    rent_datetime DATETIME NOT NULL, # 대여일자
+    rent_return_datetime DATETIME NOT NULL, # 반납일자
     rent_place VARCHAR(10) NOT NULL, # 대여장소
     rent_return_place VARCHAR(10) NOT NULL, # 반납장소
+    rent_total_price int NOT NULL, # 총 합 가격
+    rent_status BOOLEAN, # 대여 가능한 상태
     FOREIGN KEY (rent_user_id) REFERENCES user(user_id), # 외래키 지정 (rent_user_id <= user.user_id)
-    Foreign Key (rent_serial) REFERENCES it_rent(serial) # 외래키 지정 (rent_serial <= it_rent.serial)
+    Foreign Key (rent_serial) REFERENCES devices_status(serial) # 외래키 지정 (rent_serial <= devices_status.serial)
 );
