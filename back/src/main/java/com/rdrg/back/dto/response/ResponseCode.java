@@ -15,4 +15,5 @@ public interface ResponseCode {
     String TOKEN_CREATION_FAIL = "TF";
     String MAIL_SEND_FAIL = "MF";
     String DATABASE_ERROR = "DBE";
+    String NO_EXIST_USERID = "NU";
 }
