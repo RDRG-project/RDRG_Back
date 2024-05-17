@@ -639,7 +639,7 @@ Content-Type: application/json;charset=UTF-8
 
 ```bash
 curl -v -X POST "http://localhost:4500/rdrg/user/{userId}" \
- -H "Authorization: Bearer {JWT}" \
+ -H "Authorization: Bearer {JWT}" 
 ```
 
 ##### Response
@@ -669,8 +669,7 @@ Content-Type: application/json;charset=UTF-8
   "code": "SU",
   "message": "Success.",
   "userId" : "user1234",
-  "userEmail" : "user1234@mail.com",
-  "join_path" : "KAKAO"
+  "userEmail" : "user1234@mail.com"
 }
 ```
 
@@ -681,6 +680,16 @@ Content-Type: application/json;charset=UTF-8
 {
   "code": "VF",
   "message": "Validation Failed."
+}
+```
+
+**응답 : 실패 (존재하지 않는 아이디)**
+```bash
+HTTP/1.1 400 Bad Request
+Content-Type: application/json;charset=UTF-8
+{
+  "code": "NU",
+  "message": "No Exist UserId."
 }
 ```
 
