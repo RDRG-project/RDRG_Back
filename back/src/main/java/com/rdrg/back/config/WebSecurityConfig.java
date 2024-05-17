@@ -52,8 +52,8 @@ public class WebSecurityConfig {
                 )
                 .authorizeHttpRequests(request -> request
                     .requestMatchers("/", "/rdrg/auth/**", "/oauth2/callback/*").permitAll()
-                    .requestMatchers("/rdrg/qnaboard/").hasRole("USER")
-                    .requestMatchers("/rdrg/qnaboard/*/comment").hasRole("ADMIN")
+                    .requestMatchers("/rdrg/board/").hasRole("USER")
+                    .requestMatchers("/rdrg/board/*/comment").hasRole("ADMIN")
                     .anyRequest().authenticated()
                 )
                 .oauth2Login(oaith2 -> oaith2
