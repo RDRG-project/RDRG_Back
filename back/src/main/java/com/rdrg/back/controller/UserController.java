@@ -12,7 +12,7 @@ import com.rdrg.back.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/rdrg/user")
 @RequiredArgsConstructor
 
 public class UserController {
