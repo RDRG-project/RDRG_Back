@@ -656,9 +656,8 @@ curl -v -X POST "http://localhost:4500/rdbg/user/{userId}" \
 |---|:---:|:---:|:---:|
 | code | String | 결과 코드 | O |
 | message | String | 결과 메세지 | O |
-| userID | String | 유저 아이디 | O |
+| userId | String | 유저 아이디 | O |
 | userEmail | String | 유저 이메일 | O |
-| joinPath | String | 가입 경로 | O |
 
 ###### Example
 
