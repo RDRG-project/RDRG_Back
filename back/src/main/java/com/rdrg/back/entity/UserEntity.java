@@ -1,6 +1,6 @@
 package com.rdrg.back.entity;
 
-import com.rdrg.back.dto.request.SignUpRequestDto;
+import com.rdrg.back.dto.request.auth.SignUpRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
