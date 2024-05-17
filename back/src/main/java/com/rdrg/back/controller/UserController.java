@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rdrg.back.dto.request.user.ChangePasswordRequestDto;
+import com.rdrg.back.dto.request.user.DeleteUserRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.user.GetSignInUserResponseDto;
+import com.rdrg.back.dto.response.user.GetUserInfoResponseDto;
 import com.rdrg.back.service.UserService;
 
 import jakarta.validation.Valid;
@@ -34,6 +36,15 @@ public class UserController {
         return response;
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity <? super GetUserInfoResponseDto> getUserInfo (
+        @PathVariable("userId") String userId
+        ) {
+        ResponseEntity<? super GetUserInfoResponseDto> response = userService.getUserInfo(userId);
+        return response;
+    }
+
+
     @PatchMapping("/changePw")
     public ResponseEntity<ResponseDto> changePassword (
         @RequestBody @Valid ChangePasswordRequestDto requestBody
@@ -43,4 +54,15 @@ public class UserController {
         return response;
     }
 
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<ResponseDto> deleteUser (
+        
+        @PathVariable("userId") String pathUserId,
+        @AuthenticationPrincipal String authUserId
+
+    ){
+
+        ResponseEntity<ResponseDto> response = userService.deleteUser(pathUserId);
+        return response;
+    }
 }
