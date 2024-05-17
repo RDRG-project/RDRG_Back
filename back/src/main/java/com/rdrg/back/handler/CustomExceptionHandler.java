@@ -5,6 +5,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.rdrg.back.dto.response.ResponseDto;
 
@@ -18,5 +19,11 @@ public class CustomExceptionHandler {
     public ResponseEntity<ResponseDto> validationExceptionHandler(Exception exception) {
         exception.printStackTrace();
         return ResponseDto.validationFailed();
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<ResponseDto> noHandlerFoundExceptionHandler(Exception exception) {
+        exception.printStackTrace();
+        return ResponseDto.notFound();
     }
 }
