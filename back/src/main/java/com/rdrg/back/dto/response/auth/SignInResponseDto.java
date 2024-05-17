@@ -7,6 +7,9 @@ import com.rdrg.back.dto.response.ResponseCode;
 import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.ResponseMessage;
 
+import lombok.Getter;
+
+@Getter
 public class SignInResponseDto extends ResponseDto {
     
     private String accessToken;
