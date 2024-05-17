@@ -61,6 +61,11 @@ public class ResponseDto {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
     }
+
+    public static ResponseEntity<ResponseDto> passwordChangeFailed() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.PASSWORD_CHANGE_FAILED, ResponseMessage.PASSWORD_CHANGE_FAILED);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseBody);
+    }
     
     public static ResponseEntity<ResponseDto> tokenCreationFailed() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.TOKEN_CREATION_FAIL, ResponseMessage.TOKEN_CREATION_FAIL);

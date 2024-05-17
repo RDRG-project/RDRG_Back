@@ -11,6 +11,7 @@ public interface ResponseCode {
     String AUTHENTICATION_FAIL = "AF";
     String AUTHORIZATION_FAIL = "AF";
     String NOT_FOUND = "NF";
+    String PASSWORD_CHANGE_FAILED = "PCF";
     String TOKEN_CREATION_FAIL = "TF";
     String MAIL_SEND_FAIL = "MF";
     String DATABASE_ERROR = "DBE";
