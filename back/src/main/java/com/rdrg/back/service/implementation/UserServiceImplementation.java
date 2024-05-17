@@ -1,5 +1,6 @@
 package com.rdrg.back.service.implementation;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.rdrg.back.dto.request.user.ChangePasswordRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.user.GetSignInUserResponseDto;
+import com.rdrg.back.dto.response.user.GetUserInfoResponseDto;
 import com.rdrg.back.entity.UserEntity;
 import com.rdrg.back.repository.UserRepository;
 import com.rdrg.back.service.UserService;
@@ -69,6 +71,23 @@ public class UserServiceImplementation implements UserService {
         }
         return ResponseDto.success();
 
+    }
+
+
+    @Override
+    public ResponseEntity<? super GetUserInfoResponseDto> getUserInfo(String userId) {
+
+        try {
+
+            UserEntity userEntity = userRepository.findByUserId(userId);
+            if (userEntity == null) return ResponseDto.authenticationFailed();
+            
+            return GetUserInfoResponseDto.success(userEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
     }
 
 }
