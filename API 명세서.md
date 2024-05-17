@@ -638,7 +638,7 @@ Content-Type: application/json;charset=UTF-8
 ###### Example
 
 ```bash
-curl -v -X POST "http://localhost:4500/rdbg/user/{userId}" \
+curl -v -X POST "http://localhost:4500/rdrg/user/{userId}" \
  -H "Authorization: Bearer {JWT}" \
 ```
 
