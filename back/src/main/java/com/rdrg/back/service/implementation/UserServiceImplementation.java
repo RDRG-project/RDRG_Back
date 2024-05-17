@@ -90,4 +90,23 @@ public class UserServiceImplementation implements UserService {
         }
     }
 
+    @Override
+    public ResponseEntity<ResponseDto> deleteUser(String userId) {
+        
+        try {
+
+            UserEntity userEntity = userRepository.findByUserId(userId);
+            if (userEntity == null) return ResponseDto.authenticationFailed();
+            
+            userRepository.delete(userEntity);
+
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+    }
+    
+
 }
