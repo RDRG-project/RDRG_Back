@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rdrg.back.dto.request.user.ChangePasswordRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
-import com.rdrg.back.dto.response.user.DeleteUserResponseDto;
 import com.rdrg.back.dto.response.user.GetSignInUserResponseDto;
 import com.rdrg.back.service.UserService;
 
@@ -22,8 +21,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/rdrg/user")
 @RequiredArgsConstructor
-
-@RequestMapping("/api/v1/user")
 
 public class UserController {
     
@@ -37,18 +34,6 @@ public class UserController {
         return response;
     }
 
-    @GetMapping("/{userId}")
-    
-
-        
-
-    ) {
-
-        
-
-    }
-
-
     @PatchMapping("/changePw")
     public ResponseEntity<ResponseDto> changePassword (
         @RequestBody @Valid ChangePasswordRequestDto requestBody
@@ -57,4 +42,5 @@ public class UserController {
 
         return response;
     }
+
 }
