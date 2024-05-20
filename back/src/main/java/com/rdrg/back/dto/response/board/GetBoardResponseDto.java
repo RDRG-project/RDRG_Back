@@ -20,7 +20,7 @@ public class GetBoardResponseDto extends ResponseDto {
     private String writerDatetime;
     private String contents;
     private String comment;
-    private Integer uploadFile;
+    // private Integer uploadFile; 
 
     private GetBoardResponseDto(BoardEntity boardEntity) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
