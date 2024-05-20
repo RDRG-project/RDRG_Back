@@ -38,9 +38,16 @@ public class ResponseDto {
     }
 
     public static ResponseEntity<ResponseDto> noExistBoard() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_BOARD, ResponseMessage.NO_EXIST_BOARD);
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_DEVICE, ResponseMessage.NO_EXIST_DEVICE);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
+
+    
+    public static ResponseEntity<ResponseDto> NoExistDevice() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
 
     public static ResponseEntity<ResponseDto> writtenComment() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.WRITTEN_COMMENT, ResponseMessage.WRITTEN_COMMENT);

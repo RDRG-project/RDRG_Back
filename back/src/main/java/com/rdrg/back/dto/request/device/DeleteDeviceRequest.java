@@ -1,4 +1,4 @@
-package com.rdrg.back.dto.request.user;
+package com.rdrg.back.dto.request.device;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 
-public class DeleteUserRequestDto {
+public class DeleteDeviceRequest {
     @NotBlank
-    private String userId;
+    private String serialNumber;
 }
