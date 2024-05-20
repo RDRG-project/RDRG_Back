@@ -99,7 +99,7 @@ public class AuthServiceImplementation implements AuthService {
 
             String authNumber = EmailAuthNumberUtil.createNumber();
 
-            EmailAuthNumberEntity emailAuthNumberEntity = new EmailAuthNumberEntity();
+            EmailAuthNumberEntity emailAuthNumberEntity = new EmailAuthNumberEntity(userEmail, authNumber);
 
             emailAuthNumberRepository.save(emailAuthNumberEntity);
 
