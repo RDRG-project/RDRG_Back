@@ -51,7 +51,7 @@ public class AuthServiceImplementation implements AuthService {
             
             String encodedPassword = userEntity.getUserPassword();
             boolean isMatched = passwordEncoder.matches(userPassword, encodedPassword);
-            if (isMatched) ResponseDto.signInFailed();
+            if (!isMatched) return ResponseDto.signInFailed();
 
             accessToken = jwtProvider.create(userId);
             if (accessToken == null) return ResponseDto.tokenCreationFailed();
@@ -99,7 +99,7 @@ public class AuthServiceImplementation implements AuthService {
 
             String authNumber = EmailAuthNumberUtil.createNumber();
 
-            EmailAuthNumberEntity emailAuthNumberEntity = new EmailAuthNumberEntity();
+            EmailAuthNumberEntity emailAuthNumberEntity = new EmailAuthNumberEntity(userEmail, authNumber);
 
             emailAuthNumberRepository.save(emailAuthNumberEntity);
 
