@@ -1,6 +1,7 @@
 package com.rdrg.back.entity;
 
 import com.rdrg.back.dto.request.board.PostBoardRequestDto;
+import com.rdrg.back.dto.request.board.PutBoardRequestDto;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -44,5 +45,10 @@ public class BoardEntity {
         this.contents = dto.getContents();
         this.writerId = userId;
         this.writerDatetime = writerDatetime;
+    }
+
+    public void update(PutBoardRequestDto dto) {
+        this.title = dto.getTitle();
+        this.contents = dto.getContents();
     }
 }
