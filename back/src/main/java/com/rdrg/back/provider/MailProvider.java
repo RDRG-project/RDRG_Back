@@ -23,7 +23,7 @@ public class MailProvider {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         mimeMessage.setFrom(from);
         mimeMessage.setRecipient(RecipientType.TO, new InternetAddress(to));
-        mimeMessage.setSubject("estate 인증 번호");
+        mimeMessage.setSubject("RDRG 인증 번호");
         mimeMessage.setText(getText(authNumber), "utf-8", "html");
         javaMailSender.send(mimeMessage);
     }
