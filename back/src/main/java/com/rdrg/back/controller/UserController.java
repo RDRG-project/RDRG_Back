@@ -56,12 +56,11 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public ResponseEntity<ResponseDto> deleteUser (
         
-        @PathVariable("userId") String pathUserId,
-        @AuthenticationPrincipal String authUserId
+        @PathVariable("userId") String UserId
 
     ){
 
-        ResponseEntity<ResponseDto> response = userService.deleteUser(pathUserId);
+        ResponseEntity<ResponseDto> response = userService.deleteUser(UserId);
         return response;
     }
 }
