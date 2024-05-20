@@ -22,13 +22,21 @@ CREATE TABLE user (
 
 # IT 기기 관리 테이블 생성
 CREATE TABLE devices_status (
-    serialNumber VARCHAR(50) PRIMARY KEY, # 시리얼 넘버 (기본키)
+    serialNumber VARCHAR(255) PRIMARY KEY, # 시리얼 넘버 (기본키)
     model VARCHAR(50) NOT NULL, # 모델명
     name VARCHAR(100) NOT NULL, # 제품명
     `explain` TEXT NOT NULL, # 제품 설명
     type VARCHAR(20) NOT NULL, # 제품 타입 (노트북, 테블릿, 게임기 등등)
-    price INT NOt NULL # 가격
+    price INT NOt NULL, # 가격
 );
+
+# 기기 관리 이미지 테이블 생성
+CREATE TABLE devices_status_imageURL (
+    device_file_number INT PRIMARY KEY AUTO_INCREMENT, # 파일 업로드 넘버 (가상의 숫자)
+    link_device_serialNumber VARCHAR(255) NOT NULL,    # 시리얼키와 연결되는 컬럼
+    device_url VARCHAR(255),                           # 이미지 URL
+    FOREIGN KEY (link_device_serialNumber) REFERENCES devices_status(serialNumber)  # 외래키 (link_device_serialNumber <= 
+    );                                                                              #         devices_status.serialNumber)
 
 
 # 문의 게시판 테이블 생성
@@ -63,5 +71,5 @@ CREATE TABLE device_rent_status (
     rent_total_price int NOT NULL, # 총 합 가격
     rent_status BOOLEAN, # 대여 가능한 상태
     FOREIGN KEY (rent_user_id) REFERENCES user(user_id), # 외래키 지정 (rent_user_id <= user.user_id)
-    Foreign Key (rent_serial_number) REFERENCES devices_status(serialNumber) # 외래키 지정 (rent_serial_number <= devices_status.serialNumber)
+    FOREIGN Key (rent_serial_number) REFERENCES devices_status(serialNumber) # 외래키 지정 (rent_serial_number <= devices_status.serialNumber)
 );
