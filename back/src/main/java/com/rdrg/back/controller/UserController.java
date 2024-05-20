@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rdrg.back.dto.request.user.ChangePasswordRequestDto;
-import com.rdrg.back.dto.request.user.DeleteUserRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.user.GetSignInUserResponseDto;
 import com.rdrg.back.dto.response.user.GetUserInfoResponseDto;
