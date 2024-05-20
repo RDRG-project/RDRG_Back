@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.rdrg.back.dto.request.device.PostDeviceRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
@@ -34,6 +36,17 @@ public class DeviceController {
 
         ResponseEntity<ResponseDto> response = deviceService.postDevice(requestBody, serialNumber);
         return response;
+
+    }
+
+    @PostMapping("/imgUpload")
+    public String imgUpload(
+
+        @RequestParam("file") MultipartFile file
+        
+    ) {
+
+        return file.getOriginalFilename();
 
     }
 
