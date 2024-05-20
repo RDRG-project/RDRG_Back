@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rdrg.back.dto.request.board.PostBoardRequestDto;
+import com.rdrg.back.dto.request.board.PostCommentRequestDto;
+import com.rdrg.back.dto.request.board.PutBoardRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.board.GetBoardListResponseDto;
 import com.rdrg.back.dto.response.board.GetBoardResponseDto;
@@ -118,6 +120,87 @@ public class BoardServiceImplementation implements BoardService {
             return ResponseDto.databaseError();
 
         }
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> postComment(PostCommentRequestDto dto, int receptionNumber) {
+
+        try {
+            
+            BoardEntity boardEntity = boardRepository.findByReceptionNumber(receptionNumber);
+            if (boardEntity == null) return ResponseDto.noExistBoard();
+
+            boolean status = boardEntity.getStatus();
+            if (status) return ResponseDto.writtenComment();
+
+            String comment = dto.getComment();
+            boardEntity.setStatus(true);
+            boardEntity.setComment(comment);
+
+            boardRepository.save(boardEntity);
+
+        } catch (Exception exception) {
+
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+
+        }
+
+        return ResponseDto.success();
+        
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteBoard(int receptionNumber, String userId) {
+
+        try {
+            BoardEntity boardEntity = boardRepository.findByReceptionNumber(receptionNumber);
+            if (boardEntity == null) return ResponseDto.noExistBoard();
+
+            String writerId = boardEntity.getWriterId();
+            boolean isWriter = userId.equals(writerId);
+            if (!isWriter) return ResponseDto.authorizationFailed();
+
+            boardRepository.delete(boardEntity);
+
+        } catch (Exception exception) {
+
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+
+        }
+
+        return ResponseDto.success();
+
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> putBoard(PutBoardRequestDto dto, int receptionNumber, String userId) {
+
+        try {
+            
+            BoardEntity boardEntity = boardRepository.findByReceptionNumber(receptionNumber);
+            if (boardEntity == null) return ResponseDto.noExistBoard();
+
+            String writerId = boardEntity.getWriterId();
+            boolean isWriter = userId.equals(writerId);
+            if (!isWriter) return ResponseDto.authenticationFailed();
+
+            boolean status = boardEntity.getStatus();
+            if (status) return ResponseDto.writtenComment();
+
+            boardEntity.update(dto);
+            boardRepository.save(boardEntity);
+
+        } catch (Exception exception) {
+
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+
+        }
+
+        return ResponseDto.success();
+
     }
 
     
