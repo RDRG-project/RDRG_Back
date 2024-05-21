@@ -14,7 +14,7 @@ public class DeviceListItem {
     private String serialNumber;
     private String model;
     private String name;
-    private String explain;
+    private String deviceExplain;
     private String type;
     private Integer price;
     private String devicesImgUrl;
@@ -25,7 +25,7 @@ public class DeviceListItem {
         this.serialNumber = deviceEntity.getSerialNumber();
         this.model = deviceEntity.getModel();
         this.name = deviceEntity.getName();
-        this.explain = deviceEntity.getExplain();
+        this.deviceExplain = deviceEntity.getDeviceExplain();
         this.type = deviceEntity.getType();
         this.price = deviceEntity.getPrice();
         this.devicesImgUrl = deviceEntity.getDevicesImgUrl();

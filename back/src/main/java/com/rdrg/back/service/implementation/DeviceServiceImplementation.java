@@ -27,7 +27,7 @@ public class DeviceServiceImplementation implements DeviceService {
         try {
 
             boolean isExistSerialNumber = deviceRepository.existsBySerialNumber(serialNumber);
-            if (!isExistSerialNumber) return ResponseDto.authenticationFailed(); 
+            if (isExistSerialNumber) return ResponseDto.authenticationFailed(); 
             
             DeviceEntity deviceEntity = new DeviceEntity(dto, serialNumber);
             deviceRepository.save(deviceEntity);
