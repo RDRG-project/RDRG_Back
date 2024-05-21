@@ -17,23 +17,21 @@ public class GetBoardResponseDto extends ResponseDto {
     private boolean status;
     private String title;
     private String writerId;
-    private String writerDatetime;
+    private String writeDatetime;
     private String contents;
     private String comment;
-    // private Integer uploadFile; 
 
     private GetBoardResponseDto(BoardEntity boardEntity) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        String writeDatetime = ChangeDateFormatUtil.changeYYYYMMDD(boardEntity.getWriterDatetime());
+        String writeDatetime = ChangeDateFormatUtil.changeYYYYMMDD(boardEntity.getWriteDatetime());
 
         this.receptionNumber = boardEntity.getReceptionNumber();
         this.status = boardEntity.getStatus();
         this.title = boardEntity.getTitle();
         this.writerId = boardEntity.getWriterId();
-        this.writerDatetime = writeDatetime;
+        this.writeDatetime = writeDatetime;
         this.contents = boardEntity.getContents();
         this.comment = boardEntity.getComment();
-        // this.uploadFile =
     }
 
     public static ResponseEntity<GetBoardResponseDto> success(BoardEntity boardEntity) throws Exception {

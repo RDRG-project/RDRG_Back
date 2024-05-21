@@ -31,8 +31,8 @@ public class BoardController {
 
     @PostMapping("/")
     ResponseEntity<ResponseDto> postBoard(
-    @RequestBody @Valid PostBoardRequestDto requestBody,
-    @AuthenticationPrincipal String userId
+        @RequestBody @Valid PostBoardRequestDto requestBody,
+        @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<ResponseDto> response = boardService.postBoard(requestBody, userId);
         return response;

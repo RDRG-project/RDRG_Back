@@ -10,8 +10,8 @@ public class ChangeDateFormatUtil {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date datetime = simpleDateFormat.parse(original);
         simpleDateFormat = new SimpleDateFormat("yy.MM.dd");
-        String writerDatetime = simpleDateFormat.format(datetime);
-        return writerDatetime;
+        String writeDatetime = simpleDateFormat.format(datetime);
+        return writeDatetime;
     }
     
     public static String changeYYYYMMDD(String original) throws Exception {
@@ -19,8 +19,8 @@ public class ChangeDateFormatUtil {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date datetime = simpleDateFormat.parse(original);
         simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
-        String writerDatetime = simpleDateFormat.format(datetime);
-        return writerDatetime;
+        String writeDatetime = simpleDateFormat.format(datetime);
+        return writeDatetime;
     }
 
     public static String changeYYMM(String original) throws Exception {
@@ -28,7 +28,7 @@ public class ChangeDateFormatUtil {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date datetime = simpleDateFormat.parse(original);
         simpleDateFormat = new SimpleDateFormat("yy-MM");
-        String writerDatetime = simpleDateFormat.format(datetime);
-        return writerDatetime;
+        String writeDatetime = simpleDateFormat.format(datetime);
+        return writeDatetime;
     }
 }
