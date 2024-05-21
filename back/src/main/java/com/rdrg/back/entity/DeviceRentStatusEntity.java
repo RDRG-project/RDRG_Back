@@ -40,12 +40,12 @@ public class DeviceRentStatusEntity {
 
     public DeviceRentStatusEntity (PostPaymentRequestDto dto, String userId, LocalDateTime localDateTime) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String writeDateTime = localDateTime.format(dateTimeFormatter);
+        String chosenRentDateTime = localDateTime.format(dateTimeFormatter);
 
         this.rentUserId = userId;
         this.rentSerialNumber = dto.getRentSerialNumber();
-        this.rentDatetime = writeDateTime;
-        this.rentReturnDatetime = writeDateTime;
+        this.rentDatetime = chosenRentDateTime;
+        this.rentReturnDatetime = chosenRentDateTime;
         this.rentPlace = dto.getRentPlace();
         this.rentReturnPlace = dto.getRentReturnPlace();
         this.rentTotalPrice = dto.getRentTotalPrice();
