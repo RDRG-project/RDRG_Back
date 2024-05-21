@@ -10,8 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "device_status")
-@Table(name = "device_status")
+@Entity(name = "devices_status")
+@Table(name = "devices_status")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,9 +21,9 @@ public class DeviceEntity {
 
     @Id
     private String serialNumber;
-    private String Model;
+    private String model;
     private String name;
-    private String explain;
+    private String deviceExplain;
     private String type;
     private Integer price;
     private String devicesImgUrl;
@@ -31,10 +31,10 @@ public class DeviceEntity {
 
 public DeviceEntity(PostDeviceRequestDto dto, String serialNumber) {
 
-    this.serialNumber = dto.getSerialNumber();
-    this.Model = dto.getModel();
+    this.serialNumber = serialNumber;
+    this.model = dto.getModel();
     this.name = dto.getName();
-    this.explain = dto.getExplain();
+    this.deviceExplain = dto.getDeviceExplain();
     this.type = dto.getType();
     this.price = dto.getPrice();
     this.devicesImgUrl = dto.getDevicesImgUrl();
