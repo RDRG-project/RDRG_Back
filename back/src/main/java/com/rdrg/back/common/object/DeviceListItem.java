@@ -17,6 +17,7 @@ public class DeviceListItem {
     private String explain;
     private String type;
     private Integer price;
+    private String devicesImgUrl;
     
 
     private DeviceListItem(DeviceEntity deviceEntity) throws Exception {
@@ -27,6 +28,7 @@ public class DeviceListItem {
         this.explain = deviceEntity.getExplain();
         this.type = deviceEntity.getType();
         this.price = deviceEntity.getPrice();
+        this.devicesImgUrl = deviceEntity.getDevicesImgUrl();
 
     }
 
