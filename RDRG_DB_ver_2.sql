@@ -22,10 +22,10 @@ CREATE TABLE user (
 
 # IT 기기 관리 테이블 생성
 CREATE TABLE devices_status (
-    serialNumber VARCHAR(255) PRIMARY KEY, # 시리얼 넘버 (기본키)
+    serial_number VARCHAR(255) PRIMARY KEY, # 시리얼 넘버 (기본키)
     model VARCHAR(50) NOT NULL, # 모델명
     name VARCHAR(100) NOT NULL, # 제품명
-    `explain` TEXT NOT NULL, # 제품 설명
+    devices_explain TEXT NOT NULL, # 제품 설명
     type VARCHAR(20) NOT NULL, # 제품 타입 (노트북, 테블릿, 게임기 등등)
     price INT NOt NULL, # 가격
     devices_img_url VARCHAR(255) NOT NULL # 디바이스 이미지 URL
@@ -64,7 +64,7 @@ CREATE TABLE device_rent_status (
     rent_total_price int NOT NULL, # 총 합 가격
     rent_status BOOLEAN, # 대여 가능한 상태
     FOREIGN KEY (rent_user_id) REFERENCES user(user_id), # 외래키 지정 (rent_user_id <= user.user_id)
-    FOREIGN Key (rent_serial_number) REFERENCES devices_status(serialNumber) # 외래키 지정 (rent_serial_number <= devices_status.serialNumber)
+    FOREIGN Key (rent_serial_number) REFERENCES devices_status(serial_number) # 외래키 지정 (rent_serial_number <= devices_status.serialNumber)
 );
 
 # 권한 부여
