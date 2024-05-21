@@ -1,6 +1,7 @@
 package com.rdrg.back.dto.request.device;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,11 +20,12 @@ public class PostDeviceRequestDto {
     @NotBlank
     private String name;
     @NotBlank
-    private String explain;
+    private String deviceExplain;
     @NotBlank
     private String type;
-    @NotBlank
+    @NotNull
     private Integer price;
     @NotBlank
     private String devicesImgUrl;
+    
 }
