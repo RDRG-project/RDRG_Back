@@ -14,18 +14,19 @@ public class BoardListItem {
     private Boolean status;
     private String title;
     private String writerId;
-    private String writerDatetime;
+    private String writeDatetime;
 
     private BoardListItem(BoardEntity boardEntity) throws Exception {
-        String writerDatetime = ChangeDateFormatUtil.changeYYMMDD(boardEntity.getWriterDatetime());
+        String writeDatetime = ChangeDateFormatUtil.changeYYMMDD(boardEntity.getWriteDatetime());
 
         String writerId = boardEntity.getWriterId();
         writerId = writerId.substring(0, 1) + "*".repeat(writerId.length() - 1);
 
         this.receptionNumber = boardEntity.getReceptionNumber();
         this.status = boardEntity.getStatus();
+        this.title = boardEntity.getTitle();
         this.writerId = writerId;
-        this.writerDatetime = writerDatetime;
+        this.writeDatetime = writeDatetime;
     }
 
     public static List<BoardListItem> getList(List<BoardEntity> boardEntities) throws Exception {

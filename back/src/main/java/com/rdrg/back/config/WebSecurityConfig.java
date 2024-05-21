@@ -51,7 +51,7 @@ public class WebSecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())
                 )
                 .authorizeHttpRequests(request -> request
-                    .requestMatchers("/", "/rdrg/auth/**", "/oauth2/callback/*").permitAll()
+                    .requestMatchers("/", "/rdrg/auth/**", "/oauth2/callback/*", "/rdrg/file/**").permitAll()
                     .requestMatchers("/rdrg/board/").hasRole("USER")
                     .requestMatchers("/rdrg/board/*/comment").hasRole("ADMIN")
                     .anyRequest().authenticated()

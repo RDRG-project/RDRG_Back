@@ -1,5 +1,6 @@
 package com.rdrg.back.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,9 @@ import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.board.GetBoardListResponseDto;
 import com.rdrg.back.dto.response.board.GetBoardResponseDto;
 import com.rdrg.back.entity.BoardEntity;
+import com.rdrg.back.entity.UploadEntity;
 import com.rdrg.back.repository.BoardRepository;
+import com.rdrg.back.repository.UploadRepository;
 import com.rdrg.back.repository.UserRepository;
 import com.rdrg.back.service.BoardService;
 
@@ -24,6 +27,7 @@ public class BoardServiceImplementation implements BoardService {
 
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
+    private final UploadRepository uploadRepository;
     
     @Override
     public ResponseEntity<ResponseDto> postBoard(PostBoardRequestDto dto, String userId) {
@@ -35,6 +39,18 @@ public class BoardServiceImplementation implements BoardService {
 
             BoardEntity boardEntity = new BoardEntity(dto, userId);
             boardRepository.save(boardEntity);
+
+            Integer receptionNumber = boardEntity.getReceptionNumber();
+            List<String> urlList = dto.getUrlList();
+
+            List<UploadEntity> uploadEntities = new ArrayList<>();
+
+            for(String url: urlList) {
+                UploadEntity uploadEntity = new UploadEntity(receptionNumber, url);
+                uploadEntities.add(uploadEntity);
+            }
+
+            uploadRepository.saveAll(uploadEntities);
             
         } catch (Exception exception) {
 
