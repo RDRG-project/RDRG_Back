@@ -73,3 +73,7 @@ CREATE TABLE device_rent_status (
     FOREIGN KEY (rent_user_id) REFERENCES user(user_id), # 외래키 지정 (rent_user_id <= user.user_id)
     FOREIGN Key (rent_serial_number) REFERENCES devices_status(serialNumber) # 외래키 지정 (rent_serial_number <= devices_status.serialNumber)
 );
+
+# 권한 부여
+CREATE USER 'developerRDRG'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON rdrg_db.* TO 'developerRDRG'@'%';
