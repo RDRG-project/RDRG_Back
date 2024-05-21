@@ -1,7 +1,6 @@
 package com.rdrg.back.service;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.rdrg.back.dto.request.board.PostBoardRequestDto;
 import com.rdrg.back.dto.request.board.PostCommentRequestDto;
@@ -21,6 +20,4 @@ public interface BoardService {
     ResponseEntity<ResponseDto> putBoard(PutBoardRequestDto dto, int receptionNumber, String userId);
 
     ResponseEntity<ResponseDto> deleteBoard(int receptionNumber, String userId);
-
-    String  upload (MultipartFile file);
 }
