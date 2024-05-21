@@ -31,20 +31,20 @@ public class BoardEntity {
     private String title;
     private String contents;
     private String writerId;
-    private String writerDatetime;
+    private String writeDatetime;
     private String comment;
     // private String uploadFile;//업로드 파일을 불러오기 위해서는 어떻게 해야하나!
 
     public BoardEntity (PostBoardRequestDto dto, String userId) {
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String writerDatetime = simpleDateFormat.format(now);
+        String writeDatetime = simpleDateFormat.format(now);
 
         this.status = false;
         this.title = dto.getTitle();
         this.contents = dto.getContents();
         this.writerId = userId;
-        this.writerDatetime = writerDatetime;
+        this.writeDatetime = writeDatetime;
     }
 
     public void update(PutBoardRequestDto dto) {
