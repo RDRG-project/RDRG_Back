@@ -26,6 +26,7 @@ public class DeviceEntity {
     private String explain;
     private String type;
     private Integer price;
+    private String devicesImgUrl;
 
 
 public DeviceEntity(PostDeviceRequestDto dto, String serialNumber) {
@@ -36,6 +37,7 @@ public DeviceEntity(PostDeviceRequestDto dto, String serialNumber) {
     this.explain = dto.getExplain();
     this.type = dto.getType();
     this.price = dto.getPrice();
+    this.devicesImgUrl = dto.getDevicesImgUrl();
 }
 
 }
