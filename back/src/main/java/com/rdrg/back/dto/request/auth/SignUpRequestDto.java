@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SignUpRequestDto {
     @NotBlank
+    @Pattern(regexp="^[a-zA-Z0-9]{4,12}$")
     private String userId;
     @NotNull
     @Pattern(regexp="^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\\.[a-zA-Z]{2,4}$")
