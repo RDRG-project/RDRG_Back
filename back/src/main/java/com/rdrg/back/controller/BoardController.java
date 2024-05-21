@@ -81,7 +81,7 @@ public class BoardController {
         return response;
     }
 
-    @DeleteMapping("{receptionNumber}")
+    @DeleteMapping("/{receptionNumber}")
     public ResponseEntity<ResponseDto> deleteBoard(
         @PathVariable("receptionNumber") int receptionNumber,
         @AuthenticationPrincipal String userId
