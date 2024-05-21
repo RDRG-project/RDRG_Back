@@ -39,7 +39,7 @@ CREATE TABLE board(
     title VARCHAR(100) NOT NULL, # 문의글 제목
     contents TEXT NOT NULL, # 문의글 내용
     writer_id VARCHAR(50) NOT NULL, # 작성자 ID (user에 user_id를 가져옴)
-    writer_datetime DATETIME NOT NULL DEFAULT(now()), # 작성일 (디폴트로 지금 시간 가져옴)
+    write_datetime DATETIME NOT NULL DEFAULT(now()), # 작성일 (디폴트로 지금 시간 가져옴)
     comment TEXT DEFAULT(NULL), # 문의글 답변 내용
     FOREIGN KEY (writer_id) REFERENCES user(user_id) # 외래키 (writer_id <= user.user_id)
 );
