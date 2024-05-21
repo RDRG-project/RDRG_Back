@@ -31,4 +31,13 @@ public class ChangeDateFormatUtil {
         String writeDatetime = simpleDateFormat.format(datetime);
         return writeDatetime;
     }
+
+    public static String changeYYYYMMDDHH(String original) throws Exception {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date datetime = simpleDateFormat.parse(original);
+        simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:00");
+        String writeDatetime = simpleDateFormat.format(datetime);
+        return writeDatetime;
+    }
 }
