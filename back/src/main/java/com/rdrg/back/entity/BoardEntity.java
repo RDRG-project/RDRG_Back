@@ -33,7 +33,6 @@ public class BoardEntity {
     private String writerId;
     private String writeDatetime;
     private String comment;
-    // private String uploadFile;//업로드 파일을 불러오기 위해서는 어떻게 해야하나!
 
     public BoardEntity (PostBoardRequestDto dto, String userId) {
         Date now = Date.from(Instant.now());
