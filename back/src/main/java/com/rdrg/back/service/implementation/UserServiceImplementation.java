@@ -57,11 +57,11 @@ public class UserServiceImplementation implements UserService {
             boolean isMatched = passwordEncoder.matches(userPassword, encodedPassword);
             if (!isMatched) return ResponseDto.passwordChangeFailed();
 
-            String encodedNewPassword = passwordEncoder.encode(newPassword);
-            boolean isNewMatched = userRepository.existsByUserPassword(encodedNewPassword);
+            boolean isNewMatched = passwordEncoder.matches(newPassword, encodedPassword);
             if (isNewMatched) return ResponseDto.passwordChangeFailed();
 
-            dto.setUserPassword(encodedNewPassword);
+            String encodedNewPassword = passwordEncoder.encode(newPassword);
+            userEntity.setUserPassword(encodedNewPassword);
             userRepository.save(userEntity);
 
         } catch (Exception exception) {
