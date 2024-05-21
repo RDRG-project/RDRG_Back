@@ -27,7 +27,7 @@ CREATE TABLE devices_status (
     name VARCHAR(100) NOT NULL, # 제품명
     `explain` TEXT NOT NULL, # 제품 설명
     type VARCHAR(20) NOT NULL, # 제품 타입 (노트북, 테블릿, 게임기 등등)
-    price INT NOt NULL, # 가격
+    price INT NOt NULL # 가격
 );
 
 # 기기 관리 이미지 테이블 생성
