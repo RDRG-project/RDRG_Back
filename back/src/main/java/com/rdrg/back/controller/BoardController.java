@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.rdrg.back.dto.request.board.PostBoardRequestDto;
 import com.rdrg.back.dto.request.board.PostCommentRequestDto;
@@ -47,14 +45,6 @@ public class BoardController {
     ) {
         ResponseEntity<ResponseDto> response = boardService.postComment(requestBody, receptionNumber);
         return response;
-    }
-
-    @PostMapping("/upload")
-    public String upload(
-        @RequestParam("file")MultipartFile file
-    ) {
-        String url = boardService.upload(file);
-        return url;
     }
 
     @GetMapping("/list")
