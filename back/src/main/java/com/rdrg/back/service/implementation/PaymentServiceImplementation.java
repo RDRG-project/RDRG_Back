@@ -23,6 +23,8 @@ public class PaymentServiceImplementation implements PaymentService {
     public ResponseEntity<ResponseDto> postPayment(PostPaymentRequestDto dto, String userId) {
 
         try {
+
+            if (dto.getRentStatus().equals(0)) return ResponseDto.notFound();
             
             boolean isExistUser = userRepository.existsByUserId(userId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
