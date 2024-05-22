@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class PaymentServiceImplementation implements PaymentService {
 
     private final UserRepository userRepository;
+    private final PaymentRepository paymentRepository;
     
     @Override
     public ResponseEntity<ResponseDto> postPayment(PostPaymentRequestDto dto, String userId) {
@@ -26,8 +27,8 @@ public class PaymentServiceImplementation implements PaymentService {
             boolean isExistUser = userRepository.existsByUserId(userId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
 
-            // DeviceRentStatusEntity deviceRentStatusEntity = new DeviceRentStatusEntity(dto, userId, localDateTime);
-            // PaymentRepository.save(deviceRentStatusEntity);
+            DeviceRentStatusEntity deviceRentStatusEntity = new DeviceRentStatusEntity(dto, userId);
+            paymentRepository.save(deviceRentStatusEntity);
 
 
         } catch (Exception exception) {
