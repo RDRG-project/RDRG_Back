@@ -11,6 +11,6 @@ import com.rdrg.back.entity.DeviceRentStatusEntity;
 public interface PaymentRepository extends JpaRepository<DeviceRentStatusEntity, Integer> {
     
     List<DeviceRentStatusEntity> findByOrderByRentNumberDesc();
-
+    
     DeviceRentStatusEntity findTop1ByRentUserIdOrderByRentNumberDesc(String rentUserId);
 }

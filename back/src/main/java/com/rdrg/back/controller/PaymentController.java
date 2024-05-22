@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
+import com.rdrg.back.dto.response.payment.GetPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentResponseDto;
 import com.rdrg.back.service.PaymentService;
 
@@ -38,6 +39,12 @@ public class PaymentController {
         @PathVariable("userId") String userId
     ) {
         ResponseEntity<? super GetPaymentResponseDto> response = paymentService.getPayment(userId);
+        return response;
+    }
+
+    @GetMapping("/myrentpage")
+    public ResponseEntity<? super GetPaymentListResponseDto> getPaymentList() {
+        ResponseEntity<? super GetPaymentListResponseDto>  response = paymentService.getPaymentList();
         return response;
     }
 }
