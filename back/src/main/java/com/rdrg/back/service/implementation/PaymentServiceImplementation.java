@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
+import com.rdrg.back.dto.response.payment.GetPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentResponseDto;
 import com.rdrg.back.entity.DeviceRentStatusEntity;
 import com.rdrg.back.repository.PaymentRepository;
@@ -62,6 +63,22 @@ public class PaymentServiceImplementation implements PaymentService {
             
         } catch (Exception exception) {
 
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+
+        }
+    }
+
+    @Override
+    public ResponseEntity<? super GetPaymentListResponseDto> getPaymentList() {
+
+        try {
+
+            List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByOrderByRentNumberDesc();
+            return GetPaymentListResponseDto.success(deviceRentStatusEntities);
+            
+        } catch (Exception exception) {
+            
             exception.printStackTrace();
             return ResponseDto.databaseError();
 
