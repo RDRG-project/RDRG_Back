@@ -7,6 +7,7 @@ public interface ResponseMessage {
     String DUPLICATE_EMAIL = "Duplicated Email.";
     String NO_EXIST_BOARD = "No Exist Board";
     String NO_EXIST_DEVICE = "No Exist Device.";
+    String NOT_RENTAL_DEVICE = "Not Rental Device.";
     String WRITTEN_COMMENT = "Written Comment";
     String SIGN_IN_FAIL = "Sign in Failed.";
     String AUTHENTICATION_FAIL = "Authentication Failed.";

@@ -48,6 +48,10 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
+    public static ResponseEntity<ResponseDto> notRentalDevice() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NOT_RENTAL_DEVICE, ResponseMessage.NOT_RENTAL_DEVICE);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
 
     public static ResponseEntity<ResponseDto> writtenComment() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.WRITTEN_COMMENT, ResponseMessage.WRITTEN_COMMENT);

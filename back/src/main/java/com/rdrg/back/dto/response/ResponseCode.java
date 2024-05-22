@@ -7,6 +7,7 @@ public interface ResponseCode {
     String DUPLICATE_EMAIL = "DE";
     String NO_EXIST_BOARD = "NB";
     String NO_EXIST_DEVICE = "ND";
+    String NOT_RENTAL_DEVICE = "NRD";
     String WRITTEN_COMMENT = "WC";
     String SIGN_IN_FAIL = "SF";
     String AUTHENTICATION_FAIL = "AF";
