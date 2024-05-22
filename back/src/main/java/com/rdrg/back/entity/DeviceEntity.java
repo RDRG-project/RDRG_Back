@@ -31,13 +31,14 @@ public class DeviceEntity {
 
 public DeviceEntity(PostDeviceRequestDto dto, String serialNumber) {
 
-    this.serialNumber = serialNumber;
+    this.serialNumber = dto.getSerialNumber();
     this.model = dto.getModel();
     this.name = dto.getName();
     this.deviceExplain = dto.getDeviceExplain();
     this.type = dto.getType();
     this.price = dto.getPrice();
     this.devicesImgUrl = dto.getDevicesImgUrl();
+
 }
 
 }

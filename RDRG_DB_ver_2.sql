@@ -25,7 +25,7 @@ CREATE TABLE devices_status (
     serial_number VARCHAR(255) PRIMARY KEY, # 시리얼 넘버 (기본키)
     model VARCHAR(50) NOT NULL, # 모델명
     name VARCHAR(100) NOT NULL, # 제품명
-    devices_explain TEXT NOT NULL, # 제품 설명
+    device_explain TEXT NOT NULL, # 제품 설명
     type VARCHAR(20) NOT NULL, # 제품 타입 (노트북, 테블릿, 게임기 등등)
     price INT NOt NULL, # 가격
     devices_img_url VARCHAR(255) NOT NULL # 디바이스 이미지 URL
