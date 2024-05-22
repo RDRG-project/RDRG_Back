@@ -1,10 +1,13 @@
 package com.rdrg.back.service.implementation;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
+import com.rdrg.back.dto.response.payment.GetPaymentResponseDto;
 import com.rdrg.back.entity.DeviceRentStatusEntity;
 import com.rdrg.back.repository.PaymentRepository;
 import com.rdrg.back.repository.UserRepository;
@@ -42,6 +45,27 @@ public class PaymentServiceImplementation implements PaymentService {
         
         return ResponseDto.success();
         
+    }
+
+    @Override
+    public ResponseEntity<? super GetPaymentResponseDto> getPayment(String rentUserId) {
+
+        try {
+
+            boolean isExistUser = userRepository.existsByUserId(rentUserId);
+            if(!isExistUser) return ResponseDto.authenticationFailed();
+
+            DeviceRentStatusEntity reservations = paymentRepository.findTop1ByRentUserIdOrderByRentNumberDesc(rentUserId);
+            if(reservations == null) return ResponseDto.notFound();
+
+            return GetPaymentResponseDto.success(reservations);
+            
+        } catch (Exception exception) {
+
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+
+        }
     }
     
 }
