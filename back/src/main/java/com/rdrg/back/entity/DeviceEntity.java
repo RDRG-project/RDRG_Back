@@ -16,9 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class DeviceEntity {
-
     @Id
     private String serialNumber;
     private String model;
@@ -29,20 +27,14 @@ public class DeviceEntity {
     private Integer price;
     private String devicesImgUrl;
 
-
-
-public DeviceEntity(PostDeviceRequestDto dto, String serialNumber) {
-
-    this.serialNumber = dto.getSerialNumber();
-    this.model = dto.getModel();
-    this.name = dto.getName();
-    this.deviceExplain = dto.getDeviceExplain();
-    this.type = dto.getType();
-    this.brand = dto.getBrand();
-    this.price = dto.getPrice();
-    this.devicesImgUrl = dto.getDevicesImgUrl();
-    
-    
-}
-
+    public DeviceEntity(PostDeviceRequestDto dto, String serialNumber) {
+        this.serialNumber = dto.getSerialNumber();
+        this.model = dto.getModel();
+        this.name = dto.getName();
+        this.deviceExplain = dto.getDeviceExplain();
+        this.type = dto.getType();
+        this.brand = dto.getBrand();
+        this.price = dto.getPrice();
+        this.devicesImgUrl = dto.getDevicesImgUrl();
+    }
 }

@@ -23,7 +23,6 @@ public class JwtProvider {
     public String create(String userId) {
 
         Date expiredDate = Date.from(Instant.now().plus(10, ChronoUnit.HOURS));
-
         String jwt = null;
 
         try {
@@ -41,14 +40,12 @@ public class JwtProvider {
             exception.printStackTrace();
             return null;
         }
-
         return jwt;
     }
 
     public String validate (String jwt) {
 
         Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharset.UTF_8));
-
         String userId = null;
 
         try {
@@ -62,7 +59,6 @@ public class JwtProvider {
             exception.printStackTrace();
             return null;
         }
-
         return userId;
     }
 }

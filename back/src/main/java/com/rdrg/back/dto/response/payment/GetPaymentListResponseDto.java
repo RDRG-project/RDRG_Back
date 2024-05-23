@@ -15,7 +15,6 @@ import lombok.Getter;
 
 @Getter
 public class GetPaymentListResponseDto extends ResponseDto {
-    
     private List<RentItem> rentList;
 
     private GetPaymentListResponseDto(List<DeviceRentStatusEntity> deviceRentStatusEntities) throws Exception {

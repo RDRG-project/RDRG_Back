@@ -11,9 +11,7 @@ import com.rdrg.back.entity.UserEntity;
 import lombok.Getter;
 
 @Getter
-
 public class GetSignInUserResponseDto extends ResponseDto {
-
     private String userId;
     private String userRole;
 
@@ -27,5 +25,4 @@ public class GetSignInUserResponseDto extends ResponseDto {
         GetSignInUserResponseDto responseBody = new GetSignInUserResponseDto(userEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-    
 }

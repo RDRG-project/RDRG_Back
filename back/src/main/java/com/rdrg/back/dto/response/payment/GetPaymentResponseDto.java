@@ -12,7 +12,6 @@ import lombok.Getter;
 
 @Getter
 public class GetPaymentResponseDto extends ResponseDto {
-    
     private String userId;
     private String rentalPeriod;
     private String rentPlace;
@@ -32,5 +31,4 @@ public class GetPaymentResponseDto extends ResponseDto {
         GetPaymentResponseDto responseBody = new GetPaymentResponseDto(deviceRentStatusEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-
 }

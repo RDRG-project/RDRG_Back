@@ -9,13 +9,11 @@ import lombok.Getter;
 
 @Getter
 public class RentItem {
-    
     private String rentDatetime;
     private String rentReturnDatetime;
     private boolean rentStatus;
 
     private RentItem(DeviceRentStatusEntity deviceRentStatusEntity, boolean rentStatus) throws Exception {
-
         this.rentDatetime = deviceRentStatusEntity.getRentDatetime();
         this.rentReturnDatetime = deviceRentStatusEntity.getRentReturnDatetime();
         this.rentStatus = rentStatus;
@@ -28,7 +26,6 @@ public class RentItem {
             RentItem rentItem = new RentItem(deviceRentStatusEntity, rentStatus);
             rentItems.add(rentItem);
         }
-
         return rentItems;
     }
 }

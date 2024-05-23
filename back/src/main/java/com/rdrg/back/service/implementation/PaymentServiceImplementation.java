@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PaymentServiceImplementation implements PaymentService {
-
     private final UserRepository userRepository;
     private final PaymentRepository paymentRepository;
     
@@ -27,7 +26,6 @@ public class PaymentServiceImplementation implements PaymentService {
     public ResponseEntity<ResponseDto> postPayment(PostPaymentRequestDto dto, String userId) {
 
         try {
-
             if (dto.getRentStatus().equals(0)) return ResponseDto.notRentalDevice();
             
             boolean isExistUser = userRepository.existsByUserId(userId);
@@ -35,24 +33,17 @@ public class PaymentServiceImplementation implements PaymentService {
 
             DeviceRentStatusEntity deviceRentStatusEntity = new DeviceRentStatusEntity(dto, userId);
             paymentRepository.save(deviceRentStatusEntity);
-
-
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
-        
         return ResponseDto.success();
-        
     }
 
     @Override
     public ResponseEntity<? super GetPaymentResponseDto> getPayment(String rentUserId) {
 
         try {
-
             boolean isExistUser = userRepository.existsByUserId(rentUserId);
             if(!isExistUser) return ResponseDto.authenticationFailed();
 
@@ -60,12 +51,9 @@ public class PaymentServiceImplementation implements PaymentService {
             if(reservations == null) return ResponseDto.notFound();
 
             return GetPaymentResponseDto.success(reservations);
-            
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
     }
 
@@ -73,16 +61,11 @@ public class PaymentServiceImplementation implements PaymentService {
     public ResponseEntity<? super GetPaymentListResponseDto> getPaymentList() {
 
         try {
-
             List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByOrderByRentNumberDesc();
             return GetPaymentListResponseDto.success(deviceRentStatusEntities);
-            
         } catch (Exception exception) {
-            
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
     }
-    
 }
