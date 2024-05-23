@@ -13,13 +13,8 @@ import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.ResponseMessage;
 import com.rdrg.back.entity.DeviceEntity;
 
-
-
 @Getter
-
-
 public class GetDeviceListResponseDto extends ResponseDto {
-    
     private List<DeviceListItem> deviceList;
     
     private GetDeviceListResponseDto(List<DeviceEntity> deviceEntities) throws Exception {

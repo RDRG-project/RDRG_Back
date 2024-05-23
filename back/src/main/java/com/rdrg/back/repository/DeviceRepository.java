@@ -10,14 +10,11 @@ import com.rdrg.back.entity.DeviceEntity;
 import java.util.List;
 
 @Repository
-
 public interface DeviceRepository extends JpaRepository<DeviceEntity, String> {
-    
-    boolean existsBySerialNumber(String serialNumber);
-
     DeviceEntity findBySerialNumber(String serialNumber);
-
     List<DeviceEntity> findByOrderBySerialNumber();
+
+    boolean existsBySerialNumber(String serialNumber);
 
     @Query("SELECT d FROM devices_status d WHERE d.serialNumber NOT IN (" +
         "  SELECT drs.rentSerialNumber FROM device_rent_status drs WHERE " +

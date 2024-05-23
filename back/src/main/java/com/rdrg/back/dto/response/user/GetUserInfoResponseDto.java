@@ -10,7 +10,6 @@ import com.rdrg.back.entity.UserEntity;
 
 import lombok.Getter;
 @Getter
-
 public class GetUserInfoResponseDto extends ResponseDto {
     private String userId;
     private String userEmail;
@@ -25,5 +24,4 @@ public class GetUserInfoResponseDto extends ResponseDto {
         GetUserInfoResponseDto responseBody = new GetUserInfoResponseDto(userEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-
 }

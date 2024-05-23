@@ -35,11 +35,8 @@ public class BoardListItem {
         for (BoardEntity boardEntity : boardEntities) {
             BoardListItem boardListItem = new BoardListItem(boardEntity);
             boardList.add(boardListItem);
-            
         }
-
         return boardList;
-
     }
 }
 

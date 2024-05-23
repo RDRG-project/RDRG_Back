@@ -17,7 +17,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity {
-    
     @Id
     private String userId;
     private String userPassword;
@@ -31,6 +30,5 @@ public class UserEntity {
         this.userEmail = dto.getUserEmail();
         this.userRole = "ROLE_USER";
         this.joinPath = "HOME";
-
     }
 }
