@@ -16,17 +16,13 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class FileServiceImplementation implements FileService {
-    
-    
     @Value("${file.url}")private String fileUrl;
     @Value("${file.path}")private String filePath;
 
     @Override
     public String upload(MultipartFile file) {
-
         // 빈파일인지 검증
         if(file.isEmpty()) return null;
-
         // 원본 파일명  가져오기
         String originalFileName = file.getOriginalFilename();
         // 원본 파일명 확장자를 구함
@@ -37,42 +33,28 @@ public class FileServiceImplementation implements FileService {
         String saveFileName = uuid + extension;
         // 저장할 경로 생성
         String savePath = filePath + saveFileName;
-
         try {
-
             // 파일 저장
             file.transferTo(new File(savePath));
-
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return null;
-
         }
-
         // 파일을 불러올 수 있는 경로 생성
         String url = fileUrl + saveFileName;
         return url;
-
     }
 
     @Override
     public Resource GetFile(String fileName) {
-
         Resource resource = null;
         
         try {
-            
             resource = new UrlResource("file:" + filePath + fileName);
-
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return null;
-
         }
-
         return resource;
     }
-
 }

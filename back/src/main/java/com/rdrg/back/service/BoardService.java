@@ -10,14 +10,10 @@ import com.rdrg.back.dto.response.board.GetBoardListResponseDto;
 import com.rdrg.back.dto.response.board.GetBoardResponseDto;
 
 public interface BoardService {
-    
     ResponseEntity<ResponseDto> postBoard(PostBoardRequestDto dto, String userId);
     ResponseEntity<ResponseDto> postComment(PostCommentRequestDto dto, int receptionNumber);
-
     ResponseEntity<? super GetBoardListResponseDto> getBoardList();
     ResponseEntity<? super GetBoardResponseDto> getBoard(int receptionNumber);
-
     ResponseEntity<ResponseDto> putBoard(PutBoardRequestDto dto, int receptionNumber, String userId);
-
     ResponseEntity<ResponseDto> deleteBoard(int receptionNumber, String userId);
 }

@@ -32,33 +32,24 @@ public class DeviceController {
         @RequestBody @Valid PostDeviceRequestDto requestBody,
         @AuthenticationPrincipal String serialNumber
     ) {
-
         ResponseEntity<ResponseDto> response = deviceService.postDevice(requestBody, serialNumber);
         return response;
-
     }
-
 
     @GetMapping("/list")
     public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList(
         @RequestParam("start") String rentDatetime,
         @RequestParam("end") String restReturnDatetime
     ) {
-
         ResponseEntity<? super GetDeviceListResponseDto> response = deviceService.getDeviceList(rentDatetime, restReturnDatetime);
         return response;
-
     }
 
     @DeleteMapping("/{serialNumber}")
     public ResponseEntity<ResponseDto> deleteDevice(
-
         @PathVariable("serialNumber") String serialNumber
-
     ) {
-
         ResponseEntity<ResponseDto> response = deviceService.deleteDevice(serialNumber);
-
         return response;
     }
 }

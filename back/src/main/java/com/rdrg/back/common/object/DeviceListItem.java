@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import lombok.Getter;
 
 @Getter
-
 public class DeviceListItem {
-
     private String serialNumber;
     private String model;
     private String name;
@@ -19,10 +17,8 @@ public class DeviceListItem {
     private String brand;
     private Integer price;
     private String devicesImgUrl;
-    
 
     private DeviceListItem(DeviceEntity deviceEntity) throws Exception {
-
         this.serialNumber = deviceEntity.getSerialNumber();
         this.model = deviceEntity.getModel();
         this.name = deviceEntity.getName();
@@ -31,7 +27,6 @@ public class DeviceListItem {
         this.brand = deviceEntity.getBrand();
         this.price = deviceEntity.getPrice();
         this.devicesImgUrl = deviceEntity.getDevicesImgUrl();
-
     }
 
     public static List<DeviceListItem> getList(List<DeviceEntity> deviceEntities) throws Exception {
@@ -41,9 +36,6 @@ public class DeviceListItem {
             DeviceListItem deviceListItem = new DeviceListItem(deviceEntity);
             deviceList.add(deviceListItem);
         }
-
         return deviceList;
-
-
     } 
 }

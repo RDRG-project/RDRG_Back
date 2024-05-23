@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-
 public class DeleteUserRequestDto {
     @NotBlank
     private String userId;
