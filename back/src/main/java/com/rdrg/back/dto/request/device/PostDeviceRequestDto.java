@@ -23,6 +23,8 @@ public class PostDeviceRequestDto {
     private String deviceExplain;
     @NotBlank
     private String type;
+    @NotBlank
+    private String brand;
     @NotNull
     private Integer price;
     private String devicesImgUrl;
