@@ -45,7 +45,7 @@ public class DeviceServiceImplementation implements DeviceService {
     }
 
     @Override
-    public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList() {
+    public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList(String inputRentDatetime, String inputReturnDatetime) {
         
         try {
 

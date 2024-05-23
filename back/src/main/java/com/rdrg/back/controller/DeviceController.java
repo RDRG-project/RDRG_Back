@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rdrg.back.dto.request.device.PostDeviceRequestDto;
@@ -39,9 +40,12 @@ public class DeviceController {
 
 
     @GetMapping("/list")
-    public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList() {
+    public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList(
+        @RequestParam("start") String rentDatetime,
+        @RequestParam("end") String restReturnDatetime
+    ) {
 
-        ResponseEntity<? super GetDeviceListResponseDto> response = deviceService.getDeviceList();
+        ResponseEntity<? super GetDeviceListResponseDto> response = deviceService.getDeviceList(rentDatetime, restReturnDatetime);
         return response;
 
     }
