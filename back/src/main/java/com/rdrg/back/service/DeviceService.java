@@ -10,7 +10,7 @@ public interface DeviceService {
 
     ResponseEntity<ResponseDto> postDevice(PostDeviceRequestDto dto, String serialNumber);
 
-    ResponseEntity<? super GetDeviceListResponseDto> getDeviceList();
+    ResponseEntity<? super GetDeviceListResponseDto> getDeviceList(String inputRentDatetime, String inputReturnDatetime);
 
     ResponseEntity<ResponseDto> deleteDevice(String serialNumber);
 

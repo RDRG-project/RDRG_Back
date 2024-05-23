@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
@@ -53,8 +54,8 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(request -> request
                     .requestMatchers("/", "/rdrg/auth/**", "/oauth2/callback/*", "/rdrg/file/**").permitAll()
                     .requestMatchers("/rdrg/board/").hasRole("USER")
-                    .requestMatchers("/rdrg/board/*/comment").hasRole("ADMIN")
-                    .requestMatchers("/rdrg/device/*").hasRole("ADMIN")
+                    .requestMatchers("/rdrg/board/*/comment", "/rdrg/device/").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE,  "/rdrg/device/*").hasRole("ADMIN")
                     .anyRequest().authenticated()
                 )
                 .oauth2Login(oaith2 -> oaith2
