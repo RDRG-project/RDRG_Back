@@ -49,7 +49,7 @@ public class DeviceServiceImplementation implements DeviceService {
         
         try {
 
-            List<DeviceEntity> deviceEntities = deviceRepository.findByOrderBySerialNumber();
+            List<DeviceEntity> deviceEntities = deviceRepository.findAvailableDevices(inputRentDatetime, inputReturnDatetime);
             return GetDeviceListResponseDto.success(deviceEntities);
             
         } catch (Exception exception) {
