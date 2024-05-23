@@ -54,6 +54,7 @@ public class WebSecurityConfig {
                     .requestMatchers("/", "/rdrg/auth/**", "/oauth2/callback/*", "/rdrg/file/**").permitAll()
                     .requestMatchers("/rdrg/board/").hasRole("USER")
                     .requestMatchers("/rdrg/board/*/comment").hasRole("ADMIN")
+                    .requestMatchers("/rdrg/device/*").hasRole("ADMIN")
                     .anyRequest().authenticated()
                 )
                 .oauth2Login(oaith2 -> oaith2
