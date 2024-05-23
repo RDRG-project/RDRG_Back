@@ -49,17 +49,13 @@ public class UserController {
         @RequestBody @Valid ChangePasswordRequestDto requestBody
     ){
         ResponseEntity<ResponseDto> response = userService.changePassword(requestBody);
-
         return response;
     }
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<ResponseDto> deleteUser (
-        
         @PathVariable("userId") String UserId
-
     ){
-
         ResponseEntity<ResponseDto> response = userService.deleteUser(UserId);
         return response;
     }

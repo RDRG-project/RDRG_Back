@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PostPaymentRequestDto {
-    
     @NotBlank
     private String rentUserId;
     @NotBlank
@@ -26,5 +25,4 @@ public class PostPaymentRequestDto {
     @NotNull
     private Integer rentTotalPrice;
     private Integer rentStatus;
-
 }

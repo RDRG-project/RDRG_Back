@@ -17,27 +17,21 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-
 public class UserServiceImplementation implements UserService {
-    
     private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public ResponseEntity<? super GetSignInUserResponseDto> getSignInUser(String userId) {
-
         UserEntity userEntity = null;
 
         try {
-
             userEntity = userRepository.findByUserId(userId);
             if (userEntity == null) return ResponseDto.authenticationFailed();
-            
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
         return GetSignInUserResponseDto.success(userEntity);
     }
 
@@ -45,11 +39,9 @@ public class UserServiceImplementation implements UserService {
     public ResponseEntity<ResponseDto> changePassword(ChangePasswordRequestDto dto) {
         
         try {
-
             String userId = dto.getUserId();
             String userPassword = dto.getUserPassword();
             String newPassword = dto.getNewUserPassword();
-
             UserEntity userEntity = userRepository.findByUserId(userId);
             if (userEntity == null) return ResponseDto.passwordChangeFailed();
 
@@ -63,13 +55,11 @@ public class UserServiceImplementation implements UserService {
             String encodedNewPassword = passwordEncoder.encode(newPassword);
             userEntity.setUserPassword(encodedNewPassword);
             userRepository.save(userEntity);
-
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
-
     }
 
 
@@ -77,12 +67,10 @@ public class UserServiceImplementation implements UserService {
     public ResponseEntity<? super GetUserInfoResponseDto> getUserInfo(String userId) {
 
         try {
-
             UserEntity userEntity = userRepository.findByUserId(userId);
             if (userEntity == null) return ResponseDto.authenticationFailed();
-            
-            return GetUserInfoResponseDto.success(userEntity);
 
+            return GetUserInfoResponseDto.success(userEntity);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -93,19 +81,14 @@ public class UserServiceImplementation implements UserService {
     public ResponseEntity<ResponseDto> deleteUser(String userId) {
         
         try {
-
             UserEntity userEntity = userRepository.findByUserId(userId);
             if (userEntity == null) return ResponseDto.authenticationFailed();
             
             userRepository.delete(userEntity);
-
-            
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
     }
-    
-
 }

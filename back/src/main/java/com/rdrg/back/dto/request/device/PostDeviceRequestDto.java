@@ -9,10 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-
-
 public class PostDeviceRequestDto {
-    
     @NotBlank
     private String serialNumber;
     @NotBlank
@@ -28,5 +25,4 @@ public class PostDeviceRequestDto {
     @NotNull
     private Integer price;
     private String devicesImgUrl;
-    
 }

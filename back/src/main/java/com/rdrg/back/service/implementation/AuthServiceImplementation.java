@@ -27,10 +27,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImplementation implements AuthService {
-
     private final UserRepository userRepository;
     private final EmailAuthNumberRepository emailAuthNumberRepository;
-
     private final MailProvider mailProvider;
     private final JwtProvider jwtProvider;
 
@@ -38,11 +36,9 @@ public class AuthServiceImplementation implements AuthService {
 
     @Override
     public ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto) {
-
         String accessToken = null;
 
         try {
-            
             String userId = dto.getUserId();
             String userPassword = dto.getUserPassword();
 
@@ -55,43 +51,32 @@ public class AuthServiceImplementation implements AuthService {
 
             accessToken = jwtProvider.create(userId);
             if (accessToken == null) return ResponseDto.tokenCreationFailed();
-
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
-
         return SignInResponseDto.success(accessToken);
-
     }
 
     @Override
     public ResponseEntity<ResponseDto> idCheck(IdCheckRequestDto dto) {
         
         try {
-            
             String userId = dto.getUserId();
+
             boolean existedUser = userRepository.existsByUserId(userId);
             if (existedUser) return ResponseDto.duplicatedId();
-
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
-
         return ResponseDto.success();
-
     }
 
     @Override
     public ResponseEntity<ResponseDto> emailAuth(EmailAuthRequestDto dto) {
 
         try {
-            
             String userEmail = dto.getUserEmail();
 
             boolean existedEmail = userRepository.existsByUserEmail(userEmail);
@@ -102,52 +87,37 @@ public class AuthServiceImplementation implements AuthService {
             EmailAuthNumberEntity emailAuthNumberEntity = new EmailAuthNumberEntity(userEmail, authNumber);
 
             emailAuthNumberRepository.save(emailAuthNumberEntity);
-
             mailProvider.mailSend(userEmail, authNumber);
-
         } catch (MessagingException messagingException) {
-
             messagingException.printStackTrace();
             return ResponseDto.mailSendFailed();
-
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
-
         return ResponseDto.success();
-
     }
 
     @Override
     public ResponseEntity<ResponseDto> emailAuthCheck(EmailAuthCheckRequestDto dto) {
 
         try {
-            
             String userEmail = dto.getUserEmail();
             String authNumber = dto.getAuthNumber();
 
             boolean isMatch = emailAuthNumberRepository.existsByEmailAndAuthNumber(userEmail, authNumber);
             if(!isMatch) return ResponseDto.authenticationFailed();
-
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
-
         return ResponseDto.success();
-
     }
 
     @Override
     public ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto) {
 
         try {
-            
             String userId = dto.getUserId();
             String userPassword = dto.getUserPassword();
             String userEmail = dto.getUserEmail();
@@ -167,16 +137,11 @@ public class AuthServiceImplementation implements AuthService {
 
             UserEntity userEntity = new UserEntity(dto);
             userRepository.save(userEntity);
-
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
-
         return ResponseDto.success();
-
     }
     
 }

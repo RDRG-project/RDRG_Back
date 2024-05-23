@@ -24,7 +24,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImplementation implements BoardService {
-
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
     private final UploadRepository uploadRepository;
@@ -33,7 +32,6 @@ public class BoardServiceImplementation implements BoardService {
     public ResponseEntity<ResponseDto> postBoard(PostBoardRequestDto dto, String userId) {
 
         try {
-
             boolean isExistUser = userRepository.existsByUserId(userId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
 
@@ -42,39 +40,29 @@ public class BoardServiceImplementation implements BoardService {
 
             Integer receptionNumber = boardEntity.getReceptionNumber();
             List<String> urlList = dto.getUrlList();
-
             List<UploadEntity> uploadEntities = new ArrayList<>();
 
             for(String url: urlList) {
                 UploadEntity uploadEntity = new UploadEntity(receptionNumber, url);
                 uploadEntities.add(uploadEntity);
             }
-
             uploadRepository.saveAll(uploadEntities);
-            
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-
         return ResponseDto.success();
-
     }
 
     @Override
     public ResponseEntity<? super GetBoardListResponseDto> getBoardList() {
 
         try {
-
             List<BoardEntity> boardEntities = boardRepository.findByOrderByReceptionNumberDesc();
             return GetBoardListResponseDto.success(boardEntities);
-            
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
     }
 
@@ -82,17 +70,12 @@ public class BoardServiceImplementation implements BoardService {
     public ResponseEntity<? super GetBoardResponseDto> getBoard(int receptionNumber) {
 
         try {
-
             BoardEntity boardEntity = boardRepository.findByReceptionNumber(receptionNumber);
             if (boardEntity == null) return ResponseDto.noExistBoard();
-
             return GetBoardResponseDto.success(boardEntity);
-            
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
     }
 
@@ -100,7 +83,6 @@ public class BoardServiceImplementation implements BoardService {
     public ResponseEntity<ResponseDto> postComment(PostCommentRequestDto dto, int receptionNumber) {
 
         try {
-            
             BoardEntity boardEntity = boardRepository.findByReceptionNumber(receptionNumber);
             if (boardEntity == null) return ResponseDto.noExistBoard();
 
@@ -110,18 +92,12 @@ public class BoardServiceImplementation implements BoardService {
             String comment = dto.getComment();
             boardEntity.setStatus(true);
             boardEntity.setComment(comment);
-
             boardRepository.save(boardEntity);
-
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
-
         return ResponseDto.success();
-        
     }
 
     @Override
@@ -136,16 +112,11 @@ public class BoardServiceImplementation implements BoardService {
             if (!isWriter) return ResponseDto.authorizationFailed();
 
             boardRepository.delete(boardEntity);
-
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
-
         return ResponseDto.success();
-
     }
 
     @Override
@@ -165,17 +136,10 @@ public class BoardServiceImplementation implements BoardService {
 
             boardEntity.update(dto);
             boardRepository.save(boardEntity);
-
         } catch (Exception exception) {
-
             exception.printStackTrace();
             return ResponseDto.databaseError();
-
         }
-
         return ResponseDto.success();
-
     }
-
-    
 }
