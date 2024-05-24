@@ -43,7 +43,7 @@ public class UserServiceImplementation implements UserService {
             String userPassword = dto.getUserPassword();
             String newPassword = dto.getNewUserPassword();
             UserEntity userEntity = userRepository.findByUserId(userId);
-            if (userEntity == null) return ResponseDto.passwordChangeFailed();
+            if (userEntity == null) return ResponseDto.authenticationFailed();
 
             String encodedPassword = userEntity.getUserPassword();
             boolean isMatched = passwordEncoder.matches(userPassword, encodedPassword);
