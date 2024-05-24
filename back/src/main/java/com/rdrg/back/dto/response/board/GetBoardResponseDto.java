@@ -22,9 +22,9 @@ public class GetBoardResponseDto extends ResponseDto {
     private String writeDatetime;
     private String contents;
     private String comment;
-    private List<String> imageURl;
+    private List<String> imageUrl;
 
-    private GetBoardResponseDto(BoardEntity boardEntity) throws Exception {
+    private GetBoardResponseDto(BoardEntity boardEntity, List<String> imageUrl) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         String writeDatetime = ChangeDateFormatUtil.changeYYYYMMDD(boardEntity.getWriteDatetime());
 
@@ -35,11 +35,11 @@ public class GetBoardResponseDto extends ResponseDto {
         this.writeDatetime = writeDatetime;
         this.contents = boardEntity.getContents();
         this.comment = boardEntity.getComment();
-        this.imageURl = boardEntity.getImageURl();
+        this.imageUrl = imageUrl;
     }
 
-    public static ResponseEntity<GetBoardResponseDto> success(BoardEntity boardEntity) throws Exception {
-        GetBoardResponseDto responseBody = new GetBoardResponseDto(boardEntity);
+    public static ResponseEntity<GetBoardResponseDto> success(BoardEntity boardEntity, List<String> imageUrl) throws Exception {
+        GetBoardResponseDto responseBody = new GetBoardResponseDto(boardEntity, imageUrl);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
