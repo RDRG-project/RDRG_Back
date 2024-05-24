@@ -11,6 +11,8 @@ import com.rdrg.back.entity.BoardEntity;
 
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 public class GetBoardResponseDto extends ResponseDto {
     private Integer receptionNumber;
@@ -20,6 +22,7 @@ public class GetBoardResponseDto extends ResponseDto {
     private String writeDatetime;
     private String contents;
     private String comment;
+    private List<String> imageURl;
 
     private GetBoardResponseDto(BoardEntity boardEntity) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -32,6 +35,7 @@ public class GetBoardResponseDto extends ResponseDto {
         this.writeDatetime = writeDatetime;
         this.contents = boardEntity.getContents();
         this.comment = boardEntity.getComment();
+        this.imageURl = boardEntity.getImageURl();
     }
 
     public static ResponseEntity<GetBoardResponseDto> success(BoardEntity boardEntity) throws Exception {

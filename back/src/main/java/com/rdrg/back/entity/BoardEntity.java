@@ -6,6 +6,7 @@ import com.rdrg.back.dto.request.board.PutBoardRequestDto;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +34,7 @@ public class BoardEntity {
     private String writerId;
     private String writeDatetime;
     private String comment;
+    private List<String> imageURl;
 
     public BoardEntity (PostBoardRequestDto dto, String userId) {
         Date now = Date.from(Instant.now());
