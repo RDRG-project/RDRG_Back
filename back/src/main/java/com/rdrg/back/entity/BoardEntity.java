@@ -34,7 +34,6 @@ public class BoardEntity {
     private String writerId;
     private String writeDatetime;
     private String comment;
-    private List<String> imageURl;
 
     public BoardEntity (PostBoardRequestDto dto, String userId) {
         Date now = Date.from(Instant.now());
