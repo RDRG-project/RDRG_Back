@@ -2,6 +2,7 @@ package com.rdrg.back.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -72,7 +73,11 @@ public class BoardServiceImplementation implements BoardService {
         try {
             BoardEntity boardEntity = boardRepository.findByReceptionNumber(receptionNumber);
             if (boardEntity == null) return ResponseDto.noExistBoard();
-            return GetBoardResponseDto.success(boardEntity);
+
+            List<UploadEntity> uploadEntities = uploadRepository.findByLinkBoardNumber(receptionNumber);
+            List<String> imageUrls = uploadEntities.stream().map(UploadEntity::getUrl).collect(Collectors.toList());
+
+            return GetBoardResponseDto.success(boardEntity, imageUrls);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
