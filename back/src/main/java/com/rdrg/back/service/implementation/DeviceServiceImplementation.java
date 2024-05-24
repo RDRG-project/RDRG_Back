@@ -53,7 +53,7 @@ public class DeviceServiceImplementation implements DeviceService {
         
         try {
             DeviceEntity deviceEntity = deviceRepository.findBySerialNumber(serialNumber);
-            if (deviceEntity == null) ResponseDto.noExistBoard();
+            if (deviceEntity == null) ResponseDto.noExistDevice();
 
             deviceRepository.delete(deviceEntity);
         } catch (Exception exception) {
