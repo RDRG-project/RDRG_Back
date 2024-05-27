@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "devices_status")
+@Entity(name = "DevicesStatus")
 @Table(name = "devices_status")
 @Getter
 @Setter

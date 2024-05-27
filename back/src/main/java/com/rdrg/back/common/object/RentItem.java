@@ -20,6 +20,7 @@ public class RentItem {
     }
 
     public static List<RentItem> getRentList(List<DeviceRentStatusEntity> deviceRentStatusEntities, boolean rentStatus) throws Exception {
+        
         List<RentItem> rentItems = new ArrayList<>();
 
         for (DeviceRentStatusEntity deviceRentStatusEntity : deviceRentStatusEntities) {

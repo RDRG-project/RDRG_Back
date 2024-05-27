@@ -2,6 +2,8 @@ package com.rdrg.back.entity;
 
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "device_rent_status")
+@Entity(name = "DeviceRentStatus")
 @Table(name = "device_rent_status")
 @Getter
 @Setter
@@ -23,7 +25,6 @@ public class DeviceRentStatusEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer rentNumber;
     private String rentUserId;
-    private String rentSerialNumber;
     private String rentDatetime;
     private String rentReturnDatetime;
     private String rentPlace;
@@ -34,7 +35,6 @@ public class DeviceRentStatusEntity {
     public DeviceRentStatusEntity (PostPaymentRequestDto dto, String userId) {
 
         this.rentUserId = userId;
-        this.rentSerialNumber = dto.getRentSerialNumber();
         this.rentDatetime = dto.getRentDatetime();
         this.rentReturnDatetime = dto.getRentReturnDatetime();
         this.rentPlace = dto.getRentPlace();
