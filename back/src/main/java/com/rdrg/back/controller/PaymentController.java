@@ -1,5 +1,7 @@
 package com.rdrg.back.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +30,7 @@ public class PaymentController {
     @PostMapping("/save")
     ResponseEntity<ResponseDto> postPayment(
         @RequestBody @Valid PostPaymentRequestDto requestBody,
-        @AuthenticationPrincipal String userId
+        @AuthenticationPrincipal String userId, ArrayList<String> rentSerialNumber
     ) {
         ResponseEntity<ResponseDto> response = paymentService.postPayment(requestBody, userId);
         return response;
