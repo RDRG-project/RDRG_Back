@@ -1,6 +1,7 @@
 package com.rdrg.back.service.implementation;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,9 @@ import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentResponseDto;
 import com.rdrg.back.entity.DeviceRentStatusEntity;
+import com.rdrg.back.entity.RentDetailEntity;
 import com.rdrg.back.repository.PaymentRepository;
+import com.rdrg.back.repository.RentDetailRepository;
 import com.rdrg.back.repository.UserRepository;
 import com.rdrg.back.service.PaymentService;
 
@@ -21,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class PaymentServiceImplementation implements PaymentService {
     private final UserRepository userRepository;
     private final PaymentRepository paymentRepository;
+    private final RentDetailRepository rentDetailRepository;
     
     @Override
     public ResponseEntity<ResponseDto> postPayment(PostPaymentRequestDto dto, String userId) {
@@ -33,6 +37,19 @@ public class PaymentServiceImplementation implements PaymentService {
 
             DeviceRentStatusEntity deviceRentStatusEntity = new DeviceRentStatusEntity(dto, userId);
             paymentRepository.save(deviceRentStatusEntity);
+
+            List<String> rentSerialNumbers = dto.getRentSerialNumber();
+            
+            List<RentDetailEntity> rentDetailEntities = new ArrayList<>();
+            Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
+
+            for (String rentSeralNumber: rentSerialNumbers) {
+                RentDetailEntity rentDetailEntity = new RentDetailEntity(rentNumber, rentSeralNumber);
+                rentDetailEntities.add(rentDetailEntity);
+            }
+
+            rentDetailRepository.saveAll(rentDetailEntities);
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();

@@ -1,7 +1,10 @@
 package com.rdrg.back.dto.request.payment;
 
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +15,9 @@ import lombok.Setter;
 public class PostPaymentRequestDto {
     @NotBlank
     private String rentUserId;
-    @NotBlank
-    private String rentSerialNumber;
+    @NotNull
+    @Size(min=1)
+    private List<String> rentSerialNumber;
     @NotBlank
     private String rentPlace;
     @NotBlank

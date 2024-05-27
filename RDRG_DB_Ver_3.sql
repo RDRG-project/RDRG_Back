@@ -50,14 +50,13 @@ CREATE TABLE upload(
     file_number INT PRIMARY KEY AUTO_INCREMENT, # 업로드 넘버 (기본키)
     link_board_number INT NOT NULL, # 보드 테이블과 연결하는 칼럼
     url VARCHAR(255), # 링크 주소
-    FOREIGN KEY(link_board_number) REFERENCES board(reception_number) # 외래키 지정 (link_board_no <= board.reception_number)
+    FOREIGN KEY(link_board_number) REFERENCES board(reception_number) ON DELETE CASCADE # 외래키 지정 (link_board_no <= board.reception_number)
 );
 
 # 대여 내역 테이블
 CREATE TABLE device_rent_status (
     rent_number INT NOT NULL PRIMARY KEY AUTO_INCREMENT, # 가상 대여 번호   
     rent_user_id VARCHAR(50) NOT NULL, # 사용자 ID (user에 user_id를 가져옴)
-    rent_serial_number VARCHAR(50) NOT NULL, # 빌려간 제품명의 시리얼번호 (it_rent에 serial를 가져옴)
     rent_datetime DATETIME NOT NULL, # 대여일자
     rent_return_datetime DATETIME NOT NULL, # 반납일자
     rent_place VARCHAR(10) NOT NULL, # 대여장소
@@ -66,6 +65,15 @@ CREATE TABLE device_rent_status (
     rent_status BOOLEAN, # 대여 가능한 상태
     FOREIGN KEY (rent_user_id) REFERENCES user(user_id), # 외래키 지정 (rent_user_id <= user.user_id)
     FOREIGN Key (rent_serial_number) REFERENCES devices_status(serial_number) # 외래키 지정 (rent_serial_number <= devices_status.serialNumber)
+
+# 대여 상세 내역 테이블
+CREATE TABLE rent_detail (
+    rent_detail_number INT PRIMARY KEY AUTO_INCREMENT,
+    rent_number INT NOT NULL,
+    serial_number VARCHAR(255) NOT NULL,
+    FOREIGN KEY (rent_number) REFERENCES device_rent_status(rent_number), #  대여내역 테이블의 대여 정보 확인용
+    FOREIGN KEY (serial_number) REFERENCES devices_status(serial_number) # 빌려간 제품명의 시리얼번호 (devices_status에 serial를 가져옴)
+);
 );
 
 # 권한 부여
