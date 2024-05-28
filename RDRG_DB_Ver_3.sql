@@ -64,7 +64,7 @@ CREATE TABLE device_rent_status (
     rent_total_price int NOT NULL, # 총 합 가격
     rent_status BOOLEAN, # 대여 가능한 상태
     FOREIGN KEY (rent_user_id) REFERENCES user(user_id), # 외래키 지정 (rent_user_id <= user.user_id)
-    FOREIGN Key (rent_serial_number) REFERENCES devices_status(serial_number) # 외래키 지정 (rent_serial_number <= devices_status.serialNumber)
+);
 
 # 대여 상세 내역 테이블
 CREATE TABLE rent_detail (
@@ -74,7 +74,7 @@ CREATE TABLE rent_detail (
     FOREIGN KEY (rent_number) REFERENCES device_rent_status(rent_number), #  대여내역 테이블의 대여 정보 확인용
     FOREIGN KEY (serial_number) REFERENCES devices_status(serial_number) # 빌려간 제품명의 시리얼번호 (devices_status에 serial를 가져옴)
 );
-);
+
 
 # 권한 부여
 CREATE USER 'developerRDRG'@'%' IDENTIFIED BY 'root';
