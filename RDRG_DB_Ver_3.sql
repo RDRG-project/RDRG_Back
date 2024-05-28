@@ -63,7 +63,7 @@ CREATE TABLE device_rent_status (
     rent_return_place VARCHAR(10) NOT NULL, # 반납장소
     rent_total_price int NOT NULL, # 총 합 가격
     rent_status BOOLEAN, # 대여 가능한 상태
-    FOREIGN KEY (rent_user_id) REFERENCES user(user_id), # 외래키 지정 (rent_user_id <= user.user_id)
+    FOREIGN KEY (rent_user_id) REFERENCES user(user_id) # 외래키 지정 (rent_user_id <= user.user_id)
 );
 
 # 대여 상세 내역 테이블

@@ -141,6 +141,16 @@ public class BoardServiceImplementation implements BoardService {
 
             boardEntity.update(dto);
             boardRepository.save(boardEntity);
+
+            receptionNumber = boardEntity.getReceptionNumber();
+            List<String> urlList = dto.getUrlList();
+            List<UploadEntity> uploadEntities = new ArrayList<>();
+
+            for(String url: urlList) {
+                UploadEntity uploadEntity = new UploadEntity(receptionNumber, url);
+                uploadEntities.add(uploadEntity);
+            }
+            uploadRepository.saveAll(uploadEntities);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
