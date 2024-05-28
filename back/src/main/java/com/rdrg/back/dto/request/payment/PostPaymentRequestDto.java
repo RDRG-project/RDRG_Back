@@ -28,5 +28,6 @@ public class PostPaymentRequestDto {
     private String rentReturnDatetime;
     @NotNull
     private Integer rentTotalPrice;
-    private Integer rentStatus;
+    @NotNull
+    private boolean rentStatus;
 }

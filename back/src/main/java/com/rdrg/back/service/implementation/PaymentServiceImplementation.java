@@ -30,7 +30,7 @@ public class PaymentServiceImplementation implements PaymentService {
     public ResponseEntity<ResponseDto> postPayment(PostPaymentRequestDto dto, String userId) {
 
         try {
-            if (dto.getRentStatus().equals(0)) return ResponseDto.notRentalDevice();
+            if ("대여중".equals(dto.isRentStatus())) return ResponseDto.notRentalDevice();
             
             boolean isExistUser = userRepository.existsByUserId(userId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
