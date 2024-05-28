@@ -9,22 +9,28 @@ import lombok.Getter;
 
 @Getter
 public class RentItem {
+    private Integer rentNumber;
+    private List<NameList> name;
     private String rentDatetime;
     private String rentReturnDatetime;
+    private Integer totalPrice;
     private boolean rentStatus;
 
-    private RentItem(DeviceRentStatusEntity deviceRentStatusEntity, boolean rentStatus) throws Exception {
+    private RentItem(DeviceRentStatusEntity deviceRentStatusEntity, List<NameList> nameLists, boolean rentStatus) throws Exception {
+        this.rentNumber = deviceRentStatusEntity.getRentNumber();
+        this.name = nameLists;
         this.rentDatetime = deviceRentStatusEntity.getRentDatetime();
         this.rentReturnDatetime = deviceRentStatusEntity.getRentReturnDatetime();
+        this.totalPrice = deviceRentStatusEntity.getRentTotalPrice();
         this.rentStatus = rentStatus;
     }
 
-    public static List<RentItem> getRentList(List<DeviceRentStatusEntity> deviceRentStatusEntities, boolean rentStatus) throws Exception {
+    public static List<RentItem> getRentList(List<DeviceRentStatusEntity> deviceRentStatusEntities, List<NameList> name, boolean rentStatus) throws Exception {
         
         List<RentItem> rentItems = new ArrayList<>();
 
         for (DeviceRentStatusEntity deviceRentStatusEntity : deviceRentStatusEntities) {
-            RentItem rentItem = new RentItem(deviceRentStatusEntity, rentStatus);
+            RentItem rentItem = new RentItem(deviceRentStatusEntity, name, rentStatus);
             rentItems.add(rentItem);
         }
         return rentItems;
