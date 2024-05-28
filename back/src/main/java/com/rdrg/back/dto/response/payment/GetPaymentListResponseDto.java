@@ -19,7 +19,7 @@ public class GetPaymentListResponseDto extends ResponseDto {
 
     private GetPaymentListResponseDto(List<DeviceRentStatusEntity> deviceRentStatusEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.rentList = RentItem.getRentList(deviceRentStatusEntities, false);
+        this.rentList = RentItem.getRentList(deviceRentStatusEntities, null, false);
     }
 
     public static ResponseEntity<GetPaymentListResponseDto> success(List<DeviceRentStatusEntity> deviceRentStatusEntities) throws Exception {
