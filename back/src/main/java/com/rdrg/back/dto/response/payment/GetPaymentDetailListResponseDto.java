@@ -21,6 +21,8 @@ public class GetPaymentDetailListResponseDto extends ResponseDto {
     private List<RentDetailList> rentDetailList;
     private String rentDatetime;
     private String rentReturnDatetime;
+    private String rentPlace;
+    private String rentReturnPlace;
     private boolean rentStatus;
     private Integer rentTotalPrice;
 
@@ -31,6 +33,8 @@ public class GetPaymentDetailListResponseDto extends ResponseDto {
         this.rentDetailList = RentDetailList.getNamePriceList(rentDetailList);
         this.rentDatetime = deviceRentStatusEntity.getRentDatetime();
         this.rentReturnDatetime = deviceRentStatusEntity.getRentReturnDatetime();
+        this.rentPlace = deviceRentStatusEntity.getRentPlace();
+        this.rentReturnPlace = deviceRentStatusEntity.getRentReturnPlace();
         this.rentStatus = deviceRentStatusEntity.isRentStatus();
         this.rentTotalPrice = deviceRentStatusEntity.getRentTotalPrice();
     }
