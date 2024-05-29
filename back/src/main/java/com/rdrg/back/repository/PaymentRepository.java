@@ -12,4 +12,5 @@ public interface PaymentRepository extends JpaRepository<DeviceRentStatusEntity,
     List<DeviceRentStatusEntity> findByRentUserIdOrderByRentNumberDesc(String rentUserId);
     DeviceRentStatusEntity findTop1ByRentUserIdOrderByRentNumberDesc(String rentUserId);
     DeviceRentStatusEntity findByRentUserIdOrderByRentNumber(String rentUserId);
+    DeviceRentStatusEntity findByRentNumber (int rentNumber);
 }
