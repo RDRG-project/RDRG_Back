@@ -16,7 +16,7 @@ CREATE TABLE user (
     user_email VARCHAR(100) NOT NULL UNIQUE, # 유저 이메일 (email_auth_number에 email에서 끌고 올 예정)
     user_role VARCHAR(100) NOT NULL, # 권한 (유저인지 운영자인지)
     join_path VARCHAR(5) NOT NULL, # 유저 가입경로 (그냥 가입했는지 네이버로 가입했는지 카카오로 가입했는지)
-    FOREIGN KEY (user_email) REFERENCES email_auth_number(email) # 외래키 지정 (user_email <= email_auth_number.email )
+    FOREIGN KEY (user_email) REFERENCES email_auth_number(email) ON DELETE CASCADE # 외래키 지정 (user_email <= email_auth_number.email )
 );
 
 
@@ -42,7 +42,7 @@ CREATE TABLE board(
     writer_id VARCHAR(50) NOT NULL, # 작성자 ID (user에 user_id를 가져옴)
     write_datetime DATETIME NOT NULL DEFAULT(now()), # 작성일 (디폴트로 지금 시간 가져옴)
     comment TEXT DEFAULT(NULL), # 문의글 답변 내용
-    FOREIGN KEY (writer_id) REFERENCES user(user_id) # 외래키 (writer_id <= user.user_id)
+    FOREIGN KEY (writer_id) REFERENCES user(user_id) ON DELETE CASCADE # 외래키 (writer_id <= user.user_id)
 );
 
 # 업로드 관련 테이블
@@ -63,7 +63,7 @@ CREATE TABLE device_rent_status (
     rent_return_place VARCHAR(10) NOT NULL, # 반납장소
     rent_total_price int NOT NULL, # 총 합 가격
     rent_status BOOLEAN, # 대여 가능한 상태
-    FOREIGN KEY (rent_user_id) REFERENCES user(user_id) # 외래키 지정 (rent_user_id <= user.user_id)
+    FOREIGN KEY (rent_user_id) REFERENCES user(user_id) ON DELETE CASCADE # 외래키 지정 (rent_user_id <= user.user_id)
 );
 
 # 대여 상세 내역 테이블
@@ -71,9 +71,23 @@ CREATE TABLE rent_detail (
     rent_detail_number INT PRIMARY KEY AUTO_INCREMENT,
     rent_number INT NOT NULL,
     serial_number VARCHAR(255) NOT NULL,
-    FOREIGN KEY (rent_number) REFERENCES device_rent_status(rent_number), #  대여내역 테이블의 대여 정보 확인용
-    FOREIGN KEY (serial_number) REFERENCES devices_status(serial_number) # 빌려간 제품명의 시리얼번호 (devices_status에 serial를 가져옴)
+    FOREIGN KEY (rent_number) REFERENCES device_rent_status(rent_number) ON DELETE CASCADE, #  대여내역 테이블의 대여 정보 확인용
+    FOREIGN KEY (serial_number) REFERENCES devices_status(serial_number) ON DELETE CASCADE # 빌려간 제품명의 시리얼번호 (devices_status에 serial를 가져옴)
 );
+
+
+# 유저삭제시 메일도 삭제되는 트리거
+DELIMITER //
+
+CREATE TRIGGER after_user_delete
+AFTER DELETE ON user
+FOR EACH ROW
+BEGIN
+    DELETE FROM email_auth_number WHERE email = OLD.user_email;
+END //
+
+DELIMITER ;
+
 
 
 # 권한 부여
