@@ -24,4 +24,9 @@ public interface DeviceRepository extends JpaRepository<DeviceEntity, String> {
                     "(drs.rentDatetime > :inputRentDatetime AND drs.rentReturnDatetime < :inputReturnDatetime)))")
     List<DeviceEntity> findAvailableDevices(@Param("inputRentDatetime") String inputRentDatetime,
         @Param("inputReturnDatetime") String inputReturnDatetime);
+
+    @Query("SELECT ds FROM DevicesStatus ds " +
+        "WHERE ds.serialNumber IN (SELECT rd.serialNumber FROM RentDetail rd WHERE rd.rentNumber = :rentNumber)"
+    )
+    List<DeviceEntity> findRentDevices(@Param("rentNumber") Integer rentNumber);
 }

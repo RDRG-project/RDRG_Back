@@ -6,12 +6,15 @@ import java.util.ArrayList;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.rdrg.back.common.object.RentItem;
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentResponseDto;
+import com.rdrg.back.entity.DeviceEntity;
 import com.rdrg.back.entity.DeviceRentStatusEntity;
 import com.rdrg.back.entity.RentDetailEntity;
+import com.rdrg.back.repository.DeviceRepository;
 import com.rdrg.back.repository.PaymentRepository;
 import com.rdrg.back.repository.RentDetailRepository;
 import com.rdrg.back.repository.UserRepository;
@@ -23,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PaymentServiceImplementation implements PaymentService {
     private final UserRepository userRepository;
+    private final DeviceRepository deviceRepository;
     private final PaymentRepository paymentRepository;
     private final RentDetailRepository rentDetailRepository;
     
@@ -75,11 +79,24 @@ public class PaymentServiceImplementation implements PaymentService {
     }
 
     @Override
-    public ResponseEntity<? super GetPaymentListResponseDto> getPaymentList() {
+    public ResponseEntity<? super GetPaymentListResponseDto> getPaymentList(String rentUserId) {
 
         try {
-            List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByOrderByRentNumberDesc();
-            return GetPaymentListResponseDto.success(deviceRentStatusEntities);
+            boolean isExistUser = userRepository.existsByUserId(rentUserId);
+            if(!isExistUser) return ResponseDto.authenticationFailed();
+
+            List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByRentUserIdOrderByRentNumberDesc(rentUserId);
+
+            List<RentItem> rentList = new ArrayList<>();
+
+            for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
+                Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
+                List<DeviceEntity> deviceEntities = deviceRepository.findRentDevices(rentNumber);
+                RentItem rentItem = new RentItem(deviceRentStatusEntity, deviceEntities);
+                rentList.add(rentItem);
+            }
+            
+            return GetPaymentListResponseDto.success(rentList);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
