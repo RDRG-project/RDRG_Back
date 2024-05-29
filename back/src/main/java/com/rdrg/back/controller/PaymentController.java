@@ -45,8 +45,10 @@ public class PaymentController {
     }
 
     @GetMapping("/myrentpage")
-    public ResponseEntity<? super GetPaymentListResponseDto> getPaymentList() {
-        ResponseEntity<? super GetPaymentListResponseDto>  response = paymentService.getPaymentList();
+    public ResponseEntity<? super GetPaymentListResponseDto> getPaymentList(
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<? super GetPaymentListResponseDto>  response = paymentService.getPaymentList(userId);
         return response;
     }
 }
