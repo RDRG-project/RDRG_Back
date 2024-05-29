@@ -10,4 +10,5 @@ import com.rdrg.back.entity.UploadEntity;
 @Repository
 public interface UploadRepository extends JpaRepository<UploadEntity, Integer> {
     List<UploadEntity> findByLinkBoardNumber(int linkBoardNumber);
+    List<UploadEntity> findByFileNumber(int fileNumber);
 }
