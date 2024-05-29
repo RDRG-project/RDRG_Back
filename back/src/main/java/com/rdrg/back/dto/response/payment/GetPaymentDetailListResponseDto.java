@@ -32,6 +32,7 @@ public class GetPaymentDetailListResponseDto extends ResponseDto {
         this.rentDatetime = deviceRentStatusEntity.getRentDatetime();
         this.rentReturnDatetime = deviceRentStatusEntity.getRentReturnDatetime();
         this.rentStatus = deviceRentStatusEntity.isRentStatus();
+        this.rentTotalPrice = deviceRentStatusEntity.getRentTotalPrice();
     }
 
     public static ResponseEntity<GetPaymentDetailListResponseDto> success(DeviceRentStatusEntity deviceRentStatusEntity, List<DeviceEntity> deviceEntities) throws Exception {
