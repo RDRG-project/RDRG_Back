@@ -143,11 +143,8 @@ public class BoardServiceImplementation implements BoardService {
             boardRepository.save(boardEntity);
 
             List<UploadEntity> existingUploads = uploadRepository.findByLinkBoardNumber(receptionNumber);
-            for (UploadEntity uploadEntity : existingUploads) {
-            uploadRepository.delete(uploadEntity);
-            }
+            uploadRepository.deleteAll(existingUploads);
 
-            receptionNumber = boardEntity.getReceptionNumber();
             List<String> urlList = dto.getUrlList();
             List<UploadEntity> uploadEntities = new ArrayList<>();
 
