@@ -6,14 +6,17 @@ import java.util.ArrayList;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.rdrg.back.common.object.RentDetailList;
 import com.rdrg.back.common.object.RentItem;
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
+import com.rdrg.back.dto.response.payment.GetPaymentDetailListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentResponseDto;
 import com.rdrg.back.entity.DeviceEntity;
 import com.rdrg.back.entity.DeviceRentStatusEntity;
 import com.rdrg.back.entity.RentDetailEntity;
+import com.rdrg.back.entity.UserEntity;
 import com.rdrg.back.repository.DeviceRepository;
 import com.rdrg.back.repository.PaymentRepository;
 import com.rdrg.back.repository.RentDetailRepository;
@@ -102,4 +105,23 @@ public class PaymentServiceImplementation implements PaymentService {
             return ResponseDto.databaseError();
         }
     }
+
+    @Override
+    public ResponseEntity<? super GetPaymentDetailListResponseDto> getPaymentDetailList(String rentUserId, int rentNumber) {
+        try {
+            UserEntity userEntity = userRepository.findByUserId(rentUserId);
+            if (userEntity == null) return ResponseDto.noExistUserId();
+
+            DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentUserIdOrderByRentNumber(rentUserId);
+            
+            List<DeviceEntity> deviceEntities = deviceRepository.findRentDevices(rentNumber);
+
+            return GetPaymentDetailListResponseDto.success(deviceRentStatusEntity, deviceEntities);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
 }

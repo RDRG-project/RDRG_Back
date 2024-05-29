@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
+import com.rdrg.back.dto.response.payment.GetPaymentDetailListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentResponseDto;
 import com.rdrg.back.service.PaymentService;
@@ -49,6 +50,15 @@ public class PaymentController {
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<? super GetPaymentListResponseDto>  response = paymentService.getPaymentList(userId);
+        return response;
+    }
+
+    @GetMapping("/myrentpage/{rentNumber}")
+    public ResponseEntity<? super GetPaymentDetailListResponseDto> getPaymentDetailList(
+        @AuthenticationPrincipal String userId,
+        @PathVariable("rentNumber") int rentNumber
+    ) {
+        ResponseEntity<? super GetPaymentDetailListResponseDto> response = paymentService.getPaymentDetailList(userId, rentNumber);
         return response;
     }
 }
