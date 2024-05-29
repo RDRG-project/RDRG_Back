@@ -112,7 +112,7 @@ public class PaymentServiceImplementation implements PaymentService {
             UserEntity userEntity = userRepository.findByUserId(rentUserId);
             if (userEntity == null) return ResponseDto.noExistUserId();
 
-            DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentUserIdOrderByRentNumber(rentUserId);
+            DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentNumber(rentNumber);
             
             List<DeviceEntity> deviceEntities = deviceRepository.findRentDevices(rentNumber);
 
