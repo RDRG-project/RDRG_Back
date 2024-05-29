@@ -3,6 +3,7 @@ package com.rdrg.back.common.object;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rdrg.back.entity.DeviceEntity;
 import com.rdrg.back.entity.DeviceRentStatusEntity;
 
 import lombok.Getter;
@@ -10,29 +11,32 @@ import lombok.Getter;
 @Getter
 public class RentItem {
     private Integer rentNumber;
-    private List<NameList> name;
+    private List<String> name;
     private String rentDatetime;
     private String rentReturnDatetime;
     private Integer totalPrice;
     private boolean rentStatus;
 
-    private RentItem(DeviceRentStatusEntity deviceRentStatusEntity, List<NameList> nameLists, boolean rentStatus) throws Exception {
+    public RentItem(DeviceRentStatusEntity deviceRentStatusEntity, List<DeviceEntity> deviceEntities) throws Exception {
+        List<String> name = new ArrayList<>();
+        for (DeviceEntity deviceEntity: deviceEntities) name.add(deviceEntity.getName());
+
         this.rentNumber = deviceRentStatusEntity.getRentNumber();
-        this.name = nameLists;
+        this.name = name;
         this.rentDatetime = deviceRentStatusEntity.getRentDatetime();
         this.rentReturnDatetime = deviceRentStatusEntity.getRentReturnDatetime();
         this.totalPrice = deviceRentStatusEntity.getRentTotalPrice();
-        this.rentStatus = rentStatus;
+        this.rentStatus = deviceRentStatusEntity.isRentStatus();
     }
 
-    public static List<RentItem> getRentList(List<DeviceRentStatusEntity> deviceRentStatusEntities, List<NameList> name, boolean rentStatus) throws Exception {
+    // public static List<RentItem> getRentList(List<DeviceRentStatusEntity> deviceRentStatusEntities, List<String> name, boolean rentStatus) throws Exception {
         
-        List<RentItem> rentItems = new ArrayList<>();
+    //     List<RentItem> rentItems = new ArrayList<>();
 
-        for (DeviceRentStatusEntity deviceRentStatusEntity : deviceRentStatusEntities) {
-            RentItem rentItem = new RentItem(deviceRentStatusEntity, name, rentStatus);
-            rentItems.add(rentItem);
-        }
-        return rentItems;
-    }
+    //     for (DeviceRentStatusEntity deviceRentStatusEntity : deviceRentStatusEntities) {
+    //         RentItem rentItem = new RentItem(deviceRentStatusEntity, nameLists, rentStatus);
+    //         rentItems.add(rentItem);
+    //     }
+    //     return rentItems;
+    // }
 }
