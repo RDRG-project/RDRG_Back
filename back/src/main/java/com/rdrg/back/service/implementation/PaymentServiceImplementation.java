@@ -36,11 +36,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PaymentServiceImplementation implements PaymentService {
+    private final KakaoPayUtil kakaoPayUtil;
     private final UserRepository userRepository;
     private final DeviceRepository deviceRepository;
     private final PaymentRepository paymentRepository;
     private final RentDetailRepository rentDetailRepository;
-    private final KakaoPayUtil kakaoPayUtil;
     
     @Override
     public ResponseEntity<? super PostPaymentResponseDto> postPayment(PostPaymentRequestDto dto, String userId) {
@@ -135,5 +135,20 @@ public class PaymentServiceImplementation implements PaymentService {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> deletePayment(int rentNumber) {
+
+        try {
+            DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentNumber(rentNumber);
+            if (deviceRentStatusEntity == null) ResponseDto.noExistRentDetail();
+
+            paymentRepository.delete(deviceRentStatusEntity);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
     }
 }
