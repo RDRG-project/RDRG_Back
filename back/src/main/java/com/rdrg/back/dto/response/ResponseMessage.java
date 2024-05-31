@@ -18,4 +18,5 @@ public interface ResponseMessage {
     String MAIL_SEND_FAIL = "Mail send Failed.";
     String DATABASE_ERROR = "Database Error.";
     String NO_EXIST_USERID = "No Exist UserId";
+    String NO_EXIST_RENT_DETAIL = "No Exist Rent Detail";
 }

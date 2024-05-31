@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rdrg.back.dto.request.payment.PayRequestDto;
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentDetailListResponseDto;
@@ -62,6 +62,14 @@ public class PaymentController {
         @PathVariable("rentNumber") int rentNumber
     ) {
         ResponseEntity<? super GetPaymentDetailListResponseDto> response = paymentService.getPaymentDetailList(userId, rentNumber);
+        return response;
+    }
+
+    @DeleteMapping("/{rentNumber}")
+    public ResponseEntity<ResponseDto> deletePayment(
+        @PathVariable("rentNumber") int rentNumber
+    ) {
+        ResponseEntity<ResponseDto> response = paymentService.deletePayment(rentNumber);
         return response;
     }
 }
