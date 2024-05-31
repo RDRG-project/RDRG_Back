@@ -1,6 +1,5 @@
 package com.rdrg.back.dto.response.payment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
