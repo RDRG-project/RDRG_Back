@@ -1,18 +1,30 @@
 package com.rdrg.back.service.implementation;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestTemplate;
 
+import com.rdrg.back.common.object.KakaoReady;
 import com.rdrg.back.common.object.RentDetailList;
 import com.rdrg.back.common.object.RentItem;
+import com.rdrg.back.dto.request.payment.PayRequestDto;
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentDetailListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentResponseDto;
+import com.rdrg.back.dto.response.payment.PostPaymentResponseDto;
 import com.rdrg.back.entity.DeviceEntity;
 import com.rdrg.back.entity.DeviceRentStatusEntity;
 import com.rdrg.back.entity.RentDetailEntity;
@@ -34,8 +46,10 @@ public class PaymentServiceImplementation implements PaymentService {
     private final RentDetailRepository rentDetailRepository;
     
     @Override
-    public ResponseEntity<ResponseDto> postPayment(PostPaymentRequestDto dto, String userId) {
+    public ResponseEntity<? super PostPaymentResponseDto> postPayment(PostPaymentRequestDto dto, String userId) {
 
+        KakaoReady kakaoReady = null;
+        
         try {
             if ("대여중".equals(dto.isRentStatus())) return ResponseDto.notRentalDevice();
             
@@ -56,12 +70,42 @@ public class PaymentServiceImplementation implements PaymentService {
             }
 
             rentDetailRepository.saveAll(rentDetailEntities);
+            
+            String  orderId = UUID.randomUUID().toString();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "SECRET_KEY DEV8291A978A47FEE0D4640E8C4C4CF8DB4A4F75");
+            headers.set("Content-Type", "application/json");
+
+            Map<String, String> payParams = new HashMap<String, String>();
+
+            String totalAmount = dto.getRentTotalPrice().toString();
+            Integer vatAmount =  dto.getRentTotalPrice() / 11;
+
+            payParams.put("cid", "TC0ONETIME");
+            payParams.put("partner_order_id", orderId);
+            payParams.put("partner_user_id", "RDRG");
+            payParams.put("item_name", "RDRG 예약");
+            payParams.put("quantity", "1");
+            payParams.put("total_amount", totalAmount);
+            payParams.put("vat_amount", vatAmount.toString());
+            payParams.put("tax_free_amount", "0");
+            payParams.put("approval_url", "http://localhost:3000/rdrg/pay/success");
+            payParams.put("cancel_url", "http://localhost:3000/rdrg/pay/cancel" + rentNumber);
+            payParams.put("fail_url", "http://localhost:3000/rdrg/pay/fail/" + rentNumber);
+
+            HttpEntity<Map> request = new HttpEntity<>(payParams, headers);
+
+            RestTemplate template = new RestTemplate();
+            String url = "https://open-api.kakaopay.com/online/v1/payment/ready";
+
+            kakaoReady = template.postForObject(url, request, KakaoReady.class);
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return ResponseDto.success();
+        return PostPaymentResponseDto.success(kakaoReady);
     }
 
     @Override
@@ -123,5 +167,4 @@ public class PaymentServiceImplementation implements PaymentService {
             return ResponseDto.databaseError();
         }
     }
-
 }

@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rdrg.back.dto.request.payment.PayRequestDto;
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentDetailListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentResponseDto;
+import com.rdrg.back.dto.response.payment.PostPaymentResponseDto;
 import com.rdrg.back.service.PaymentService;
 
 import jakarta.validation.Valid;
@@ -28,12 +30,13 @@ public class PaymentController {
     
     private final PaymentService paymentService;
 
+
     @PostMapping("/save")
-    ResponseEntity<ResponseDto> postPayment(
+    ResponseEntity<? super PostPaymentResponseDto> postPayment(
         @RequestBody @Valid PostPaymentRequestDto requestBody,
         @AuthenticationPrincipal String userId, ArrayList<String> rentSerialNumber
     ) {
-        ResponseEntity<ResponseDto> response = paymentService.postPayment(requestBody, userId);
+        ResponseEntity<? super PostPaymentResponseDto> response = paymentService.postPayment(requestBody, userId);
         return response;
     }
 
