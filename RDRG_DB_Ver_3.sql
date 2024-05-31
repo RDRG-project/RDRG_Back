@@ -62,7 +62,7 @@ CREATE TABLE device_rent_status (
     rent_place VARCHAR(10) NOT NULL, # 대여장소
     rent_return_place VARCHAR(10) NOT NULL, # 반납장소
     rent_total_price int NOT NULL, # 총 합 가격
-    rent_status BOOLEAN, # 대여 가능한 상태
+    rent_status VARCHAR(50), # 대여 가능한 상태
     FOREIGN KEY (rent_user_id) REFERENCES user(user_id) ON DELETE CASCADE # 외래키 지정 (rent_user_id <= user.user_id)
 );
 
