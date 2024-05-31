@@ -47,6 +47,11 @@ public class ResponseDto {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
+    
+    public static ResponseEntity<ResponseDto> noExistRentDetail() {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_RENT_DETAIL, ResponseMessage.NO_EXIST_RENT_DETAIL);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
 
     public static ResponseEntity<ResponseDto> notRentalDevice() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NOT_RENTAL_DEVICE, ResponseMessage.NOT_RENTAL_DEVICE);

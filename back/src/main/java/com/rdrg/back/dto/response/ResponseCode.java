@@ -18,4 +18,5 @@ public interface ResponseCode {
     String MAIL_SEND_FAIL = "MF";
     String DATABASE_ERROR = "DBE";
     String NO_EXIST_USERID = "NU";
+    String NO_EXIST_RENT_DETAIL = "NRD";
 }
