@@ -1261,7 +1261,7 @@ curl -v -X POST "http://localhost:4500/rdbg/payment/myrentpage" \
 | type | String | 타입 | O
 | rentDatetime | Datetime | 대여 날짜 | O |
 | rentReturnDatetime | Datetime | 반납 날짜 | O |
-| rentStatus | boolean | 대여 상태 | O |
+| rentStatus | String | 대여 상태 | O |
 
 
 ###### Example

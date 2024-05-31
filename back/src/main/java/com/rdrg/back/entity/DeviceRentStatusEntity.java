@@ -30,7 +30,7 @@ public class DeviceRentStatusEntity {
     private String rentPlace;
     private String rentReturnPlace;
     private Integer rentTotalPrice;
-    private boolean rentStatus;
+    private String rentStatus;
 
     public DeviceRentStatusEntity (PostPaymentRequestDto dto, String userId) {
 
