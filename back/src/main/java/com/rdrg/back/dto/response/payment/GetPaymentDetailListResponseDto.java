@@ -22,7 +22,7 @@ public class GetPaymentDetailListResponseDto extends ResponseDto {
     private String rentReturnDatetime;
     private String rentPlace;
     private String rentReturnPlace;
-    private boolean rentStatus;
+    private String rentStatus;
     private Integer rentTotalPrice;
 
     private GetPaymentDetailListResponseDto(List<DeviceEntity> rentDetailList, DeviceRentStatusEntity deviceRentStatusEntity) throws Exception {
@@ -34,7 +34,7 @@ public class GetPaymentDetailListResponseDto extends ResponseDto {
         this.rentReturnDatetime = deviceRentStatusEntity.getRentReturnDatetime();
         this.rentPlace = deviceRentStatusEntity.getRentPlace();
         this.rentReturnPlace = deviceRentStatusEntity.getRentReturnPlace();
-        this.rentStatus = deviceRentStatusEntity.isRentStatus();
+        this.rentStatus = deviceRentStatusEntity.getRentStatus();
         this.rentTotalPrice = deviceRentStatusEntity.getRentTotalPrice();
     }
 
