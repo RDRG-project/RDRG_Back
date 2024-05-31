@@ -15,7 +15,7 @@ public class RentItem {
     private String rentDatetime;
     private String rentReturnDatetime;
     private Integer totalPrice;
-    private boolean rentStatus;
+    private String rentStatus;
 
     public RentItem(DeviceRentStatusEntity deviceRentStatusEntity, List<DeviceEntity> deviceEntities) throws Exception {
         List<String> name = new ArrayList<>();
@@ -26,7 +26,7 @@ public class RentItem {
         this.rentDatetime = deviceRentStatusEntity.getRentDatetime();
         this.rentReturnDatetime = deviceRentStatusEntity.getRentReturnDatetime();
         this.totalPrice = deviceRentStatusEntity.getRentTotalPrice();
-        this.rentStatus = deviceRentStatusEntity.isRentStatus();
+        this.rentStatus = deviceRentStatusEntity.getRentStatus();
     }
 
     // public static List<RentItem> getRentList(List<DeviceRentStatusEntity> deviceRentStatusEntities, List<String> name, boolean rentStatus) throws Exception {
