@@ -38,7 +38,7 @@ public class KakaoPayUtil {
             payParams.put("partner_order_id", orderId); // 가맹점 주문번호
             payParams.put("partner_user_id", "RDRG"); // 가맹점 회원 아이디
             payParams.put("item_name", "RDRG 예약"); // 상품명
-            payParams.put("quantity", "1");
+            payParams.put("quantity", "1"); // 수량
             payParams.put("total_amount", totalAmount);
             payParams.put("vat_amount", vatAmount.toString());
             payParams.put("tax_free_amount", "0");
