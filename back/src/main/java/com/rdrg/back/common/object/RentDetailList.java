@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.rdrg.back.entity.DeviceEntity;
+import com.rdrg.back.entity.RentDetailEntity;
 
 import lombok.Getter;
 
@@ -12,16 +13,16 @@ public class RentDetailList {
     private String name;
     private Integer price;
 
-    private RentDetailList(DeviceEntity deviceEntity) throws Exception {
-        this.name = deviceEntity.getName();
-        this.price = deviceEntity.getPrice();
+    private RentDetailList(RentDetailEntity rentDetailEntity) throws Exception {
+        this.name = rentDetailEntity.getName();
+        this.price = rentDetailEntity.getPrice();
     }
 
-    public static List<RentDetailList> getNamePriceList(List<DeviceEntity> deviceEntities) throws Exception {
+    public static List<RentDetailList> getNamePriceList(List<RentDetailEntity> rentDetailEntities) throws Exception {
         List<RentDetailList> rentDetailLists = new ArrayList<>();
 
-        for (DeviceEntity deviceEntity : deviceEntities) {
-            RentDetailList rentDetailList = new RentDetailList(deviceEntity);
+        for (RentDetailEntity rentDetailEntity : rentDetailEntities) {
+            RentDetailList rentDetailList = new RentDetailList(rentDetailEntity);
             rentDetailLists.add(rentDetailList);
         }
         return rentDetailLists;

@@ -20,9 +20,13 @@ public class RentDetailEntity {
     private Integer rentDetailNumber;
     private Integer rentNumber;
     private String serialNumber;
+    private String name;
+    private Integer price;
 
-    public RentDetailEntity(Integer rentNumber, String serialNumber) {
+    public RentDetailEntity(Integer rentNumber, DeviceEntity deviceEntity) {
         this.rentNumber = rentNumber;
-        this.serialNumber = serialNumber;
+        this.serialNumber = deviceEntity.getSerialNumber();
+        this.name = deviceEntity.getName();
+        this.price = deviceEntity.getPrice();
     }
 }
