@@ -57,12 +57,13 @@ public class PaymentServiceImplementation implements PaymentService {
             paymentRepository.save(deviceRentStatusEntity);
 
             List<String> rentSerialNumbers = dto.getRentSerialNumber();
+            List<DeviceEntity> deviceEntities = deviceRepository.findAllById(rentSerialNumbers);
             
             List<RentDetailEntity> rentDetailEntities = new ArrayList<>();
             Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
 
-            for (String rentSeralNumber: rentSerialNumbers) {
-                RentDetailEntity rentDetailEntity = new RentDetailEntity(rentNumber, rentSeralNumber);
+            for (DeviceEntity deviceEntity: deviceEntities) {
+                RentDetailEntity rentDetailEntity = new RentDetailEntity(rentNumber, deviceEntity);
                 rentDetailEntities.add(rentDetailEntity);
             }
 
@@ -107,8 +108,8 @@ public class PaymentServiceImplementation implements PaymentService {
 
             for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
                 Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
-                List<DeviceEntity> deviceEntities = deviceRepository.findRentDevices(rentNumber);
-                RentItem rentItem = new RentItem(deviceRentStatusEntity, deviceEntities);
+                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+                RentItem rentItem = new RentItem(deviceRentStatusEntity, rentDetailEntities);
                 rentList.add(rentItem);
             }
             
@@ -127,9 +128,9 @@ public class PaymentServiceImplementation implements PaymentService {
 
             DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentNumber(rentNumber);
             
-            List<DeviceEntity> deviceEntities = deviceRepository.findRentDevices(rentNumber);
+            List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
 
-            return GetPaymentDetailListResponseDto.success(deviceRentStatusEntity, deviceEntities);
+            return GetPaymentDetailListResponseDto.success(deviceRentStatusEntity, rentDetailEntities);
 
         } catch (Exception exception) {
             exception.printStackTrace();

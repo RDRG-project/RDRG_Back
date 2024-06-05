@@ -9,8 +9,8 @@ import com.rdrg.back.common.object.RentDetailList;
 import com.rdrg.back.dto.response.ResponseCode;
 import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.ResponseMessage;
-import com.rdrg.back.entity.DeviceEntity;
 import com.rdrg.back.entity.DeviceRentStatusEntity;
+import com.rdrg.back.entity.RentDetailEntity;
 
 import lombok.Getter;
 
@@ -25,11 +25,11 @@ public class GetPaymentDetailListResponseDto extends ResponseDto {
     private String rentStatus;
     private Integer rentTotalPrice;
 
-    private GetPaymentDetailListResponseDto(List<DeviceEntity> rentDetailList, DeviceRentStatusEntity deviceRentStatusEntity) throws Exception {
+    private GetPaymentDetailListResponseDto( List<RentDetailEntity> rentDetailEntities, DeviceRentStatusEntity deviceRentStatusEntity) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
 
         this.rentNumber = deviceRentStatusEntity.getRentNumber();
-        this.rentDetailList = RentDetailList.getNamePriceList(rentDetailList);
+        this.rentDetailList = RentDetailList.getNamePriceList(rentDetailEntities);
         this.rentDatetime = deviceRentStatusEntity.getRentDatetime();
         this.rentReturnDatetime = deviceRentStatusEntity.getRentReturnDatetime();
         this.rentPlace = deviceRentStatusEntity.getRentPlace();
@@ -38,8 +38,8 @@ public class GetPaymentDetailListResponseDto extends ResponseDto {
         this.rentTotalPrice = deviceRentStatusEntity.getRentTotalPrice();
     }
 
-    public static ResponseEntity<GetPaymentDetailListResponseDto> success(DeviceRentStatusEntity deviceRentStatusEntity, List<DeviceEntity> deviceEntities) throws Exception {
-        GetPaymentDetailListResponseDto responseBody = new GetPaymentDetailListResponseDto(deviceEntities, deviceRentStatusEntity);
+    public static ResponseEntity<GetPaymentDetailListResponseDto> success(DeviceRentStatusEntity deviceRentStatusEntity, List<RentDetailEntity> rentDetailEntities) throws Exception {
+        GetPaymentDetailListResponseDto responseBody = new GetPaymentDetailListResponseDto(rentDetailEntities, deviceRentStatusEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 

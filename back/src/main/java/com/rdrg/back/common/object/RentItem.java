@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.rdrg.back.entity.DeviceEntity;
 import com.rdrg.back.entity.DeviceRentStatusEntity;
+import com.rdrg.back.entity.RentDetailEntity;
 
 import lombok.Getter;
 
@@ -17,9 +18,9 @@ public class RentItem {
     private Integer totalPrice;
     private String rentStatus;
 
-    public RentItem(DeviceRentStatusEntity deviceRentStatusEntity, List<DeviceEntity> deviceEntities) throws Exception {
+    public RentItem(DeviceRentStatusEntity deviceRentStatusEntity, List<RentDetailEntity> rentDetailEntities) throws Exception {
         List<String> name = new ArrayList<>();
-        for (DeviceEntity deviceEntity: deviceEntities) name.add(deviceEntity.getName());
+        for (RentDetailEntity rentDetailEntity: rentDetailEntities) name.add(rentDetailEntity.getName());
 
         this.rentNumber = deviceRentStatusEntity.getRentNumber();
         this.name = name;
