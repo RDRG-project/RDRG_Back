@@ -58,6 +58,12 @@ public class PaymentController {
         return response;
     }
 
+    @GetMapping("/adminrentpage")
+    public ResponseEntity<? super GetPaymentListResponseDto> getAdminPaymentList() {
+        ResponseEntity<? super GetPaymentListResponseDto> response = paymentService.getAdminPaymentList();
+        return response;
+    }
+
     @GetMapping("/myrentpage/{rentNumber}")
     public ResponseEntity<? super GetPaymentDetailListResponseDto> getPaymentDetailList(
         @AuthenticationPrincipal String userId,
