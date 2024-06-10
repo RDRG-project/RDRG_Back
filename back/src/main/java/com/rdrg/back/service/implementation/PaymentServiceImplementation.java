@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import com.rdrg.back.common.object.KakaoReady;
 import com.rdrg.back.common.object.RentItem;
 import com.rdrg.back.common.util.KakaoPayUtil;
+import com.rdrg.back.dto.request.payment.PatchRentStatusResponseDto;
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentDetailListResponseDto;
@@ -146,6 +147,23 @@ public class PaymentServiceImplementation implements PaymentService {
             if (deviceRentStatusEntity == null) ResponseDto.noExistRentDetail();
 
             paymentRepository.delete(deviceRentStatusEntity);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> patchRentStatus(int rentNumber, PatchRentStatusResponseDto patchRentStatusResponseDto ) {
+
+        try {
+            DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentNumber(rentNumber);
+            if (deviceRentStatusEntity == null) ResponseDto.noExistRentDetail();
+
+            deviceRentStatusEntity.setRentStatus(patchRentStatusResponseDto.getRentStatus());
+            paymentRepository.save(deviceRentStatusEntity);
+            
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
