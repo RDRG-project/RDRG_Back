@@ -23,6 +23,7 @@ import com.rdrg.back.dto.response.payment.GetAdminPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentDetailListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentResponseDto;
+import com.rdrg.back.dto.response.payment.GetSearchAdminPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.PostPaymentResponseDto;
 import com.rdrg.back.entity.DeviceEntity;
 import com.rdrg.back.entity.DeviceRentStatusEntity;
@@ -189,6 +190,29 @@ public class PaymentServiceImplementation implements PaymentService {
             }
             
             return GetAdminPaymentListResponseDto.success(adminRentList);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    @Override
+    public ResponseEntity<? super GetSearchAdminPaymentListResponseDto> getSearchAdminPaymentList(String searchWord) {
+        
+        try {
+
+            List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByRentUserIdOrderByRentNumberDesc(searchWord);
+
+            List<AdminRentItem> adminRentList = new ArrayList<>();
+
+            for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
+                Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
+                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+                AdminRentItem adminRentItem = new AdminRentItem(deviceRentStatusEntity, rentDetailEntities);
+                adminRentList.add(adminRentItem);
+            }
+            
+            return GetSearchAdminPaymentListResponseDto.success(adminRentList);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
