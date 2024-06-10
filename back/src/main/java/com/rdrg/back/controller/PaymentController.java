@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rdrg.back.dto.request.payment.PatchRentStatusResponseDto;
@@ -19,6 +20,7 @@ import com.rdrg.back.dto.response.ResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentDetailListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentResponseDto;
+import com.rdrg.back.dto.response.payment.GetSearchAdminPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.PostPaymentResponseDto;
 import com.rdrg.back.service.PaymentService;
 
@@ -61,6 +63,15 @@ public class PaymentController {
     @GetMapping("/adminrentpage")
     public ResponseEntity<? super GetPaymentListResponseDto> getAdminPaymentList() {
         ResponseEntity<? super GetPaymentListResponseDto> response = paymentService.getAdminPaymentList();
+        return response;
+    }
+
+    @GetMapping("/adminrentpage/{word}")
+    public ResponseEntity<? super GetSearchAdminPaymentListResponseDto> getSearchAdminPaymentList(
+        @PathVariable("word") String word
+
+    ){
+        ResponseEntity<? super GetSearchAdminPaymentListResponseDto> response = paymentService.getSearchAdminPaymentList(word);
         return response;
     }
 
