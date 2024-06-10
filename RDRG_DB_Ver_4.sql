@@ -73,7 +73,7 @@ CREATE TABLE rent_detail (
     serial_number VARCHAR(255) NOT NULL,
     name VARCHAR(50) NOT NULL,
     price INT NOT NULL,
-    FOREIGN KEY (rent_number) REFERENCES device_rent_status(rent_number) ON DELETE CASCADE, #  대여내역 테이블의 대여 정보 확인용
+    FOREIGN KEY (rent_number) REFERENCES device_rent_status(rent_number) ON DELETE CASCADE #  대여내역 테이블의 대여 정보 확인용
 );
 
 
