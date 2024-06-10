@@ -12,12 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.rdrg.back.common.object.AdminRentItem;
 import com.rdrg.back.common.object.KakaoReady;
 import com.rdrg.back.common.object.RentItem;
 import com.rdrg.back.common.util.KakaoPayUtil;
 import com.rdrg.back.dto.request.payment.PatchRentStatusResponseDto;
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 import com.rdrg.back.dto.response.ResponseDto;
+import com.rdrg.back.dto.response.payment.GetAdminPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentDetailListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentListResponseDto;
 import com.rdrg.back.dto.response.payment.GetPaymentResponseDto;
@@ -169,5 +171,27 @@ public class PaymentServiceImplementation implements PaymentService {
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super GetPaymentListResponseDto> getAdminPaymentList() {
+        
+        try {
+            List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByOrderByRentNumberDesc();
+
+            List<AdminRentItem> adminRentList = new ArrayList<>();
+
+            for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
+                Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
+                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+                AdminRentItem adminRentItem = new AdminRentItem(deviceRentStatusEntity, rentDetailEntities);
+                adminRentList.add(adminRentItem);
+            }
+            
+            return GetAdminPaymentListResponseDto.success(adminRentList);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
     }
 }
