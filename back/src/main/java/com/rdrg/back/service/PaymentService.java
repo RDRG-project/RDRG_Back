@@ -14,6 +14,7 @@ public interface PaymentService {
     ResponseEntity<? super PostPaymentResponseDto> postPayment(PostPaymentRequestDto dto, String userId);
     ResponseEntity<? super GetPaymentResponseDto> getPayment(String userId);
     ResponseEntity<? super GetPaymentListResponseDto> getPaymentList(String rentUserId);
+    ResponseEntity<? super GetPaymentListResponseDto> getAdminPaymentList();
     ResponseEntity<? super GetPaymentDetailListResponseDto> getPaymentDetailList(String rentUserId, int rentNumber);
     ResponseEntity<ResponseDto> deletePayment(int rentNumber);
     ResponseEntity<ResponseDto> patchRentStatus(int rentNumber, PatchRentStatusResponseDto patchRentStatusResponseDto);
