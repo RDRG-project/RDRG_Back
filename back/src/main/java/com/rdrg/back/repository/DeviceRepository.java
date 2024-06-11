@@ -16,17 +16,27 @@ public interface DeviceRepository extends JpaRepository<DeviceEntity, String> {
 
     boolean existsBySerialNumber(String serialNumber);
 
-    @Query("SELECT ds FROM DevicesStatus ds WHERE ds.serialNumber NOT IN " +
-                    "(SELECT rd.serialNumber FROM RentDetail rd WHERE rd.rentNumber IN " +
-                    "(SELECT drs.rentNumber FROM DeviceRentStatus drs WHERE " +
-                    "(drs.rentDatetime < :inputRentDatetime AND drs.rentReturnDatetime > :inputReturnDatetime) OR " +
-                    "(drs.rentDatetime < :inputReturnDatetime AND drs.rentReturnDatetime > :inputReturnDatetime) OR " +
-                    "(drs.rentDatetime > :inputRentDatetime AND drs.rentReturnDatetime < :inputReturnDatetime)))")
-    List<DeviceEntity> findAvailableDevices(@Param("inputRentDatetime") String inputRentDatetime,
-        @Param("inputReturnDatetime") String inputReturnDatetime);
+    // @Query("SELECT ds FROM DevicesStatus ds WHERE ds.serialNumber NOT IN " +
+    //                 "(SELECT rd.serialNumber FROM RentDetail rd WHERE rd.rentNumber IN " +
+    //                 "(SELECT drs.rentNumber FROM DeviceRentStatus drs WHERE " +
+    //                 "(drs.rentDatetime < :inputRentDatetime AND drs.rentReturnDatetime > :inputReturnDatetime) OR " +
+    //                 "(drs.rentDatetime < :inputReturnDatetime AND drs.rentReturnDatetime > :inputReturnDatetime) OR " +
+    //                 "(drs.rentDatetime > :inputRentDatetime AND drs.rentReturnDatetime < :inputReturnDatetime)))")
+    // List<DeviceEntity> findAvailableDevices(@Param("inputRentDatetime") String inputRentDatetime,
+    //     @Param("inputReturnDatetime") String inputReturnDatetime);
 
-    @Query("SELECT ds FROM DevicesStatus ds " +
-        "WHERE ds.serialNumber IN (SELECT rd.serialNumber FROM RentDetail rd WHERE rd.rentNumber = :rentNumber)"
-    )
-    List<DeviceEntity> findRentDevices(@Param("rentNumber") Integer rentNumber);
+        @Query("SELECT ds FROM DevicesStatus ds WHERE ds.place = :inputPlace AND ds.serialNumber NOT IN " +
+        "(SELECT rd.serialNumber FROM RentDetail rd WHERE rd.rentNumber IN " +
+        "(SELECT drs.rentNumber FROM DeviceRentStatus drs WHERE " +
+        "(drs.rentDatetime < :inputRentDatetime AND drs.rentReturnDatetime > :inputReturnDatetime) OR " +
+        "(drs.rentDatetime < :inputReturnDatetime AND drs.rentReturnDatetime > :inputReturnDatetime) OR " +
+        "(drs.rentDatetime > :inputRentDatetime AND drs.rentReturnDatetime < :inputReturnDatetime)))")
+List<DeviceEntity> findAvailableDevices(
+    @Param("inputRentDatetime") String inputRentDatetime,
+    @Param("inputReturnDatetime") String inputReturnDatetime,
+    @Param("inputPlace") String inputPlace);
+
+    // @Query("SELECT ds FROM DevicesStatus ds " +
+    //     "WHERE ds.serialNumber IN (SELECT rd.serialNumber FROM RentDetail rd WHERE rd.rentNumber = :rentNumber)")
+    // List<DeviceEntity> findRentDevices(@Param("rentNumber") Integer rentNumber);
 }

@@ -17,6 +17,7 @@ public class DeviceListItem {
     private String brand;
     private Integer price;
     private String devicesImgUrl;
+    private String place;
 
     private DeviceListItem(DeviceEntity deviceEntity) throws Exception {
         this.serialNumber = deviceEntity.getSerialNumber();
@@ -27,6 +28,7 @@ public class DeviceListItem {
         this.brand = deviceEntity.getBrand();
         this.price = deviceEntity.getPrice();
         this.devicesImgUrl = deviceEntity.getDevicesImgUrl();
+        this.place = deviceEntity.getPlace();
     }
 
     public static List<DeviceListItem> getList(List<DeviceEntity> deviceEntities) throws Exception {

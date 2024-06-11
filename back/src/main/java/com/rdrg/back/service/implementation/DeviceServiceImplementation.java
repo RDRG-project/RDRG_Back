@@ -37,10 +37,10 @@ public class DeviceServiceImplementation implements DeviceService {
     }
 
     @Override
-    public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList(String inputRentDatetime, String inputReturnDatetime) {
+    public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList(String inputRentDatetime, String inputReturnDatetime, String inputPlace) {
         
         try {
-            List<DeviceEntity> deviceEntities = deviceRepository.findAvailableDevices(inputRentDatetime, inputReturnDatetime);
+            List<DeviceEntity> deviceEntities = deviceRepository.findAvailableDevices(inputRentDatetime, inputReturnDatetime, inputPlace);
             return GetDeviceListResponseDto.success(deviceEntities);
         } catch (Exception exception) {
             exception.printStackTrace();
