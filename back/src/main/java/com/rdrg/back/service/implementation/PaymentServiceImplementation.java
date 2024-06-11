@@ -170,7 +170,7 @@ public class PaymentServiceImplementation implements PaymentService {
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
-        }
+        }   
         return ResponseDto.success();
     }
 
