@@ -25,4 +25,6 @@ public class PostDeviceRequestDto {
     @NotNull
     private Integer price;
     private String devicesImgUrl;
+    @NotNull
+    private String place;
 }
