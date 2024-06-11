@@ -66,9 +66,9 @@ public class PaymentController {
         return response;
     }
 
-    @GetMapping("/adminrentpage/{word}")
+    @GetMapping("/adminrent/search")
     public ResponseEntity<? super GetSearchAdminPaymentListResponseDto> getSearchAdminPaymentList(
-        @PathVariable("word") String word
+        @RequestParam("word") String word
 
     ){
         ResponseEntity<? super GetSearchAdminPaymentListResponseDto> response = paymentService.getSearchAdminPaymentList(word);
