@@ -165,6 +165,20 @@ public class PaymentServiceImplementation implements PaymentService {
             if (deviceRentStatusEntity == null) ResponseDto.noExistRentDetail();
 
             deviceRentStatusEntity.setRentStatus(patchRentStatusResponseDto.getRentStatus());
+
+            if("반납 완료".equals(patchRentStatusResponseDto.getRentStatus())){
+                String returnPlace = deviceRentStatusEntity.getRentReturnPlace();
+                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+                for (RentDetailEntity rentDetailEntity : rentDetailEntities) {
+                    String serialNumber = rentDetailEntity.getSerialNumber();
+                    DeviceEntity deviceEntity = deviceRepository.findBySerialNumber(serialNumber);
+                    if (deviceEntity != null) {
+                        deviceEntity.setPlace(returnPlace);
+                        deviceRepository.save(deviceEntity);
+                }
+            }
+        }
+
             paymentRepository.save(deviceRentStatusEntity);
             
         } catch (Exception exception) {
