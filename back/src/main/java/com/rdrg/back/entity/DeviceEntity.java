@@ -26,6 +26,7 @@ public class DeviceEntity {
     private String brand;
     private Integer price;
     private String devicesImgUrl;
+    private String location;
 
     public DeviceEntity(PostDeviceRequestDto dto, String serialNumber) {
         this.serialNumber = dto.getSerialNumber();
