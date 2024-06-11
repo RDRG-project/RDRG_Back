@@ -6,7 +6,6 @@ import com.rdrg.back.dto.request.board.PutBoardRequestDto;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
-import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
