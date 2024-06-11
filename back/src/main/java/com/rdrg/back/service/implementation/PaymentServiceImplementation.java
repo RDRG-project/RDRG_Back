@@ -173,7 +173,7 @@ public class PaymentServiceImplementation implements PaymentService {
                     String serialNumber = rentDetailEntity.getSerialNumber();
                     DeviceEntity deviceEntity = deviceRepository.findBySerialNumber(serialNumber);
                     if (deviceEntity != null) {
-                        deviceEntity.setLocation(returnPlace);
+                        deviceEntity.setPlace(returnPlace);
                         deviceRepository.save(deviceEntity);
                 }
             }
