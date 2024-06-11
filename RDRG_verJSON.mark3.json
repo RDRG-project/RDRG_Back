@@ -7,7 +7,8 @@
     "type": "노트북",
     "brand": "삼성",
     "price": 7000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/886/344/img/38344886_1.jpg?shrink=330:*&_v=20240422103251"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/886/344/img/38344886_1.jpg?shrink=330:*&_v=20240422103251",
+    "place":"서울"
   },
   {
     "serial_number": "laptop-samsung-02",
@@ -17,7 +18,8 @@
     "type": "노트북",
     "brand": "삼성",
     "price": 7000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/397/200/img/38200397_1.jpg?shrink=500:*&_v=20240422105108"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/397/200/img/38200397_1.jpg?shrink=500:*&_v=20240422105108",
+    "place":"서울"
   },
   {
     "serial_number": "laptop-samsung-03",
@@ -27,7 +29,8 @@
     "type": "노트북",
     "brand": "삼성",
     "price": 6500,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/608/936/img/18936608_1.jpg?shrink=500:500"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/608/936/img/18936608_1.jpg?shrink=500:500",
+    "place":"서울"
   },
   {
     "serial_number": "laptop-samsung-04",
@@ -37,7 +40,8 @@
     "type": "노트북",
     "brand": "삼성",
     "price": 5000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/823/227/img/17227823_1.jpg?shrink=500:*&_v=20231102082928"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/823/227/img/17227823_1.jpg?shrink=500:*&_v=20231102082928",
+    "place":"서울"
   },
   {
     "serial_number": "laptop-apple-01",
@@ -46,8 +50,9 @@
     "device_explain": "노트북 / 운영체제(OS): macOS Sonoma /\n화면정보 34.5cm(13.6인치) / 2560x1664(224ppi) / 500nit /\nCPU 애플(ARM) / M3 / 옥타코어(4P+4E) /\n램 램 용량: 8GB / 램 교체: 불가능 /\n그래픽 내장그래픽 / M3 / 10core /\n저장장치 SSD / 512GB /\n네트워크 무선랜: 802.11ax(Wi-Fi 6E) /\n영상입출력 DP Alt Mode / 웹캠(FHD) /\n단자 썬더볼트3: 2개(USB-C겸용) /\n부가기능 지문 인식 /\n입력장치 키보드 라이트 / ㅗ형 방향키 /\n파워 배터리: 52.6Wh / 어댑터: 35W (듀얼 USB-C포트) / 전원: USB-PD(+맥세이프3) / 최대18시간 /\n주요제원 두께: 11.3mm / 무게: 1.24kg / 쿨링팬: 없음(팬리스) / 색상: 그레이",
     "type": "노트북",
     "brand": "애플",
-    "price": 55000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/296/249/img/39249296_1.jpg?shrink=500:*&_v=20240516113455"
+    "price": 4500,
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/296/249/img/39249296_1.jpg?shrink=500:*&_v=20240516113455",
+    "place":"서울"
   },
   {
     "serial_number": "laptop-apple-02",
@@ -57,7 +62,8 @@
     "type": "노트북",
     "brand": "애플",
     "price": 4500,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/218/249/img/39249218_1.jpg?shrink=500:*&_v=20240327102627"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/218/249/img/39249218_1.jpg?shrink=500:*&_v=20240327102627",
+    "place":"서울"
   },
   {
     "serial_number": "laptop-apple-03",
@@ -67,7 +73,8 @@
     "type": "노트북",
     "brand": "애플",
     "price": 4500,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/993/248/img/39248993_1.jpg?shrink=500:*&_v=20240327093951"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/993/248/img/39248993_1.jpg?shrink=500:*&_v=20240327093951",
+    "place":"서울"
   },
   {
     "serial_number": "laptop-apple-04",
@@ -77,7 +84,8 @@
     "type": "노트북",
     "brand": "애플",
     "price": 4500,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/161/249/img/39249161_1.jpg?shrink=500:*&_v=20240327093951"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/161/249/img/39249161_1.jpg?shrink=500:*&_v=20240327093951",
+    "place":"서울"
   },
   {
     "serial_number": "tablet-samsung-01",
@@ -87,7 +95,8 @@
     "type": "태블릿",
     "brand": "삼성",
     "price": 4000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/767/312/img/30312767_3.jpg?shrink=500:*&_v=20240103111041"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/767/312/img/30312767_3.jpg?shrink=500:*&_v=20240103111041",
+    "place":"서울"
   },
   {
     "serial_number": "tablet-samsung-02",
@@ -97,7 +106,8 @@
     "type": "태블릿",
     "brand": "삼성",
     "price": 4500,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/806/312/img/30312806_1.jpg?shrink=500:*&_v=20240103110223"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/806/312/img/30312806_1.jpg?shrink=500:*&_v=20240103110223",
+    "place":"서울"
   },
   {
     "serial_number": "tablet-samsung-03",
@@ -107,7 +117,8 @@
     "type": "태블릿",
     "brand": "삼성",
     "price": 5000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/102/298/img/22298102_1.jpg?shrink=500:*&_v=20240404111721"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/102/298/img/22298102_1.jpg?shrink=500:*&_v=20240404111721",
+    "place":"서울"
   },
   {
     "serial_number": "tablet-samsung-04",
@@ -117,7 +128,8 @@
     "type": "태블릿",
     "brand": "삼성",
     "price": 5500,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/530/044/img/22044530_1.jpg?shrink=500:*&_v=20240404111812"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/530/044/img/22044530_1.jpg?shrink=500:*&_v=20240404111812",
+    "place":"서울"
   },
   {
     "serial_number": "tablet-apple-01",
@@ -127,7 +139,8 @@
     "type": "태블릿",
     "brand": "애플",
     "price": 4000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/752/036/img/18036752_2.jpg?shrink=500:*&_v=20240513173243"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/752/036/img/18036752_2.jpg?shrink=500:*&_v=20240513173243",
+    "place":"서울"
   },
   {
     "serial_number": "tablet-apple-02",
@@ -137,7 +150,8 @@
     "type": "태블릿",
     "brand": "애플",
     "price": 4500,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/971/036/img/18036971_2.jpg?shrink=500:*&_v=20240513172037"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/971/036/img/18036971_2.jpg?shrink=500:*&_v=20240513172037",
+    "place":"서울"
   },
   {
     "serial_number": "tablet-apple-03",
@@ -147,7 +161,8 @@
     "type": "태블릿",
     "brand": "애플",
     "price": 6000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/280/037/img/18037280_2.jpg?shrink=500:*&_v=20240513172036"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/280/037/img/18037280_2.jpg?shrink=500:*&_v=20240513172036",
+    "place":"서울"
   },
   {
     "serial_number": "tablet-apple-04",
@@ -157,7 +172,8 @@
     "type": "태블릿",
     "brand": "애플",
     "price": 3500,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/127/558/img/16558127_2.jpg?shrink=500:*&_v=20240513172758"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/127/558/img/16558127_2.jpg?shrink=500:*&_v=20240513172758",
+    "place":"서울"
   },
   {
     "serial_number": "console-device-01",
@@ -167,7 +183,8 @@
     "type": "게임기",
     "brand": "닌텐도",
     "price": 3000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/867/678/img/14678867_1.jpg?shrink=500:*&_v=20240509093235"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/867/678/img/14678867_1.jpg?shrink=500:*&_v=20240509093235",
+    "place":"서울"
   },
   {
     "serial_number": "console-device-02",
@@ -177,7 +194,8 @@
     "type": "게임기",
     "brand": "닌텐도",
     "price": 3000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/867/678/img/14678867_1.jpg?shrink=500:*&_v=20240509093235"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/867/678/img/14678867_1.jpg?shrink=500:*&_v=20240509093235",
+    "place":"서울"
   },
   {
     "serial_number": "console-device-03",
@@ -187,7 +205,8 @@
     "type": "게임기",
     "brand": "닌텐도",
     "price": 3000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/867/678/img/14678867_1.jpg?shrink=500:*&_v=20240509093235"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/867/678/img/14678867_1.jpg?shrink=500:*&_v=20240509093235",
+    "place":"서울"
   },
   {
     "serial_number": "console-device-04",
@@ -197,7 +216,8 @@
     "type": "게임기",
     "brand": "닌텐도",
     "price": 3000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/867/678/img/14678867_1.jpg?shrink=500:*&_v=20240509093235"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/867/678/img/14678867_1.jpg?shrink=500:*&_v=20240509093235",
+    "place":"서울"
   },
   {
     "serial_number": "console-title-01",
@@ -207,7 +227,8 @@
     "type": "타이틀",
     "brand": "닌텐도",
     "price": 500,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/155/255/img/39255155_1.jpg?shrink=500:500"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/155/255/img/39255155_1.jpg?shrink=500:500",
+    "place":"서울"
   },
   {
     "serial_number": "console-title-02",
@@ -217,7 +238,8 @@
     "type": "타이틀",
     "brand": "닌텐도",
     "price": 500,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/775/661/img/27661775_1.jpg?shrink=500:*&_v=20240501112225\\"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/775/661/img/27661775_1.jpg?shrink=500:*&_v=20240501112225\\",
+    "place":"서울"
   },
   {
     "serial_number": "console-title-03",
@@ -227,7 +249,8 @@
     "type": "타이틀",
     "brand": "닌텐도",
     "price": 500,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/348/347/img/15347348_1.jpg?shrink=500:*&_v=20230920144015"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/348/347/img/15347348_1.jpg?shrink=500:*&_v=20230920144015",
+    "place":"서울"
   },
   {
     "serial_number": "console-title-04",
@@ -237,7 +260,8 @@
     "type": "타이틀",
     "brand": "닌텐도",
     "price": 500,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/810/094/img/16094810_1.jpg?shrink=500:*&_v=20240430101021"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/810/094/img/16094810_1.jpg?shrink=500:*&_v=20240430101021",
+    "place":"서울"
   },
   {
     "serial_number": "suppl-battery-01",
@@ -247,7 +271,8 @@
     "type": "보조배터리",
     "brand": "삼성",
     "price": 1000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/972/284/img/42284972_4.jpg?shrink=500:*&_v=20240319110325"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/972/284/img/42284972_4.jpg?shrink=500:*&_v=20240319110325",
+    "place":"부산"
   },
   {
     "serial_number": "suppl-battery-02",
@@ -257,7 +282,8 @@
     "type": "보조배터리",
     "brand": "삼성",
     "price": 1000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/972/284/img/42284972_4.jpg?shrink=500:*&_v=20240319110325"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/972/284/img/42284972_4.jpg?shrink=500:*&_v=20240319110325",
+    "place":"부산"
   },
   {
     "serial_number": "suppl-battery-03",
@@ -267,7 +293,8 @@
     "type": "보조배터리",
     "brand": "삼성",
     "price": 1000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/972/284/img/42284972_4.jpg?shrink=500:*&_v=20240319110325"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/972/284/img/42284972_4.jpg?shrink=500:*&_v=20240319110325",
+    "place":"부산"
   },
   {
     "serial_number": "suppl-battery-04",
@@ -277,6 +304,7 @@
     "type": "보조배터리",
     "brand": "삼성",
     "price": 1000,
-    "devices_img_url": "https://img.danawa.com/prod_img/500000/972/284/img/42284972_4.jpg?shrink=500:*&_v=20240319110325"
+    "devices_img_url": "https://img.danawa.com/prod_img/500000/972/284/img/42284972_4.jpg?shrink=500:*&_v=20240319110325",
+    "place":"부산"
   }
 ]

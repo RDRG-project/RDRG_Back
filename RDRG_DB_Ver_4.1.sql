@@ -29,7 +29,8 @@ CREATE TABLE devices_status (
     type VARCHAR(20) NOT NULL, # 제품 타입 (노트북, 테블릿, 게임기 등등)
     brand VARCHAR(20) NOT NULL, # 제품 브랜드
     price INT NOt NULL, # 대여 가격(1일 기준)
-    devices_img_url VARCHAR(255) NOT NULL # 디바이스 이미지 URL
+    devices_img_url VARCHAR(255) NOT NULL, # 디바이스 이미지 URL
+    place VARCHAR(20) NOT NULL
 );
 
 
