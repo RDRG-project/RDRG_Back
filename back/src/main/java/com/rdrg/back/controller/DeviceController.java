@@ -39,9 +39,10 @@ public class DeviceController {
     @GetMapping("/list")
     public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList(
         @RequestParam("start") String rentDatetime,
-        @RequestParam("end") String restReturnDatetime
+        @RequestParam("end") String rentReturnDatetime,
+        @RequestParam("place") String place
     ) {
-        ResponseEntity<? super GetDeviceListResponseDto> response = deviceService.getDeviceList(rentDatetime, restReturnDatetime);
+        ResponseEntity<? super GetDeviceListResponseDto> response = deviceService.getDeviceList(rentDatetime, rentReturnDatetime, place);
         return response;
     }
 
