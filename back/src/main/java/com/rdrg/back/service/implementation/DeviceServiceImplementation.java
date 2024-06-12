@@ -49,6 +49,20 @@ public class DeviceServiceImplementation implements DeviceService {
     }
 
     @Override
+    public ResponseEntity<? super GetDeviceListResponseDto> getAdminDeviceList() {
+
+        try {
+
+            List<DeviceEntity> deviceEntities = deviceRepository.findAll();
+            return GetDeviceListResponseDto.success(deviceEntities);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    @Override
     public ResponseEntity<ResponseDto> deleteDevice(String serialNumber) {
         
         try {
