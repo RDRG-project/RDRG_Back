@@ -52,8 +52,7 @@ public class PaymentServiceImplementation implements PaymentService {
         KakaoReady kakaoReady = null;
         
         try {
-            if ("대여중".equals(dto.getRentStatus())) return ResponseDto.notRentalDevice();
-            
+
             boolean isExistUser = userRepository.existsByUserId(userId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
 
@@ -74,6 +73,9 @@ public class PaymentServiceImplementation implements PaymentService {
             rentDetailRepository.saveAll(rentDetailEntities);
             
             kakaoReady = kakaoPayUtil.prepareKakaoPayment(dto, rentNumber);
+
+            deviceRentStatusEntity.setRentStatus("결제 완료");
+            paymentRepository.save(deviceRentStatusEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();
