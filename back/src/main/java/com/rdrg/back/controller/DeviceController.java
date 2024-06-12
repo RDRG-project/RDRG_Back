@@ -53,4 +53,13 @@ public class DeviceController {
         ResponseEntity<ResponseDto> response = deviceService.deleteDevice(serialNumber);
         return response;
     }
+
+    @GetMapping("/adminlist")
+    public ResponseEntity<? super GetDeviceListResponseDto> getAdminDeviceLIst() {
+
+        ResponseEntity<? super GetDeviceListResponseDto> response = deviceService.getAdminDeviceList();
+        
+        return response;
+        
+    }
 }
