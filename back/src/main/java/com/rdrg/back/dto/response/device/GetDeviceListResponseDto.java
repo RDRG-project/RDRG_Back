@@ -16,6 +16,7 @@ import com.rdrg.back.entity.DeviceEntity;
 @Getter
 public class GetDeviceListResponseDto extends ResponseDto {
     private List<DeviceListItem> deviceList;
+    private List<DeviceListItem> adminDeviceLIst;
     
     private GetDeviceListResponseDto(List<DeviceEntity> deviceEntities) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
