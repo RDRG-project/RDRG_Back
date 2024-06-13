@@ -1,16 +1,10 @@
 package com.rdrg.back.service.implementation;
 
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.rdrg.back.common.object.AdminRentItem;
 import com.rdrg.back.common.object.KakaoReady;
@@ -52,7 +46,6 @@ public class PaymentServiceImplementation implements PaymentService {
         KakaoReady kakaoReady = null;
         
         try {
-
             boolean isExistUser = userRepository.existsByUserId(userId);
             if (!isExistUser) return ResponseDto.authenticationFailed();
 
