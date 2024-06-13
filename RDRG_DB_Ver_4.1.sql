@@ -5,7 +5,8 @@ USE rdrg_db;
 -- 이메일 인증 테이블 생성
 CREATE TABLE email_auth_number (
     email VARCHAR(100) PRIMARY KEY, # 유저 이메일 (기본키)
-    auth_number VARCHAR(4) NOT NULL # 인증번호
+    auth_number VARCHAR(4) NOT NULL, # 인증번호
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP # 인증번호를 전송한 시간(미 가입시 이메일 삭제를 위한 타이머)
 );
 
 
@@ -90,6 +91,24 @@ END //
 
 DELIMITER ;
 
+
+# 가입하지않고 이메일 인증만 받은 메일 삭제
+DELIMITER //
+
+CREATE EVENT delete_expired_auth_numbers
+ON SCHEDULE EVERY 1 MINUTE
+DO
+BEGIN
+    DELETE FROM email_auth_number
+    WHERE created_at < NOW() - INTERVAL 5 MINUTE
+    AND NOT EXISTS (
+        SELECT 1
+        FROM user
+        WHERE user.user_email = email_auth_number.email
+    );
+END //
+
+DELIMITER ;
 
 
 # 권한 부여
