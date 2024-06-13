@@ -1,5 +1,8 @@
 package com.rdrg.back.service.implementation;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +43,13 @@ public class DeviceServiceImplementation implements DeviceService {
     public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList(String inputRentDatetime, String inputReturnDatetime, String inputPlace) {
         
         try {
-            List<DeviceEntity> deviceEntities = deviceRepository.findAvailableDevices(inputRentDatetime, inputReturnDatetime, inputPlace);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(inputReturnDatetime, formatter);
+            LocalDate nextDay = date.minusDays(1);
+            String inputRentReturnDatetime = nextDay.format(formatter);
+
+            List<DeviceEntity> deviceEntities = deviceRepository.findAvailableDevices(inputRentDatetime, inputReturnDatetime, inputRentReturnDatetime, inputPlace);
             return GetDeviceListResponseDto.success(deviceEntities);
         } catch (Exception exception) {
             exception.printStackTrace();
