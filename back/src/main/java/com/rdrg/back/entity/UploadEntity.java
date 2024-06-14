@@ -22,6 +22,13 @@ public class UploadEntity {
     private Integer fileNumber;
     private Integer linkBoardNumber;
     private String url;
+    private String imgOriginalName;
+
+    public UploadEntity(Integer linkBoardNumber, String url, String imgOriginalName) {
+        this.linkBoardNumber = linkBoardNumber;
+        this.url = url;
+        this.imgOriginalName = imgOriginalName;
+    }
 
     public UploadEntity(Integer linkBoardNumber, String url) {
         this.linkBoardNumber = linkBoardNumber;
