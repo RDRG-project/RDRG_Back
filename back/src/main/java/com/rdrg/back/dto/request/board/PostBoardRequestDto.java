@@ -11,11 +11,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostBoardRequestDto {
+public class    PostBoardRequestDto {
     @NotBlank
     private String title;
     @NotBlank
     private String contents;
     @NotNull
     private List<String> urlList;
+    private String originalFileName;
 }

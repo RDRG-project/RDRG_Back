@@ -25,9 +25,10 @@ public class FIleController {
     // 파일 업로드
         @PostMapping("/upload")
     public String upload(
-        @RequestParam("file")MultipartFile file
+        @RequestParam("file")MultipartFile file,
+        @RequestParam("linkBoardNumber") Integer linkBoardNumber
     ) {
-        String url = fileService.upload(file);
+        String url = fileService.upload(file, linkBoardNumber);
         return url;
     }
 
