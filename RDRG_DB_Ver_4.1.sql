@@ -52,6 +52,7 @@ CREATE TABLE upload(
     file_number INT PRIMARY KEY AUTO_INCREMENT, # 업로드 넘버 (기본키)
     link_board_number INT NOT NULL, # 보드 테이블과 연결하는 칼럼
     url VARCHAR(255), # 링크 주소
+    img_original_name VARCHAR(255), # 파일 원래 이름
     FOREIGN KEY(link_board_number) REFERENCES board(reception_number) ON DELETE CASCADE # 외래키 지정 (link_board_no <= board.reception_number)
 );
 

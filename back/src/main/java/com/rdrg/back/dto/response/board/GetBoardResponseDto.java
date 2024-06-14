@@ -23,8 +23,9 @@ public class GetBoardResponseDto extends ResponseDto {
     private String contents;
     private String comment;
     private List<String> imageUrl;
+    private List<String> originalFileName;
 
-    private GetBoardResponseDto(BoardEntity boardEntity, List<String> imageUrl) throws Exception {
+    private GetBoardResponseDto(BoardEntity boardEntity, List<String> imageUrl, List<String> originalFileName) throws Exception {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         String writeDatetime = ChangeDateFormatUtil.changeYYYYMMDD(boardEntity.getWriteDatetime());
 
@@ -36,10 +37,11 @@ public class GetBoardResponseDto extends ResponseDto {
         this.contents = boardEntity.getContents();
         this.comment = boardEntity.getComment();
         this.imageUrl = imageUrl;
+        this.originalFileName = originalFileName;
     }
 
-    public static ResponseEntity<GetBoardResponseDto> success(BoardEntity boardEntity, List<String> imageUrl) throws Exception {
-        GetBoardResponseDto responseBody = new GetBoardResponseDto(boardEntity, imageUrl);
+    public static ResponseEntity<GetBoardResponseDto> success(BoardEntity boardEntity, List<String> imageUrl, List<String> originalFileName) throws Exception {
+        GetBoardResponseDto responseBody = new GetBoardResponseDto(boardEntity, imageUrl, originalFileName);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }

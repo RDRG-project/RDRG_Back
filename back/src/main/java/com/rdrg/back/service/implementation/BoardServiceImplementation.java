@@ -45,6 +45,7 @@ public class BoardServiceImplementation implements BoardService {
 
             for(String url: urlList) {
                 UploadEntity uploadEntity = new UploadEntity(receptionNumber, url);
+                uploadEntity.setImgOriginalName(dto.getOriginalFileName());
                 uploadEntities.add(uploadEntity);
             }
             uploadRepository.saveAll(uploadEntities);
@@ -76,8 +77,9 @@ public class BoardServiceImplementation implements BoardService {
 
             List<UploadEntity> uploadEntities = uploadRepository.findByLinkBoardNumber(receptionNumber);
             List<String> imageUrls = uploadEntities.stream().map(UploadEntity::getUrl).collect(Collectors.toList());
+            List<String> originalFileNames = uploadEntities.stream().map(UploadEntity::getImgOriginalName).collect(Collectors.toList());
 
-            return GetBoardResponseDto.success(boardEntity, imageUrls);
+            return GetBoardResponseDto.success(boardEntity, imageUrls, originalFileNames);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -150,6 +152,7 @@ public class BoardServiceImplementation implements BoardService {
 
             for(String url: urlList) {
                 UploadEntity uploadEntity = new UploadEntity(receptionNumber, url);
+                uploadEntity.setImgOriginalName(dto.getOriginalFileName());
                 uploadEntities.add(uploadEntity);
             }
             uploadRepository.saveAll(uploadEntities);

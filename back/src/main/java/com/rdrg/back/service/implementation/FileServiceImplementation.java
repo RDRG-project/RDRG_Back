@@ -9,6 +9,8 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.rdrg.back.entity.UploadEntity;
+import com.rdrg.back.repository.UploadRepository;
 import com.rdrg.back.service.FileService;
 
 import lombok.RequiredArgsConstructor;
@@ -19,8 +21,10 @@ public class FileServiceImplementation implements FileService {
     @Value("${file.url}")private String fileUrl;
     @Value("${file.path}")private String filePath;
 
+    private final UploadRepository uploadRepository;
+
     @Override
-    public String upload(MultipartFile file) {
+    public String upload(MultipartFile file, Integer linkBoardNumber) {
         // 빈파일인지 검증
         if(file.isEmpty()) return null;
         // 원본 파일명  가져오기
@@ -42,6 +46,13 @@ public class FileServiceImplementation implements FileService {
         }
         // 파일을 불러올 수 있는 경로 생성
         String url = fileUrl + saveFileName;
+
+        UploadEntity uploadEntity = new UploadEntity();
+        uploadEntity.setLinkBoardNumber(linkBoardNumber);
+        uploadEntity.setUrl(url);
+        uploadEntity.setImgOriginalName(originalFileName);
+        uploadRepository.save(uploadEntity);
+
         return url;
     }
 
