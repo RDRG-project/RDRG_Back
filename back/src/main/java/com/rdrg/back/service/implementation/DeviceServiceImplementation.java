@@ -43,7 +43,6 @@ public class DeviceServiceImplementation implements DeviceService {
     public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList(String inputRentDatetime, String inputReturnDatetime, String inputPlace) {
         
         try {
-
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(inputReturnDatetime, formatter);
             LocalDate nextDay = date.minusDays(1);
@@ -61,7 +60,6 @@ public class DeviceServiceImplementation implements DeviceService {
     public ResponseEntity<? super GetDeviceListResponseDto> getAdminDeviceList() {
 
         try {
-
             List<DeviceEntity> deviceEntities = deviceRepository.findAll();
             return GetDeviceListResponseDto.success(deviceEntities);
             

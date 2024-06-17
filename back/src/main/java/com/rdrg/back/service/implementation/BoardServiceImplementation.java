@@ -130,7 +130,6 @@ public class BoardServiceImplementation implements BoardService {
     public ResponseEntity<ResponseDto> putBoard(PutBoardRequestDto dto, int receptionNumber, String userId) {
 
         try {
-            
             BoardEntity boardEntity = boardRepository.findByReceptionNumber(receptionNumber);
             if (boardEntity == null) return ResponseDto.noExistBoard();
 
@@ -148,12 +147,12 @@ public class BoardServiceImplementation implements BoardService {
             uploadRepository.deleteAll(existingUploads);
 
             List<BoardFileItem> boardFileItemList = dto.getFileList();
-        List<UploadEntity> uploadEntities = new ArrayList<>();
+            List<UploadEntity> uploadEntities = new ArrayList<>();
 
-        for (BoardFileItem boardFileItem : boardFileItemList) {
-            UploadEntity uploadEntity = new UploadEntity(receptionNumber, boardFileItem);
-            uploadEntities.add(uploadEntity);
-        }
+            for (BoardFileItem boardFileItem : boardFileItemList) {
+                UploadEntity uploadEntity = new UploadEntity(receptionNumber, boardFileItem);
+                uploadEntities.add(uploadEntity);
+            }
             uploadRepository.saveAll(uploadEntities);
         } catch (Exception exception) {
             exception.printStackTrace();

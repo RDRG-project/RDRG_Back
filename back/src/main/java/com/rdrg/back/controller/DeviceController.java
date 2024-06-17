@@ -27,15 +27,6 @@ public class DeviceController {
 
     private final DeviceService deviceService;
 
-    @PostMapping("/")
-    ResponseEntity<ResponseDto> PostDevice(
-        @RequestBody @Valid PostDeviceRequestDto requestBody,
-        @AuthenticationPrincipal String serialNumber
-    ) {
-        ResponseEntity<ResponseDto> response = deviceService.postDevice(requestBody, serialNumber);
-        return response;
-    }
-
     @GetMapping("/list")
     public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList(
         @RequestParam("start") String rentDatetime,
@@ -46,20 +37,26 @@ public class DeviceController {
         return response;
     }
 
+    @GetMapping("/adminlist")
+    public ResponseEntity<? super GetDeviceListResponseDto> getAdminDeviceLIst() {
+        ResponseEntity<? super GetDeviceListResponseDto> response = deviceService.getAdminDeviceList();
+        return response;
+    }
+
+    @PostMapping("/")
+    ResponseEntity<ResponseDto> PostDevice(
+        @RequestBody @Valid PostDeviceRequestDto requestBody,
+        @AuthenticationPrincipal String serialNumber
+    ) {
+        ResponseEntity<ResponseDto> response = deviceService.postDevice(requestBody, serialNumber);
+        return response;
+    }
+
     @DeleteMapping("/{serialNumber}")
     public ResponseEntity<ResponseDto> deleteDevice(
         @PathVariable("serialNumber") String serialNumber
     ) {
         ResponseEntity<ResponseDto> response = deviceService.deleteDevice(serialNumber);
         return response;
-    }
-
-    @GetMapping("/adminlist")
-    public ResponseEntity<? super GetDeviceListResponseDto> getAdminDeviceLIst() {
-
-        ResponseEntity<? super GetDeviceListResponseDto> response = deviceService.getAdminDeviceList();
-        
-        return response;
-        
     }
 }

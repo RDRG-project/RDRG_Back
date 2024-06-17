@@ -21,12 +21,10 @@ public class JwtProvider {
     private String secretKey;
 
     public String create(String userId) {
-
         Date expiredDate = Date.from(Instant.now().plus(10, ChronoUnit.HOURS));
         String jwt = null;
 
         try {
-            
             Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharset.UTF_8));
 
             jwt = Jwts.builder()
@@ -35,7 +33,6 @@ public class JwtProvider {
                 .setIssuedAt(new Date())
                 .setExpiration(expiredDate)
                 .compact();
-
         } catch (Exception exception) {
             exception.printStackTrace();
             return null;
