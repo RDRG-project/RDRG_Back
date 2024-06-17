@@ -13,9 +13,7 @@ import com.rdrg.back.dto.response.ResponseMessage;
 import lombok.Getter;
 
 @Getter
-
 public class GetSearchAdminPaymentListResponseDto extends ResponseDto {
-
     private List<AdminRentItem> adminRentList;
 
     private GetSearchAdminPaymentListResponseDto (List<AdminRentItem> adminRentList) throws Exception {
@@ -27,5 +25,4 @@ public class GetSearchAdminPaymentListResponseDto extends ResponseDto {
         GetSearchAdminPaymentListResponseDto responseBody = new GetSearchAdminPaymentListResponseDto(adminRentList);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-        
 }

@@ -36,6 +36,7 @@ public class AuthServiceImplementation implements AuthService {
 
     @Override
     public ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto) {
+
         String accessToken = null;
 
         try {
@@ -83,7 +84,6 @@ public class AuthServiceImplementation implements AuthService {
             if (existedEmail) return ResponseDto.duplicatedEmail();
 
             String authNumber = EmailAuthNumberUtil.createNumber();
-
             EmailAuthNumberEntity emailAuthNumberEntity = new EmailAuthNumberEntity(userEmail, authNumber);
 
             emailAuthNumberRepository.save(emailAuthNumberEntity);

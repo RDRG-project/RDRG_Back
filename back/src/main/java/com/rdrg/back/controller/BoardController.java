@@ -29,6 +29,20 @@ public class BoardController {
     
     private final BoardService boardService;
 
+    @GetMapping("/list")
+    public ResponseEntity<? super GetBoardListResponseDto> getBoardList() {
+        ResponseEntity<? super GetBoardListResponseDto> response = boardService.getBoardList();
+        return response;
+    }
+
+    @GetMapping("/{receptionNumber}")
+    public ResponseEntity<? super GetBoardResponseDto> getBoard(
+    @PathVariable("receptionNumber") int receptionNumber
+    ) {
+        ResponseEntity<? super GetBoardResponseDto> response = boardService.getBoard(receptionNumber);
+        return response;
+    }
+
     @PostMapping("/")
     ResponseEntity<ResponseDto> postBoard(
         @RequestBody @Valid PostBoardRequestDto requestBody,
@@ -44,20 +58,6 @@ public class BoardController {
         @PathVariable("receptionNumber") int receptionNumber
     ) {
         ResponseEntity<ResponseDto> response = boardService.postComment(requestBody, receptionNumber);
-        return response;
-    }
-
-    @GetMapping("/list")
-    public ResponseEntity<? super GetBoardListResponseDto> getBoardList() {
-        ResponseEntity<? super GetBoardListResponseDto> response = boardService.getBoardList();
-        return response;
-    }
-
-    @GetMapping("/{receptionNumber}")
-    public ResponseEntity<? super GetBoardResponseDto> getBoard(
-    @PathVariable("receptionNumber") int receptionNumber
-    ) {
-        ResponseEntity<? super GetBoardResponseDto> response = boardService.getBoard(receptionNumber);
         return response;
     }
 

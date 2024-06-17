@@ -42,7 +42,6 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
-    
     public static ResponseEntity<ResponseDto> noExistDevice() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);

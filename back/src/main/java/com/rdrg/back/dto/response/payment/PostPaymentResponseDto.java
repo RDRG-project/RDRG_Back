@@ -12,7 +12,6 @@ import lombok.Getter;
 
 @Getter
 public class PostPaymentResponseDto extends ResponseDto{
-    
     private String tid;
     private String nextRedirectMobileUrl;
     private String nextRedirectPcUrl;
@@ -30,5 +29,4 @@ public class PostPaymentResponseDto extends ResponseDto{
         PostPaymentResponseDto body = new PostPaymentResponseDto(kakaopay);
         return ResponseEntity.status(HttpStatus.OK).body(body);
     }
-
 }
