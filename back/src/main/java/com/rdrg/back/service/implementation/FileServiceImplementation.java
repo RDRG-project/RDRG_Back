@@ -47,11 +47,6 @@ public class FileServiceImplementation implements FileService {
         // 파일을 불러올 수 있는 경로 생성
         String url = fileUrl + saveFileName;
 
-        UploadEntity uploadEntity = new UploadEntity();
-        uploadEntity.setUrl(url);
-        uploadEntity.setImgOriginalName(originalFileName);
-        uploadRepository.save(uploadEntity);
-
         return url;
     }
 
