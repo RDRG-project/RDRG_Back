@@ -24,7 +24,7 @@ public class FileServiceImplementation implements FileService {
     private final UploadRepository uploadRepository;
 
     @Override
-    public String upload(MultipartFile file, Integer linkBoardNumber) {
+    public String upload(MultipartFile file) {
         // 빈파일인지 검증
         if(file.isEmpty()) return null;
         // 원본 파일명  가져오기
@@ -48,7 +48,6 @@ public class FileServiceImplementation implements FileService {
         String url = fileUrl + saveFileName;
 
         UploadEntity uploadEntity = new UploadEntity();
-        uploadEntity.setLinkBoardNumber(linkBoardNumber);
         uploadEntity.setUrl(url);
         uploadEntity.setImgOriginalName(originalFileName);
         uploadRepository.save(uploadEntity);

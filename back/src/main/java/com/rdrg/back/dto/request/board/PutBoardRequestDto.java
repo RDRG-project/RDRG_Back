@@ -18,5 +18,5 @@ public class PutBoardRequestDto {
     private String contents;
     @NotNull
     private List<String> urlList;
-    private String originalFileName;
+    private List<String> originalFileName;
 }
