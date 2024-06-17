@@ -41,11 +41,12 @@ public class BoardServiceImplementation implements BoardService {
 
             Integer receptionNumber = boardEntity.getReceptionNumber();
             List<String> urlList = dto.getUrlList();
+            List<String> originalFileNames = dto.getOriginalFileName();
             List<UploadEntity> uploadEntities = new ArrayList<>();
 
-            for(String url: urlList) {
-                UploadEntity uploadEntity = new UploadEntity(receptionNumber, url);
-                uploadEntity.setImgOriginalName(dto.getOriginalFileName());
+            for (int i = 0; i < urlList.size(); i++) {
+                UploadEntity uploadEntity = new UploadEntity(receptionNumber, urlList.get(1));
+                uploadEntity.setImgOriginalName(originalFileNames.get(1));
                 uploadEntities.add(uploadEntity);
             }
             uploadRepository.saveAll(uploadEntities);
@@ -148,11 +149,12 @@ public class BoardServiceImplementation implements BoardService {
             uploadRepository.deleteAll(existingUploads);
 
             List<String> urlList = dto.getUrlList();
+            List<String> originalFileNames = dto.getOriginalFileName();
             List<UploadEntity> uploadEntities = new ArrayList<>();
 
-            for(String url: urlList) {
-                UploadEntity uploadEntity = new UploadEntity(receptionNumber, url);
-                uploadEntity.setImgOriginalName(dto.getOriginalFileName());
+            for(int i = 0; i < urlList.size(); i++) {
+                UploadEntity uploadEntity = new UploadEntity(receptionNumber, urlList.get(i));
+                uploadEntity.setImgOriginalName(originalFileNames.get(i));
                 uploadEntities.add(uploadEntity);
             }
             uploadRepository.saveAll(uploadEntities);
