@@ -18,6 +18,5 @@ public class PutBoardRequestDto {
     private String title;
     @NotBlank
     private String contents;
-    @NotNull
     private List<BoardFileItem> fileList;
 }
