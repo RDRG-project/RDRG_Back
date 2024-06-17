@@ -2,6 +2,8 @@ package com.rdrg.back.entity;
 
 import java.util.List;
 
+import com.rdrg.back.common.object.BoardFileItem;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,14 +28,9 @@ public class UploadEntity {
     private String url;
     private String imgOriginalName;
 
-    public UploadEntity(Integer linkBoardNumber, String url, String imgOriginalName) {
+    public UploadEntity(Integer linkBoardNumber, BoardFileItem boardFileItem) {
         this.linkBoardNumber = linkBoardNumber;
-        this.url = url;
-        this.imgOriginalName = imgOriginalName;
-    }
-
-    public UploadEntity(Integer linkBoardNumber, String url) {
-        this.linkBoardNumber = linkBoardNumber;
-        this.url = url;
+        this.url = boardFileItem.getUrl();
+        this.imgOriginalName = boardFileItem.getOriginalFileName();
     }
 }
