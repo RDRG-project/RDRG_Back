@@ -102,7 +102,6 @@ public class PaymentServiceImplementation implements PaymentService {
             if(!isExistUser) return ResponseDto.authenticationFailed();
 
             List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByRentUserIdOrderByRentNumberDesc(rentUserId);
-
             List<RentItem> rentList = new ArrayList<>();
 
             for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
@@ -111,7 +110,6 @@ public class PaymentServiceImplementation implements PaymentService {
                 RentItem rentItem = new RentItem(deviceRentStatusEntity, rentDetailEntities);
                 rentList.add(rentItem);
             }
-            
             return GetPaymentListResponseDto.success(rentList);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -126,11 +124,9 @@ public class PaymentServiceImplementation implements PaymentService {
             if (userEntity == null) return ResponseDto.noExistUserId();
 
             DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentNumber(rentNumber);
-            
             List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
 
             return GetPaymentDetailListResponseDto.success(deviceRentStatusEntity, rentDetailEntities);
-
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -170,16 +166,14 @@ public class PaymentServiceImplementation implements PaymentService {
                     if (deviceEntity != null) {
                         deviceEntity.setPlace(returnPlace);
                         deviceRepository.save(deviceEntity);
+                    }
                 }
             }
-        }
-
             paymentRepository.save(deviceRentStatusEntity);
-            
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
-        }   
+        }
         return ResponseDto.success();
     }
 
@@ -188,7 +182,6 @@ public class PaymentServiceImplementation implements PaymentService {
         
         try {
             List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByOrderByRentNumberDesc();
-
             List<AdminRentItem> adminRentList = new ArrayList<>();
 
             for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
@@ -197,7 +190,6 @@ public class PaymentServiceImplementation implements PaymentService {
                 AdminRentItem adminRentItem = new AdminRentItem(deviceRentStatusEntity, rentDetailEntities);
                 adminRentList.add(adminRentItem);
             }
-            
             return GetAdminPaymentListResponseDto.success(adminRentList);
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -209,18 +201,15 @@ public class PaymentServiceImplementation implements PaymentService {
     public ResponseEntity<? super GetSearchAdminPaymentListResponseDto> getSearchAdminPaymentList(String searchWord) {
         
         try {
-
             List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByRentUserIdOrderByRentNumberDesc(searchWord);
-
             List<AdminRentItem> adminRentList = new ArrayList<>();
-
+            
             for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
                 Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
                 List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
                 AdminRentItem adminRentItem = new AdminRentItem(deviceRentStatusEntity, rentDetailEntities);
                 adminRentList.add(adminRentItem);
             }
-            
             return GetSearchAdminPaymentListResponseDto.success(adminRentList);
         } catch (Exception exception) {
             exception.printStackTrace();

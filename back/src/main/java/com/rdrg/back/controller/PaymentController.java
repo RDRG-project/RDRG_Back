@@ -34,16 +34,6 @@ public class PaymentController {
     
     private final PaymentService paymentService;
 
-
-    @PostMapping("/save")
-    ResponseEntity<? super PostPaymentResponseDto> postPayment(
-        @RequestBody @Valid PostPaymentRequestDto requestBody,
-        @AuthenticationPrincipal String userId, ArrayList<String> rentSerialNumber
-    ) {
-        ResponseEntity<? super PostPaymentResponseDto> response = paymentService.postPayment(requestBody, userId);
-        return response;
-    }
-
     @GetMapping("/{userId}")
     public ResponseEntity<? super GetPaymentResponseDto> getPayment(
         @PathVariable("userId") String userId
@@ -83,6 +73,23 @@ public class PaymentController {
         ResponseEntity<? super GetPaymentDetailListResponseDto> response = paymentService.getPaymentDetailList(userId, rentNumber);
         return response;
     }
+    
+    @PostMapping("/save")
+    ResponseEntity<? super PostPaymentResponseDto> postPayment(
+        @RequestBody @Valid PostPaymentRequestDto requestBody,
+        @AuthenticationPrincipal String userId, ArrayList<String> rentSerialNumber
+    ) {
+        ResponseEntity<? super PostPaymentResponseDto> response = paymentService.postPayment(requestBody, userId);
+        return response;
+    }
+
+    @PatchMapping("/{rentNumber}")
+    public ResponseEntity<ResponseDto> PatchStatus(
+        @PathVariable("rentNumber") int rentNumber,
+        @RequestBody PatchRentStatusResponseDto patchRentStatusResponseDto
+    ) {
+        return paymentService.patchRentStatus(rentNumber, patchRentStatusResponseDto);
+    }
 
     @DeleteMapping("/{rentNumber}")
     public ResponseEntity<ResponseDto> deletePayment(
@@ -91,12 +98,5 @@ public class PaymentController {
         ResponseEntity<ResponseDto> response = paymentService.deletePayment(rentNumber);
         return response;
     }
-    
-    @PatchMapping("/{rentNumber}")
-    public ResponseEntity<ResponseDto> PatchStatus(
-        @PathVariable("rentNumber") int rentNumber,
-        @RequestBody PatchRentStatusResponseDto patchRentStatusResponseDto
-    ) {
-        return paymentService.patchRentStatus(rentNumber, patchRentStatusResponseDto);
-    }
+
 }
