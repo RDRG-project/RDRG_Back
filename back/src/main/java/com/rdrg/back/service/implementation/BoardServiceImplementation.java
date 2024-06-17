@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.rdrg.back.common.object.BoardFileItem;
 import com.rdrg.back.dto.request.board.PostBoardRequestDto;
 import com.rdrg.back.dto.request.board.PostCommentRequestDto;
 import com.rdrg.back.dto.request.board.PutBoardRequestDto;
@@ -40,16 +41,11 @@ public class BoardServiceImplementation implements BoardService {
             boardRepository.save(boardEntity);
 
             Integer receptionNumber = boardEntity.getReceptionNumber();
-            List<String> urlList = dto.getUrlList();
-            List<String> originalFileNameList = dto.getOriginalFileNameList();
+            List<BoardFileItem> boardFileItemList = dto.getFileList();
             List<UploadEntity> uploadEntities = new ArrayList<>();
 
-            for(String url: urlList) {
-                UploadEntity uploadEntity = new UploadEntity(receptionNumber, url);
-                uploadEntities.add(uploadEntity);
-            }
-            for(String originalFileName: originalFileNameList) {
-                UploadEntity uploadEntity = new UploadEntity(receptionNumber, originalFileName);
+            for(BoardFileItem boardFileItem: boardFileItemList) {
+                UploadEntity uploadEntity = new UploadEntity(receptionNumber, boardFileItem);
                 uploadEntities.add(uploadEntity);
             }
             uploadRepository.saveAll(uploadEntities);
@@ -151,15 +147,13 @@ public class BoardServiceImplementation implements BoardService {
             List<UploadEntity> existingUploads = uploadRepository.findByLinkBoardNumber(receptionNumber);
             uploadRepository.deleteAll(existingUploads);
 
-            List<String> urlList = dto.getUrlList();
-            List<String> originalFileNames = dto.getOriginalFileName();
-            List<UploadEntity> uploadEntities = new ArrayList<>();
+            List<BoardFileItem> boardFileItemList = dto.getFileList();
+        List<UploadEntity> uploadEntities = new ArrayList<>();
 
-            for(int i = 0; i < urlList.size(); i++) {
-                UploadEntity uploadEntity = new UploadEntity(receptionNumber, urlList.get(i));
-                uploadEntity.setImgOriginalName(originalFileNames.get(i));
-                uploadEntities.add(uploadEntity);
-            }
+        for (BoardFileItem boardFileItem : boardFileItemList) {
+            UploadEntity uploadEntity = new UploadEntity(receptionNumber, boardFileItem);
+            uploadEntities.add(uploadEntity);
+        }
             uploadRepository.saveAll(uploadEntities);
         } catch (Exception exception) {
             exception.printStackTrace();
