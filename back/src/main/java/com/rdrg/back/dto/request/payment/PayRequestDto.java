@@ -20,5 +20,4 @@ public class PayRequestDto {
     private Integer totalAmount;
     @NonNull
     private Integer vatAmount;
-
 }

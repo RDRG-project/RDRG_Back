@@ -1,7 +1,5 @@
 package com.rdrg.back.entity;
 
-import java.util.List;
-
 import com.rdrg.back.common.object.BoardFileItem;
 
 import jakarta.persistence.Entity;

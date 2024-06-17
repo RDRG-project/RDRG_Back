@@ -3,7 +3,6 @@ package com.rdrg.back.common.object;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.rdrg.back.entity.DeviceEntity;
 import com.rdrg.back.entity.DeviceRentStatusEntity;
 import com.rdrg.back.entity.RentDetailEntity;
 
@@ -29,15 +28,4 @@ public class RentItem {
         this.totalPrice = deviceRentStatusEntity.getRentTotalPrice();
         this.rentStatus = deviceRentStatusEntity.getRentStatus();
     }
-
-    // public static List<RentItem> getRentList(List<DeviceRentStatusEntity> deviceRentStatusEntities, List<String> name, boolean rentStatus) throws Exception {
-        
-    //     List<RentItem> rentItems = new ArrayList<>();
-
-    //     for (DeviceRentStatusEntity deviceRentStatusEntity : deviceRentStatusEntities) {
-    //         RentItem rentItem = new RentItem(deviceRentStatusEntity, nameLists, rentStatus);
-    //         rentItems.add(rentItem);
-    //     }
-    //     return rentItems;
-    // }
 }

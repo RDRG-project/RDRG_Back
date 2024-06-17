@@ -21,22 +21,20 @@ import lombok.RequiredArgsConstructor;
 public class FIleController {
 
     private final FileService fileService;
-
-    // 파일 업로드
-        @PostMapping("/upload")
-    public String upload(
-        @RequestParam("file")MultipartFile file
-    ) {
-        String url = fileService.upload(file);
-        return url;
-    }
-
-    // 파일 불러오기
+    
     @GetMapping(value="/{fileName}", produces={MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
     public Resource getFile(
         @PathVariable("fileName") String fileName
     ) {
         Resource resource = fileService.GetFile(fileName);
         return resource;
+    }
+
+        @PostMapping("/upload")
+    public String upload(
+        @RequestParam("file")MultipartFile file
+    ) {
+        String url = fileService.upload(file);
+        return url;
     }
 }

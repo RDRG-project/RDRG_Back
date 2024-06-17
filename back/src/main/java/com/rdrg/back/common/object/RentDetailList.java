@@ -3,7 +3,6 @@ package com.rdrg.back.common.object;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.rdrg.back.entity.DeviceEntity;
 import com.rdrg.back.entity.RentDetailEntity;
 
 import lombok.Getter;

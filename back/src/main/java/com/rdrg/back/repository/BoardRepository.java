@@ -9,7 +9,7 @@ import com.rdrg.back.entity.BoardEntity;
 
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
+    BoardEntity findByReceptionNumber(Integer receptionNumber);
     List<BoardEntity> findByOrderByReceptionNumberDesc();
     List<BoardEntity> findByTitleContainsOrderByReceptionNumberDesc(String title);
-    BoardEntity findByReceptionNumber(Integer receptionNumber);
 }
