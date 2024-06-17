@@ -41,12 +41,15 @@ public class BoardServiceImplementation implements BoardService {
 
             Integer receptionNumber = boardEntity.getReceptionNumber();
             List<String> urlList = dto.getUrlList();
-            List<String> originalFileNames = dto.getOriginalFileName();
+            List<String> originalFileNameList = dto.getOriginalFileNameList();
             List<UploadEntity> uploadEntities = new ArrayList<>();
 
-            for (int i = 0; i < urlList.size(); i++) {
-                UploadEntity uploadEntity = new UploadEntity(receptionNumber, urlList.get(1));
-                uploadEntity.setImgOriginalName(originalFileNames.get(1));
+            for(String url: urlList) {
+                UploadEntity uploadEntity = new UploadEntity(receptionNumber, url);
+                uploadEntities.add(uploadEntity);
+            }
+            for(String originalFileName: originalFileNameList) {
+                UploadEntity uploadEntity = new UploadEntity(receptionNumber, originalFileName);
                 uploadEntities.add(uploadEntity);
             }
             uploadRepository.saveAll(uploadEntities);

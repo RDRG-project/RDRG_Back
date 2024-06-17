@@ -18,5 +18,5 @@ public class    PostBoardRequestDto {
     private String contents;
     @NotNull
     private List<String> urlList;
-    private List<String> originalFileName;
+    private List<String> originalFileNameList;
 }
