@@ -60,6 +60,36 @@ public class AuthServiceImplementation implements AuthService {
     }
 
     @Override
+    public ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto) {
+
+        try {
+            String userId = dto.getUserId();
+            String userPassword = dto.getUserPassword();
+            String userEmail = dto.getUserEmail();
+            String userNumber = dto.getAuthNumber();
+
+            boolean existedUser = userRepository.existsById(userId);
+            if (existedUser) return ResponseDto.duplicatedId();
+
+            boolean existedEmail = userRepository.existsByUserEmail(userEmail);
+            if (existedEmail) return ResponseDto.duplicatedEmail();
+
+            boolean isMatched = emailAuthNumberRepository.existsByEmailAndAuthNumber(userEmail, userNumber);
+            if (!isMatched) return ResponseDto.authenticationFailed();
+
+            String encodedPassword = passwordEncoder.encode(userPassword);
+            dto.setUserPassword(encodedPassword);
+
+            UserEntity userEntity = new UserEntity(dto);
+            userRepository.save(userEntity);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+    }
+
+    @Override
     public ResponseEntity<ResponseDto> idCheck(IdCheckRequestDto dto) {
         
         try {
@@ -113,35 +143,4 @@ public class AuthServiceImplementation implements AuthService {
         }
         return ResponseDto.success();
     }
-
-    @Override
-    public ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto) {
-
-        try {
-            String userId = dto.getUserId();
-            String userPassword = dto.getUserPassword();
-            String userEmail = dto.getUserEmail();
-            String userNumber = dto.getAuthNumber();
-
-            boolean existedUser = userRepository.existsById(userId);
-            if (existedUser) return ResponseDto.duplicatedId();
-
-            boolean existedEmail = userRepository.existsByUserEmail(userEmail);
-            if (existedEmail) return ResponseDto.duplicatedEmail();
-
-            boolean isMatched = emailAuthNumberRepository.existsByEmailAndAuthNumber(userEmail, userNumber);
-            if (!isMatched) return ResponseDto.authenticationFailed();
-
-            String encodedPassword = passwordEncoder.encode(userPassword);
-            dto.setUserPassword(encodedPassword);
-
-            UserEntity userEntity = new UserEntity(dto);
-            userRepository.save(userEntity);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-        return ResponseDto.success();
-    }
-    
 }
