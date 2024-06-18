@@ -57,6 +57,7 @@ public class WebSecurityConfig {
                     .requestMatchers(HttpMethod.DELETE,  "/rdrg/device/*").hasRole("ADMIN")
                     .requestMatchers("/rdrg/payment/adminrentpage").hasRole("ADMIN")
                     .requestMatchers("/rdrg/device/adminlist").hasRole("ADMIN")
+                    .requestMatchers("/rdrg/pay/**").hasRole("USER")
                     .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
