@@ -65,9 +65,12 @@ public class PaymentServiceImplementation implements PaymentService {
             List<AdminRentItem> adminRentList = new ArrayList<>();
 
             for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
-                Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
-                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
-                AdminRentItem adminRentItem = new AdminRentItem(deviceRentStatusEntity, rentDetailEntities);
+                // Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
+                // List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+                // AdminRentItem adminRentItem = new AdminRentItem(deviceRentStatusEntity, rentDetailEntities);
+                // adminRentList.add(adminRentItem);
+
+                AdminRentItem adminRentItem = createRentItem(deviceRentStatusEntity, AdminRentItem.class);
                 adminRentList.add(adminRentItem);
             }
             return GetAdminPaymentListResponseDto.success(adminRentList);
@@ -88,9 +91,12 @@ public class PaymentServiceImplementation implements PaymentService {
             List<RentItem> rentList = new ArrayList<>();
 
             for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
-                Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
-                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
-                RentItem rentItem = new RentItem(deviceRentStatusEntity, rentDetailEntities);
+                // Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
+                // List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+                // RentItem rentItem = new RentItem(deviceRentStatusEntity, rentDetailEntities);
+                // rentList.add(rentItem);
+
+                RentItem rentItem = createRentItem(deviceRentStatusEntity, RentItem.class);
                 rentList.add(rentItem);
             }
             return GetPaymentListResponseDto.success(rentList);
@@ -108,9 +114,11 @@ public class PaymentServiceImplementation implements PaymentService {
             List<AdminRentItem> adminRentList = new ArrayList<>();
             
             for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
-                Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
-                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
-                AdminRentItem adminRentItem = new AdminRentItem(deviceRentStatusEntity, rentDetailEntities);
+                // Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
+                // List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+                // AdminRentItem adminRentItem = new AdminRentItem(deviceRentStatusEntity, rentDetailEntities);
+
+                AdminRentItem adminRentItem = createRentItem(deviceRentStatusEntity, AdminRentItem.class);
                 adminRentList.add(adminRentItem);
             }
             return GetSearchAdminPaymentListResponseDto.success(adminRentList);
@@ -178,23 +186,27 @@ public class PaymentServiceImplementation implements PaymentService {
 
         try {
             DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentNumber(rentNumber);
-            if (deviceRentStatusEntity == null) ResponseDto.noExistRentDetail();
+            if (deviceRentStatusEntity == null) return ResponseDto.noExistRentDetail();
 
             deviceRentStatusEntity.setRentStatus(patchRentStatusResponseDto.getRentStatus());
 
             if("반납 완료".equals(patchRentStatusResponseDto.getRentStatus())){
-                String returnPlace = deviceRentStatusEntity.getRentReturnPlace();
-                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
-                for (RentDetailEntity rentDetailEntity : rentDetailEntities) {
-                    String serialNumber = rentDetailEntity.getSerialNumber();
-                    DeviceEntity deviceEntity = deviceRepository.findBySerialNumber(serialNumber);
-                    if (deviceEntity != null) {
-                        deviceEntity.setPlace(returnPlace);
-                        deviceRepository.save(deviceEntity);
-                    }
-                }
+            //     String returnPlace = deviceRentStatusEntity.getRentReturnPlace();
+            //     List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+            //     for (RentDetailEntity rentDetailEntity : rentDetailEntities) {
+            //         String serialNumber = rentDetailEntity.getSerialNumber();
+            //         DeviceEntity deviceEntity = deviceRepository.findBySerialNumber(serialNumber);
+            //         if (deviceEntity != null) {
+            //             deviceEntity.setPlace(returnPlace);
+            //             deviceRepository.save(deviceEntity);
+            //         }
+            //     }
+            // }
+                changePlace(deviceRentStatusEntity, rentNumber);
             }
+
             paymentRepository.save(deviceRentStatusEntity);
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -219,4 +231,33 @@ public class PaymentServiceImplementation implements PaymentService {
         }
         return ResponseDto.success();
     }    
+
+    private <T> T createRentItem(DeviceRentStatusEntity deviceRentStatusEntity, Class<T> clazz) throws Exception {
+
+        Integer rentNumber = deviceRentStatusEntity.getRentNumber();
+        List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+
+        if (clazz == RentItem.class) {
+            return clazz.cast(new RentItem(deviceRentStatusEntity, rentDetailEntities));
+        } else if (clazz == AdminRentItem.class) {
+            return clazz.cast(new AdminRentItem(deviceRentStatusEntity, rentDetailEntities));
+        }
+        
+        throw new IllegalArgumentException(clazz.getName());
+    }
+
+    private void changePlace(DeviceRentStatusEntity deviceRentStatusEntity, Integer rentNumber){
+
+        String returnPlace = deviceRentStatusEntity.getRentReturnPlace();
+        List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+
+        for (RentDetailEntity rentDetailEntity : rentDetailEntities) {
+            String serialNumber = rentDetailEntity.getSerialNumber();
+            DeviceEntity deviceEntity = deviceRepository.findBySerialNumber(serialNumber);
+            if (deviceEntity != null) {
+                deviceEntity.setPlace(returnPlace);
+                deviceRepository.save(deviceEntity);
+            }
+        }
+    }
 }
