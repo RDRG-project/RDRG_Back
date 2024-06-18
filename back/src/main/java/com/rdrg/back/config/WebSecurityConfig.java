@@ -51,13 +51,18 @@ public class WebSecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())
                 )
                 .authorizeHttpRequests(request -> request
+                    // 모두 접근 가능
                     .requestMatchers("/", "/rdrg/auth/**", "/oauth2/callback/*", "/rdrg/file/**").permitAll()
+                    // POST 사용자 가능
                     .requestMatchers("/rdrg/board/").hasRole("USER")
+                    // GET 관리자 가능
+                    .requestMatchers("/rdrg/device/adminlist", "/rdrg/payment/adminrentpage").hasRole("ADMIN")
+                    // POST 관리자 가능
                     .requestMatchers("/rdrg/board/*/comment", "/rdrg/device/").hasRole("ADMIN")
+                    // DELETE 관리자 가능
                     .requestMatchers(HttpMethod.DELETE,  "/rdrg/device/*").hasRole("ADMIN")
-                    .requestMatchers("/rdrg/payment/adminrentpage").hasRole("ADMIN")
-                    .requestMatchers("/rdrg/device/adminlist").hasRole("ADMIN")
-                    .requestMatchers("/rdrg/pay/**").hasRole("USER")
+
+                    //이외 접근 가능
                     .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2

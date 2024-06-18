@@ -19,6 +19,14 @@ public class KakaoPayUtil {
     
     @Value("${kakaoSecretKey}")
     private String kakaoKey;
+    @Value("${approvalUrl}")
+    private String approvalUrl;
+    @Value("${cancelUrl}")
+    private String cancelUrl;
+    @Value("${failUrl}")
+    private String failUrl;
+    @Value("${kakaoReady}")
+    private String kakaoReady;
 
     RentItem rentItem;
     
@@ -42,14 +50,14 @@ public class KakaoPayUtil {
             payParams.put("total_amount", totalAmount);
             payParams.put("vat_amount", vatAmount.toString());
             payParams.put("tax_free_amount", "0");
-            payParams.put("approval_url", "http://localhost:3000/rdrg/pay/success");
-            payParams.put("cancel_url", "http://localhost:3000/rdrg/pay/cancel/" + rentNumber);
-            payParams.put("fail_url", "http://localhost:3000/rdrg/pay/fail/" + rentNumber);
+            payParams.put("approval_url", approvalUrl);
+            payParams.put("cancel_url", cancelUrl + rentNumber);
+            payParams.put("fail_url", failUrl + rentNumber);
 
             HttpEntity<Map> request = new HttpEntity<>(payParams, headers);
 
             RestTemplate template = new RestTemplate();
-            String url = "https://open-api.kakaopay.com/online/v1/payment/ready";
+            String url = kakaoReady;
 
             return template.postForObject(url, request, KakaoReady.class);
     }
