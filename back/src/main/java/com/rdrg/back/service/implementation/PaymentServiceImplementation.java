@@ -134,11 +134,14 @@ public class PaymentServiceImplementation implements PaymentService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deletePayment(int rentNumber) {
+    public ResponseEntity<ResponseDto> deletePayment(int rentNumber, String userId) {
 
         try {
             DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentNumber(rentNumber);
-            if (deviceRentStatusEntity == null) ResponseDto.noExistRentDetail();
+            if (deviceRentStatusEntity == null) return ResponseDto.noExistRentDetail();
+
+            boolean isEqual = deviceRentStatusEntity.getRentUserId().equals(userId);
+            if (!isEqual) return ResponseDto.authorizationFailed();
 
             paymentRepository.delete(deviceRentStatusEntity);
         } catch (Exception exception) {
