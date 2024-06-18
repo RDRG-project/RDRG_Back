@@ -36,6 +36,20 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
+    public ResponseEntity<? super GetUserInfoResponseDto> getUserInfo(String userId) {
+
+        try {
+            UserEntity userEntity = userRepository.findByUserId(userId);
+            if (userEntity == null) return ResponseDto.authenticationFailed();
+
+            return GetUserInfoResponseDto.success(userEntity);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    @Override
     public ResponseEntity<ResponseDto> changePassword(ChangePasswordRequestDto dto) {
         
         try {
@@ -60,21 +74,6 @@ public class UserServiceImplementation implements UserService {
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
-    }
-
-
-    @Override
-    public ResponseEntity<? super GetUserInfoResponseDto> getUserInfo(String userId) {
-
-        try {
-            UserEntity userEntity = userRepository.findByUserId(userId);
-            if (userEntity == null) return ResponseDto.authenticationFailed();
-
-            return GetUserInfoResponseDto.success(userEntity);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
     }
 
     @Override
