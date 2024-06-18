@@ -93,9 +93,10 @@ public class PaymentController {
 
     @DeleteMapping("/{rentNumber}")
     public ResponseEntity<ResponseDto> deletePayment(
-        @PathVariable("rentNumber") int rentNumber
+        @PathVariable("rentNumber") int rentNumber,
+        @AuthenticationPrincipal String userId
     ) {
-        ResponseEntity<ResponseDto> response = paymentService.deletePayment(rentNumber);
+        ResponseEntity<ResponseDto> response = paymentService.deletePayment(rentNumber, userId);
         return response;
     }
 
