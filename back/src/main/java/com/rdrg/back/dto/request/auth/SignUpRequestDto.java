@@ -1,5 +1,7 @@
 package com.rdrg.back.dto.request.auth;
 
+import com.rdrg.back.common.util.PattenUtil;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -12,13 +14,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SignUpRequestDto {
     @NotBlank
-    @Pattern(regexp="^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,24}$")
+    @Pattern(regexp=PattenUtil.ID_PATTERN)
     private String userId;
     @NotNull
-    @Pattern(regexp="^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\\.[a-zA-Z]{2,4}$")
+    @Pattern(regexp=PattenUtil.EMAIL_PATTERN)
     private String  userEmail;
     @NotNull
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[~․!@#$%^&*()_\\-+=\\[\\]{}|\\\\;:‘“<>.,?/]).{8,19}$")
+    @Pattern(regexp=PattenUtil.PW_PATTERN)
     private String userPassword;
     @NotBlank
     private String authNumber;
