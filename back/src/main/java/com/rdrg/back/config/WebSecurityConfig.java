@@ -76,7 +76,7 @@ public class WebSecurityConfig {
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-                return httpSecurity.build();
+        return httpSecurity.build();
     }
 
     @Bean
@@ -106,5 +106,4 @@ class AuthorizationFailEntryPoint implements AuthenticationEntryPoint {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.getWriter().write("{\"code\": \"AF\", \"message\": \"Authorization Failed\"}");
     }
-    
 }
