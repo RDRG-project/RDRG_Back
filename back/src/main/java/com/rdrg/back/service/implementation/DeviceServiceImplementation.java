@@ -19,24 +19,20 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-
 public class DeviceServiceImplementation implements DeviceService {
     private final DeviceRepository deviceRepository;
 
     @Override
-    public ResponseEntity<ResponseDto> postDevice(PostDeviceRequestDto dto, String serialNumber) {
-        
+    public ResponseEntity<? super GetDeviceListResponseDto> getAdminDeviceList() {
+
         try {
-            boolean isExistSerialNumber = deviceRepository.existsBySerialNumber(serialNumber);
-            if (isExistSerialNumber) return ResponseDto.authenticationFailed();
+            List<DeviceEntity> deviceEntities = deviceRepository.findAll();
+            return GetDeviceListResponseDto.success(deviceEntities);
             
-            DeviceEntity deviceEntity = new DeviceEntity(dto, serialNumber);
-            deviceRepository.save(deviceEntity);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return ResponseDto.success();
     }
 
     @Override
@@ -57,16 +53,19 @@ public class DeviceServiceImplementation implements DeviceService {
     }
 
     @Override
-    public ResponseEntity<? super GetDeviceListResponseDto> getAdminDeviceList() {
-
+    public ResponseEntity<ResponseDto> postDevice(PostDeviceRequestDto dto, String serialNumber) {
+        
         try {
-            List<DeviceEntity> deviceEntities = deviceRepository.findAll();
-            return GetDeviceListResponseDto.success(deviceEntities);
+            boolean isExistSerialNumber = deviceRepository.existsBySerialNumber(serialNumber);
+            if (isExistSerialNumber) return ResponseDto.authenticationFailed();
             
+            DeviceEntity deviceEntity = new DeviceEntity(dto, serialNumber);
+            deviceRepository.save(deviceEntity);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+        return ResponseDto.success();
     }
 
     @Override
