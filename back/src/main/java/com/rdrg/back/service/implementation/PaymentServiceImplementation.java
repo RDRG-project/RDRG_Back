@@ -41,6 +41,102 @@ public class PaymentServiceImplementation implements PaymentService {
     private final RentDetailRepository rentDetailRepository;
     
     @Override
+    public ResponseEntity<? super GetPaymentResponseDto> getPayment(String rentUserId) {
+
+        try {
+            boolean isExistUser = userRepository.existsByUserId(rentUserId);
+            if(!isExistUser) return ResponseDto.authenticationFailed();
+
+            DeviceRentStatusEntity reservations = paymentRepository.findTop1ByRentUserIdOrderByRentNumberDesc(rentUserId);
+            if(reservations == null) return ResponseDto.notFound();
+
+            return GetPaymentResponseDto.success(reservations);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    @Override
+    public ResponseEntity<? super GetPaymentListResponseDto> getAdminPaymentList() {
+        
+        try {
+            List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByOrderByRentNumberDesc();
+            List<AdminRentItem> adminRentList = new ArrayList<>();
+
+            for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
+                Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
+                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+                AdminRentItem adminRentItem = new AdminRentItem(deviceRentStatusEntity, rentDetailEntities);
+                adminRentList.add(adminRentItem);
+            }
+            return GetAdminPaymentListResponseDto.success(adminRentList);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    @Override
+    public ResponseEntity<? super GetPaymentListResponseDto> getPaymentList(String rentUserId) {
+
+        try {
+            boolean isExistUser = userRepository.existsByUserId(rentUserId);
+            if(!isExistUser) return ResponseDto.authenticationFailed();
+
+            List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByRentUserIdOrderByRentNumberDesc(rentUserId);
+            List<RentItem> rentList = new ArrayList<>();
+
+            for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
+                Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
+                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+                RentItem rentItem = new RentItem(deviceRentStatusEntity, rentDetailEntities);
+                rentList.add(rentItem);
+            }
+            return GetPaymentListResponseDto.success(rentList);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+    
+    @Override
+    public ResponseEntity<? super GetSearchAdminPaymentListResponseDto> getSearchAdminPaymentList(String searchWord) {
+        
+        try {
+            List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByRentUserIdOrderByRentNumberDesc(searchWord);
+            List<AdminRentItem> adminRentList = new ArrayList<>();
+            
+            for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
+                Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
+                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+                AdminRentItem adminRentItem = new AdminRentItem(deviceRentStatusEntity, rentDetailEntities);
+                adminRentList.add(adminRentItem);
+            }
+            return GetSearchAdminPaymentListResponseDto.success(adminRentList);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    @Override
+    public ResponseEntity<? super GetPaymentDetailListResponseDto> getPaymentDetailList(String rentUserId, int rentNumber) {
+        try {
+            UserEntity userEntity = userRepository.findByUserId(rentUserId);
+            if (userEntity == null) return ResponseDto.noExistUserId();
+
+            DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentNumber(rentNumber);
+            List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
+
+            return GetPaymentDetailListResponseDto.success(deviceRentStatusEntity, rentDetailEntities);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    @Override
     public ResponseEntity<? super PostPaymentResponseDto> postPayment(PostPaymentRequestDto dto, String userId) {
 
         KakaoReady kakaoReady = null;
@@ -78,77 +174,6 @@ public class PaymentServiceImplementation implements PaymentService {
     }
 
     @Override
-    public ResponseEntity<? super GetPaymentResponseDto> getPayment(String rentUserId) {
-
-        try {
-            boolean isExistUser = userRepository.existsByUserId(rentUserId);
-            if(!isExistUser) return ResponseDto.authenticationFailed();
-
-            DeviceRentStatusEntity reservations = paymentRepository.findTop1ByRentUserIdOrderByRentNumberDesc(rentUserId);
-            if(reservations == null) return ResponseDto.notFound();
-
-            return GetPaymentResponseDto.success(reservations);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-    }
-
-    @Override
-    public ResponseEntity<? super GetPaymentListResponseDto> getPaymentList(String rentUserId) {
-
-        try {
-            boolean isExistUser = userRepository.existsByUserId(rentUserId);
-            if(!isExistUser) return ResponseDto.authenticationFailed();
-
-            List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByRentUserIdOrderByRentNumberDesc(rentUserId);
-            List<RentItem> rentList = new ArrayList<>();
-
-            for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
-                Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
-                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
-                RentItem rentItem = new RentItem(deviceRentStatusEntity, rentDetailEntities);
-                rentList.add(rentItem);
-            }
-            return GetPaymentListResponseDto.success(rentList);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-    }
-
-    @Override
-    public ResponseEntity<? super GetPaymentDetailListResponseDto> getPaymentDetailList(String rentUserId, int rentNumber) {
-        try {
-            UserEntity userEntity = userRepository.findByUserId(rentUserId);
-            if (userEntity == null) return ResponseDto.noExistUserId();
-
-            DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentNumber(rentNumber);
-            List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
-
-            return GetPaymentDetailListResponseDto.success(deviceRentStatusEntity, rentDetailEntities);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-    }
-
-    @Override
-    public ResponseEntity<ResponseDto> deletePayment(int rentNumber) {
-
-        try {
-            DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentNumber(rentNumber);
-            if (deviceRentStatusEntity == null) ResponseDto.noExistRentDetail();
-
-            paymentRepository.delete(deviceRentStatusEntity);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-        return ResponseDto.success();
-    }
-
-    @Override
     public ResponseEntity<ResponseDto> patchRentStatus(int rentNumber, PatchRentStatusResponseDto patchRentStatusResponseDto ) {
 
         try {
@@ -176,44 +201,19 @@ public class PaymentServiceImplementation implements PaymentService {
         }
         return ResponseDto.success();
     }
-
-    @Override
-    public ResponseEntity<? super GetPaymentListResponseDto> getAdminPaymentList() {
         
-        try {
-            List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByOrderByRentNumberDesc();
-            List<AdminRentItem> adminRentList = new ArrayList<>();
+    @Override
+    public ResponseEntity<ResponseDto> deletePayment(int rentNumber) {
 
-            for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
-                Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
-                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
-                AdminRentItem adminRentItem = new AdminRentItem(deviceRentStatusEntity, rentDetailEntities);
-                adminRentList.add(adminRentItem);
-            }
-            return GetAdminPaymentListResponseDto.success(adminRentList);
+        try {
+            DeviceRentStatusEntity deviceRentStatusEntity = paymentRepository.findByRentNumber(rentNumber);
+            if (deviceRentStatusEntity == null) ResponseDto.noExistRentDetail();
+
+            paymentRepository.delete(deviceRentStatusEntity);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-    }
-
-    @Override
-    public ResponseEntity<? super GetSearchAdminPaymentListResponseDto> getSearchAdminPaymentList(String searchWord) {
-        
-        try {
-            List<DeviceRentStatusEntity> deviceRentStatusEntities = paymentRepository.findByRentUserIdOrderByRentNumberDesc(searchWord);
-            List<AdminRentItem> adminRentList = new ArrayList<>();
-            
-            for (DeviceRentStatusEntity deviceRentStatusEntity: deviceRentStatusEntities) {
-                Integer rentNumber =  deviceRentStatusEntity.getRentNumber();
-                List<RentDetailEntity> rentDetailEntities = rentDetailRepository.findByRentNumber(rentNumber);
-                AdminRentItem adminRentItem = new AdminRentItem(deviceRentStatusEntity, rentDetailEntities);
-                adminRentList.add(adminRentItem);
-            }
-            return GetSearchAdminPaymentListResponseDto.success(adminRentList);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
+        return ResponseDto.success();
     }
 }
