@@ -2,8 +2,6 @@ package com.rdrg.back.entity;
 
 import com.rdrg.back.dto.request.payment.PostPaymentRequestDto;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,7 +31,6 @@ public class DeviceRentStatusEntity {
     private String rentStatus;
 
     public DeviceRentStatusEntity (PostPaymentRequestDto dto, String userId) {
-
         this.rentUserId = userId;
         this.rentDatetime = dto.getRentDatetime();
         this.rentReturnDatetime = dto.getRentReturnDatetime();

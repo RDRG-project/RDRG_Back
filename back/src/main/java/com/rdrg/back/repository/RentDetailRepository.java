@@ -9,7 +9,5 @@ import com.rdrg.back.entity.RentDetailEntity;
 
 @Repository
 public interface RentDetailRepository extends JpaRepository<RentDetailEntity, Integer> {
-
     List<RentDetailEntity> findByRentNumber(Integer rentNumber);
-    
 }

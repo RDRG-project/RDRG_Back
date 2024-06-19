@@ -31,32 +31,6 @@ public class BoardServiceImplementation implements BoardService {
     private final UploadRepository uploadRepository;
     
     @Override
-    public ResponseEntity<ResponseDto> postBoard(PostBoardRequestDto dto, String userId) {
-
-        try {
-            boolean isExistUser = userRepository.existsByUserId(userId);
-            if (!isExistUser) return ResponseDto.authenticationFailed();
-
-            BoardEntity boardEntity = new BoardEntity(dto, userId);
-            boardRepository.save(boardEntity);
-
-            Integer receptionNumber = boardEntity.getReceptionNumber();
-            List<BoardFileItem> boardFileItemList = dto.getFileList();
-            List<UploadEntity> uploadEntities = new ArrayList<>();
-
-            for(BoardFileItem boardFileItem: boardFileItemList) {
-                UploadEntity uploadEntity = new UploadEntity(receptionNumber, boardFileItem);
-                uploadEntities.add(uploadEntity);
-            }
-            uploadRepository.saveAll(uploadEntities);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-        return ResponseDto.success();
-    }
-
-    @Override
     public ResponseEntity<? super GetBoardListResponseDto> getBoardList() {
 
         try {
@@ -87,6 +61,32 @@ public class BoardServiceImplementation implements BoardService {
     }
 
     @Override
+    public ResponseEntity<ResponseDto> postBoard(PostBoardRequestDto dto, String userId) {
+
+        try {
+            boolean isExistUser = userRepository.existsByUserId(userId);
+            if (!isExistUser) return ResponseDto.authenticationFailed();
+
+            BoardEntity boardEntity = new BoardEntity(dto, userId);
+            boardRepository.save(boardEntity);
+
+            Integer receptionNumber = boardEntity.getReceptionNumber();
+            List<BoardFileItem> boardFileItemList = dto.getFileList();
+            List<UploadEntity> uploadEntities = new ArrayList<>();
+
+            for(BoardFileItem boardFileItem: boardFileItemList) {
+                UploadEntity uploadEntity = new UploadEntity(receptionNumber, boardFileItem);
+                uploadEntities.add(uploadEntity);
+            }
+            uploadRepository.saveAll(uploadEntities);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+    }
+
+    @Override
     public ResponseEntity<ResponseDto> postComment(PostCommentRequestDto dto, int receptionNumber) {
 
         try {
@@ -108,29 +108,9 @@ public class BoardServiceImplementation implements BoardService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteBoard(int receptionNumber, String userId) {
-
-        try {
-            BoardEntity boardEntity = boardRepository.findByReceptionNumber(receptionNumber);
-            if (boardEntity == null) return ResponseDto.noExistBoard();
-
-            String writerId = boardEntity.getWriterId();
-            boolean isWriter = userId.equals(writerId);
-            if (!isWriter) return ResponseDto.authorizationFailed();
-
-            boardRepository.delete(boardEntity);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-        return ResponseDto.success();
-    }
-
-    @Override
     public ResponseEntity<ResponseDto> putBoard(PutBoardRequestDto dto, int receptionNumber, String userId) {
 
         try {
-            
             BoardEntity boardEntity = boardRepository.findByReceptionNumber(receptionNumber);
             if (boardEntity == null) return ResponseDto.noExistBoard();
 
@@ -148,13 +128,32 @@ public class BoardServiceImplementation implements BoardService {
             uploadRepository.deleteAll(existingUploads);
 
             List<BoardFileItem> boardFileItemList = dto.getFileList();
-        List<UploadEntity> uploadEntities = new ArrayList<>();
+            List<UploadEntity> uploadEntities = new ArrayList<>();
 
-        for (BoardFileItem boardFileItem : boardFileItemList) {
-            UploadEntity uploadEntity = new UploadEntity(receptionNumber, boardFileItem);
-            uploadEntities.add(uploadEntity);
-        }
+            for (BoardFileItem boardFileItem : boardFileItemList) {
+                UploadEntity uploadEntity = new UploadEntity(receptionNumber, boardFileItem);
+                uploadEntities.add(uploadEntity);
+            }
             uploadRepository.saveAll(uploadEntities);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteBoard(int receptionNumber, String userId) {
+
+        try {
+            BoardEntity boardEntity = boardRepository.findByReceptionNumber(receptionNumber);
+            if (boardEntity == null) return ResponseDto.noExistBoard();
+
+            String writerId = boardEntity.getWriterId();
+            boolean isWriter = userId.equals(writerId);
+            if (!isWriter) return ResponseDto.authorizationFailed();
+
+            boardRepository.delete(boardEntity);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();

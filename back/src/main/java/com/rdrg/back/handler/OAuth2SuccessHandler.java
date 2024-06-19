@@ -2,6 +2,7 @@ package com.rdrg.back.handler;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -19,8 +20,10 @@ import lombok.RequiredArgsConstructor;
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 
     private final JwtProvider jwtProvider;
+    @Value("${frontUrl}")
+    private String frontUrl;
     
-    	@Override
+    @Override
 	public void onAuthenticationSuccess(
         HttpServletRequest request, 
         HttpServletResponse response,
@@ -29,6 +32,6 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
         CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
         String userId = oAuth2User.getName();
         String token = jwtProvider.create(userId);
-        response.sendRedirect("http://localhost:3000/sns/" + token + "/36000");
+        response.sendRedirect(frontUrl + token + "/36000");
     }
 }

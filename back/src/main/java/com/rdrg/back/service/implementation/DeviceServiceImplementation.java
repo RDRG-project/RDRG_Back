@@ -19,9 +19,38 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-
 public class DeviceServiceImplementation implements DeviceService {
     private final DeviceRepository deviceRepository;
+
+    @Override
+    public ResponseEntity<? super GetDeviceListResponseDto> getAdminDeviceList() {
+
+        try {
+            List<DeviceEntity> deviceEntities = deviceRepository.findAll();
+            return GetDeviceListResponseDto.success(deviceEntities);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
+
+    @Override
+    public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList(String inputRentDatetime, String inputReturnDatetime, String inputPlace) {
+        
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(inputReturnDatetime, formatter);
+            LocalDate nextDay = date.minusDays(1);
+            String inputRentReturnDatetime = nextDay.format(formatter);
+
+            List<DeviceEntity> deviceEntities = deviceRepository.findAvailableDevices(inputRentDatetime, inputReturnDatetime, inputRentReturnDatetime, inputPlace);
+            return GetDeviceListResponseDto.success(deviceEntities);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    }
 
     @Override
     public ResponseEntity<ResponseDto> postDevice(PostDeviceRequestDto dto, String serialNumber) {
@@ -37,38 +66,6 @@ public class DeviceServiceImplementation implements DeviceService {
             return ResponseDto.databaseError();
         }
         return ResponseDto.success();
-    }
-
-    @Override
-    public ResponseEntity<? super GetDeviceListResponseDto> getDeviceList(String inputRentDatetime, String inputReturnDatetime, String inputPlace) {
-        
-        try {
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate date = LocalDate.parse(inputReturnDatetime, formatter);
-            LocalDate nextDay = date.minusDays(1);
-            String inputRentReturnDatetime = nextDay.format(formatter);
-
-            List<DeviceEntity> deviceEntities = deviceRepository.findAvailableDevices(inputRentDatetime, inputReturnDatetime, inputRentReturnDatetime, inputPlace);
-            return GetDeviceListResponseDto.success(deviceEntities);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-    }
-
-    @Override
-    public ResponseEntity<? super GetDeviceListResponseDto> getAdminDeviceList() {
-
-        try {
-
-            List<DeviceEntity> deviceEntities = deviceRepository.findAll();
-            return GetDeviceListResponseDto.success(deviceEntities);
-            
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
     }
 
     @Override

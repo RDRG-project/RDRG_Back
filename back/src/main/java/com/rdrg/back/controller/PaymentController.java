@@ -34,16 +34,6 @@ public class PaymentController {
     
     private final PaymentService paymentService;
 
-
-    @PostMapping("/save")
-    ResponseEntity<? super PostPaymentResponseDto> postPayment(
-        @RequestBody @Valid PostPaymentRequestDto requestBody,
-        @AuthenticationPrincipal String userId, ArrayList<String> rentSerialNumber
-    ) {
-        ResponseEntity<? super PostPaymentResponseDto> response = paymentService.postPayment(requestBody, userId);
-        return response;
-    }
-
     @GetMapping("/{userId}")
     public ResponseEntity<? super GetPaymentResponseDto> getPayment(
         @PathVariable("userId") String userId
@@ -83,15 +73,16 @@ public class PaymentController {
         ResponseEntity<? super GetPaymentDetailListResponseDto> response = paymentService.getPaymentDetailList(userId, rentNumber);
         return response;
     }
-
-    @DeleteMapping("/{rentNumber}")
-    public ResponseEntity<ResponseDto> deletePayment(
-        @PathVariable("rentNumber") int rentNumber
+    
+    @PostMapping("/save")
+    ResponseEntity<? super PostPaymentResponseDto> postPayment(
+        @RequestBody @Valid PostPaymentRequestDto requestBody,
+        @AuthenticationPrincipal String userId, ArrayList<String> rentSerialNumber
     ) {
-        ResponseEntity<ResponseDto> response = paymentService.deletePayment(rentNumber);
+        ResponseEntity<? super PostPaymentResponseDto> response = paymentService.postPayment(requestBody, userId);
         return response;
     }
-    
+
     @PatchMapping("/{rentNumber}")
     public ResponseEntity<ResponseDto> PatchStatus(
         @PathVariable("rentNumber") int rentNumber,
@@ -99,4 +90,14 @@ public class PaymentController {
     ) {
         return paymentService.patchRentStatus(rentNumber, patchRentStatusResponseDto);
     }
+
+    @DeleteMapping("/{rentNumber}")
+    public ResponseEntity<ResponseDto> deletePayment(
+        @PathVariable("rentNumber") int rentNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = paymentService.deletePayment(rentNumber, userId);
+        return response;
+    }
+
 }
