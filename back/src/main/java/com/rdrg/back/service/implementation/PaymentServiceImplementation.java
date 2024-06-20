@@ -232,6 +232,7 @@ public class PaymentServiceImplementation implements PaymentService {
         return ResponseDto.success();
     }    
 
+    
     private <T> T createRentItem(DeviceRentStatusEntity deviceRentStatusEntity, Class<T> clazz) throws Exception {
 
         Integer rentNumber = deviceRentStatusEntity.getRentNumber();
